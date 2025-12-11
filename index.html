@@ -1652,35 +1652,17 @@
             const totalValue = products.reduce((sum, p) => sum + (p.price * p.stock), 0);
             
             statsSection.innerHTML = `
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-boxes"></i>
-                    </div>
+                
                     
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-icon" style="background: linear-gradient(45deg, var(--success), var(--accent));">
-                        <i class="fas fa-check-circle"></i>
-                    </div>
+               
                    
-                </div>
                 
-                <div class="stat-card">
-                    <div class="stat-icon" style="background: linear-gradient(45deg, var(--danger), var(--secondary));">
-                        <i class="fas fa-times-circle"></i>
-                    </div>
                    
-                </div>
                 
-                <div class="stat-card">
-                    <div class="stat-icon" style="background: linear-gradient(45deg, var(--accent), #0984e3);">
-                        <i class="fas fa-rupee-sign"></i>
-                    </div>
                     
-                </div>
-            `;
-        }
+
+        
+        
 
         function displayProducts(productsToShow = products) {
             console.log(`🖥️ Displaying ${productsToShow.length} products`);
@@ -1723,7 +1705,7 @@
                                 `<img src="${product.imageUrl}" alt="${product.name}" 
                                      onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💄</text></svg>'; this.style.display='block';" 
                                      style="max-width: 100%; max-height: 100%; object-fit: cover;">` :
-                                `<div style="font-size: 80px; color: rgba(255,255,255,0.2);">💄</div>`
+                                `<div style="font-size: 80px; color: rgba(255,255,255,0.2);"></div>`
                             }
                         </div>
                         
