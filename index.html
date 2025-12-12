@@ -979,7 +979,7 @@
         <div class="login-box">
             <div class="login-logo">
                 <i class="fas fa-crown"></i>
-                <h1>Chandni Parlor 127</h1>
+                <h1>Chandni Paralar 127</h1>
             </div>
             
             <!-- Login Form -->
@@ -1026,8 +1026,8 @@
                         <i class="fas fa-crown"></i>
                     </div>
                     <div class="brand-text">
-                        <h1>Chandni Parlor 127</h1>
-                        <p>Premium Beauty Products & Parlor</p>
+                        <h1>Chandni Paralar 127</h1>
+                        <p>Premium Beauty Products & Paralar</p>
                     </div>
                 </div>
                 
@@ -1057,7 +1057,7 @@
             <!-- Welcome Section -->
             <section class="welcome-section">
                 <div class="welcome-text">
-                    <h2>Welcome to Chandni Parlor 127</h2>
+                    <h2>Welcome to Chandani beauty parlar 127</h2>
                     <p>Discover our exclusive collection of premium beauty products. Check real-time availability, prices, and stock levels. Visit our store for personalized beauty consultations.</p>
                 </div>
             </section>
@@ -1069,21 +1069,21 @@
                 </h3>
                 
                 <div class="social-media-grid">
-                    <a href="https://youtube.com" target="_blank" class="social-media-link youtube">
+                    <a href="https://www.youtube.com/@Chandaniparlar127" target="_blank" class="social-media-link youtube">
                         <div class="social-media-icon youtube">
                             <i class="fab fa-youtube"></i>
                         </div>
                         <div class="social-media-name">YouTube</div>
                     </a>
                     
-                    <a href="https://facebook.com" target="_blank" class="social-media-link facebook">
+                    <a href="https://www.facebook.com/profile.php?id=61566828527833" target="_blank" class="social-media-link facebook">
                         <div class="social-media-icon facebook">
                             <i class="fab fa-facebook-f"></i>
                         </div>
                         <div class="social-media-name">Facebook</div>
                     </a>
                     
-                    <a href="https://instagram.com" target="_blank" class="social-media-link instagram">
+                    <a href="https://www.instagram.com/chandani_parlar_127?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="social-media-link instagram">
                         <div class="social-media-icon instagram">
                             <i class="fab fa-instagram"></i>
                         </div>
@@ -1123,13 +1123,13 @@
         <footer class="main-footer">
             <div class="footer-content">
                 <div class="social-links-footer">
-                    <a href="https://youtube.com" target="_blank" class="social-link-footer" style="background: #FF0000;">
+                    <a href="https://www.youtube.com/@Chandaniparlar127" target="_blank" class="social-link-footer" style="background: #FF0000;">
                         <i class="fab fa-youtube"></i>
                     </a>
-                    <a href="https://facebook.com" target="_blank" class="social-link-footer" style="background: #1877F2;">
+                    <a href="https://www.facebook.com/profile.php?id=61566828527833" target="_blank" class="social-link-footer" style="background: #1877F2;">
                         <i class="fab fa-facebook-f"></i>
                     </a>
-                    <a href="https://instagram.com" target="_blank" class="social-link-footer" style="background: #E1306C;">
+                    <a href="https://www.instagram.com/chandani_parlar_127?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="social-link-footer" style="background: #E1306C;">
                         <i class="fab fa-instagram"></i>
                     </a>
                 </div>
@@ -1146,7 +1146,7 @@
         </footer>
     </div>
 
-    <!-- JavaScript Code - FIREBASE CONNECTED & MOBILE OPTIMIZED -->
+    <!-- 🔥🔥🔥 FIXED JAVASCRIPT CODE - IMAGE PROBLEM SOLVED 🔥🔥🔥 -->
     <script>
         // Create Particles
         function createParticles() {
@@ -1196,6 +1196,46 @@
         let products = [];
         let filteredProducts = [];
 
+        // ============================================
+        // 🔥🔥🔥 IMAGE HANDLER FUNCTIONS - ADDED HERE 🔥🔥🔥
+        // ============================================
+
+        // Get product image with priority (OWNER'S DATABASE FORMAT)
+        function getProductImage(product) {
+            // Debug log - can remove after testing
+            console.log('Checking image for:', product.name, {
+                hasThumbnail: !!product.imageThumbnail,
+                hasBase64: !!product.imageBase64,
+                hasImageUrl: !!product.imageUrl
+            });
+            
+            // Priority order: thumbnail > base64 > url > default
+            if (product.imageThumbnail && isValidBase64(product.imageThumbnail)) {
+                return product.imageThumbnail; // Owner stores compressed thumbnail
+            }
+            if (product.imageBase64 && isValidBase64(product.imageBase64)) {
+                return product.imageBase64; // Owner stores full base64 image
+            }
+            if (product.imageUrl) {
+                return product.imageUrl; // Direct URL if available
+            }
+            return ''; // No image
+        }
+
+        // Check if string is valid base64 image
+        function isValidBase64(str) {
+            if (typeof str !== 'string') return false;
+            try {
+                return str.startsWith('data:image/');
+            } catch {
+                return false;
+            }
+        }
+
+        // ============================================
+        // MAIN FUNCTIONS
+        // ============================================
+
         // Initialize Application
         document.addEventListener('DOMContentLoaded', () => {
             createParticles();
@@ -1244,14 +1284,6 @@
                     filterProducts(this.dataset.filter);
                 }, {passive: false});
             });
-            
-            // Mobile menu toggle (if needed)
-            setupMobileMenu();
-        }
-
-        // Setup Mobile Menu (if needed in future)
-        function setupMobileMenu() {
-            // You can add mobile menu functionality here if needed
         }
 
         // Check Authentication
@@ -1369,7 +1401,7 @@
             });
         }
 
-        // Display Products
+        // 🔥🔥🔥 DISPLAY PRODUCTS - FIXED IMAGE DISPLAY 🔥🔥🔥
         function displayProducts(productsToShow = products) {
             const productsGrid = document.getElementById('productsGrid');
             
@@ -1394,8 +1426,8 @@
                 // Format price
                 const price = product.price ? `₹${product.price}` : '₹---';
                 
-                // Get image or use default
-                const imageUrl = product.imageUrl || '';
+                // 🔥🔥🔥 FIXED: USE THE NEW FUNCTION TO GET IMAGE 🔥🔥🔥
+                const imageUrl = getProductImage(product);
                 
                 return `
                     <div class="product-card">
@@ -1405,8 +1437,10 @@
                         
                         <div class="product-image">
                             ${imageUrl ? 
-                                `<img src="${imageUrl}" alt="${product.name}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💄</text></svg>'">` :
-                                `<div style="font-size: 60px; color: rgba(255,255,255,0.2);">🙋‍♀️</div>`
+                                `<img src="${imageUrl}" alt="${product.name}" 
+                                     style="width: 100%; height: 100%; object-fit: cover;"
+                                     onerror="this.onerror=null; this.style.display='none'; this.parentElement.innerHTML='<div style=\"font-size: 60px; color: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; height: 100%;\"></div>';">` :
+                                `<div style="font-size: 60px; color: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; height: 100%;"></div>`
                             }
                         </div>
                         
@@ -1581,6 +1615,7 @@
             console.log('👤 Project ID:', firebaseConfig.projectId);
             console.log('📱 Mobile Optimized: Yes');
             console.log('🔄 Real-time Updates: Active');
+            console.log('🖼️ Image Display: FIXED (Owner format: imageThumbnail > imageBase64)');
         }, 2000);
     </script>
 </body>
