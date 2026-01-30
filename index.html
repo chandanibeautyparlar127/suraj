@@ -3,125 +3,419 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chandni Parlor 127 | Premium Beauty Products</title>
-    
-    <!-- Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
-    
+    <title>Chandani Beauty Parlour | Signup/Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --pink: #FF69B4;
+            --pink-light: #FFB6C1;
+            --pink-dark: #DB7093;
+            --gold: #D4AF37;
+            --black: #0A0A0A;
+            --white: #F5F5F5;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        :root {
-            --primary: #8a2be2;
-            --primary-dark: #6a1cb0;
-            --primary-light: #9d4edd;
-            --secondary: #ff6b6b;
-            --secondary-dark: #ff4757;
-            --accent: #00d2d3;
-            --light: #f8f9fa;
-            --dark: #2d3436;
-            --darker: #1a1a2e;
-            --success: #00b894;
-            --warning: #fdcb6e;
-            --danger: #e17055;
-            --border: #636e72;
-            --radius: 15px;
-            --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            --glass: rgba(255, 255, 255, 0.1);
-            --glass-dark: rgba(0, 0, 0, 0.2);
-            --blur: blur(20px);
-        }
-
         body {
-            font-family: 'Segoe UI', 'Poppins', sans-serif;
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            color: #fff;
+            color: var(--white);
+            font-family: 'Montserrat', sans-serif;
             min-height: 100vh;
             overflow-x: hidden;
-            position: relative;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(138, 43, 226, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(255, 107, 107, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 40% 80%, rgba(0, 210, 211, 0.1) 0%, transparent 50%);
-            z-index: -1;
-        }
-
-        /* Particle Animation */
-        .particles {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
-
-        .particle {
-            position: absolute;
-            background: var(--primary-light);
-            border-radius: 50%;
-            animation: float 20s infinite linear;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
-        }
-
-        /* Loading Screen */
-        #loadingScreen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--darker);
             display: flex;
             flex-direction: column;
+        }
+
+        /* Luxury Header */
+        .luxury-header {
+            background: linear-gradient(135deg, rgba(255, 105, 180, 0.9), rgba(219, 112, 147, 0.9));
+            padding: 20px 50px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            background: linear-gradient(135deg, var(--white), var(--pink-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+        }
+
+        .logo i {
+            font-size: 2rem;
+            color: var(--pink-light);
+        }
+
+        /* Auth Container */
+        .auth-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 120px 20px 80px;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .auth-box {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 50px;
+            width: 100%;
+            max-width: 500px;
+            border: 1px solid rgba(255, 105, 180, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .auth-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            background: linear-gradient(135deg, var(--pink-light), var(--white));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .auth-header p {
+            color: var(--pink-light);
+            font-size: 1.1rem;
+        }
+
+        /* Tabs */
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 5px;
+        }
+
+        .auth-tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .auth-tab.active {
+            background: linear-gradient(135deg, var(--pink), var(--pink-dark));
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.3);
+        }
+
+        .auth-tab:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Forms */
+        .auth-form {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .auth-form.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--pink-light);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 105, 180, 0.3);
+            border-radius: 15px;
+            color: var(--white);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--pink);
+            box-shadow: 0 0 0 2px rgba(255, 105, 180, 0.2);
+        }
+
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .input-with-icon {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--pink);
+            font-size: 1.1rem;
+        }
+
+        .input-with-icon .form-input {
+            padding-left: 55px;
+        }
+
+        .form-actions {
+            margin-top: 35px;
+        }
+
+        .auth-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--pink), var(--pink-dark));
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease;
+            gap: 10px;
         }
 
-        .loader {
-            width: 80px;
-            height: 80px;
+        .auth-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 105, 180, 0.4);
+        }
+
+        .auth-btn:active {
+            transform: translateY(0);
+        }
+
+        .divider {
+            text-align: center;
+            margin: 30px 0;
             position: relative;
-            margin-bottom: 30px;
+            color: rgba(255, 255, 255, 0.5);
         }
 
-        .loader-inner {
+        .divider::before {
+            content: '';
             position: absolute;
+            left: 0;
+            top: 50%;
+            width: 45%;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .divider::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            width: 45%;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .google-btn {
             width: 100%;
-            height: 100%;
-            border: 3px solid transparent;
-            border-top-color: var(--primary);
+            padding: 18px;
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .google-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 30px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .form-footer a {
+            color: var(--pink-light);
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .form-footer a:hover {
+            color: var(--pink);
+            text-decoration: underline;
+        }
+
+        /* Terms Checkbox */
+        .terms-checkbox {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .terms-checkbox input {
+            margin-top: 4px;
+            accent-color: var(--pink);
+            width: 18px;
+            height: 18px;
+        }
+
+        .terms-checkbox label {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .terms-checkbox a {
+            color: var(--pink-light);
+            text-decoration: none;
+        }
+
+        .terms-checkbox a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        .luxury-footer {
+            background: rgba(10, 10, 10, 0.9);
+            padding: 40px 50px;
+            text-align: center;
+            border-top: 2px solid var(--pink);
+            margin-top: auto;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .store-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: var(--pink);
+            margin-bottom: 15px;
+        }
+
+        .store-info p {
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 600px;
+            margin: 0 auto 25px;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin: 25px 0;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .contact-item i {
+            color: var(--pink);
+            font-size: 1.2rem;
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: linear-gradient(135deg, var(--pink), var(--pink-dark));
+            color: white;
+            padding: 20px 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            animation: slideInRight 0.5s ease, slideOutRight 0.5s ease 2.5s forwards;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            max-width: 400px;
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideOutRight {
+            to { transform: translateX(-100%); opacity: 0; }
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
             border-radius: 50%;
+            border-top-color: white;
             animation: spin 1s linear infinite;
-        }
-
-        .loader-inner:nth-child(2) {
-            border-top-color: var(--secondary);
-            animation-delay: 0.3s;
-        }
-
-        .loader-inner:nth-child(3) {
-            border-top-color: var(--accent);
-            animation-delay: 0.6s;
         }
 
         @keyframes spin {
@@ -129,1494 +423,458 @@
             100% { transform: rotate(360deg); }
         }
 
-        .loading-text {
-            font-size: 18px;
-            color: var(--primary-light);
-            font-weight: 300;
-            letter-spacing: 2px;
-            text-transform: uppercase;
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
-        /* Login Page - MOBILE FRIENDLY */
-        .login-container {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(26, 26, 46, 0.95);
-            backdrop-filter: var(--blur);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            overflow-y: auto;
-        }
-
-        .login-container.active {
-            display: flex;
-        }
-
-        .login-box {
-            background: var(--glass);
-            backdrop-filter: var(--blur);
-            border-radius: var(--radius);
-            padding: 30px;
-            width: 100%;
-            max-width: 450px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: var(--shadow);
-            transform: translateY(20px);
-            opacity: 0;
-            animation: slideUp 0.5s ease forwards;
-            margin: auto;
-        }
-
-        @keyframes slideUp {
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .login-logo {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .login-logo i {
-            font-size: 50px;
-            color: var(--primary);
-            margin-bottom: 15px;
-        }
-
-        .login-logo h1 {
-            font-size: 24px;
-            font-weight: 600;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* Login Form - MOBILE OPTIMIZED */
-        .login-form .input-group {
-            margin-bottom: 20px;
-        }
-
-        .login-form label {
-            display: block;
-            margin-bottom: 8px;
-            color: var(--primary-light);
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        .login-form input {
-            width: 100%;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            color: #fff;
-            font-size: 16px;
-            transition: all 0.3s ease;
-            -webkit-appearance: none; /* iOS fix */
-        }
-
-        .login-form input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 2px rgba(138, 43, 226, 0.2);
-        }
-
-        /* MOBILE FRIENDLY BUTTON */
-        .login-btn {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(45deg, var(--primary), var(--primary-dark));
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 10px;
-            min-height: 50px; /* Better touch target */
-        }
-
-        .login-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(138, 43, 226, 0.3);
-        }
-
-        .form-footer {
-            text-align: center;
-            margin-top: 20px;
-            color: var(--border);
-            font-size: 14px;
-            line-height: 1.5;
-        }
-
-        .login-footer {
-            text-align: center;
-            margin-top: 30px;
-            color: var(--border);
-            font-size: 12px;
-            line-height: 1.5;
-        }
-
-        /* Main Container */
-        .main-container {
-            display: none;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-
-        .main-container.active {
-            display: block;
-            opacity: 1;
-        }
-
-        /* Header - MOBILE FRIENDLY */
-        .main-header {
-            background: var(--glass);
-            backdrop-filter: var(--blur);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 15px 20px;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .header-content {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        @media (min-width: 768px) {
-            .header-content {
-                flex-direction: row;
-                align-items: center;
-                justify-content: space-between;
-            }
-        }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .brand-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            color: white;
-            flex-shrink: 0;
-        }
-
-        .brand-text h1 {
-            font-size: 20px;
-            font-weight: 700;
-            background: linear-gradient(45deg, #fff, var(--primary-light));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            line-height: 1.2;
-        }
-
-        .brand-text p {
-            font-size: 12px;
-            color: var(--border);
-            margin-top: 2px;
-        }
-
-        .user-controls {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        @media (min-width: 768px) {
-            .user-controls {
-                flex-direction: row;
-                align-items: center;
-                gap: 20px;
-            }
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .user-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, var(--primary), var(--accent));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            color: white;
-            flex-shrink: 0;
-        }
-
-        .user-name {
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--primary-light);
-            word-break: break-word;
-        }
-
-        .search-box {
-            position: relative;
-            width: 100%;
-        }
-
-        @media (min-width: 768px) {
-            .search-box {
-                width: 250px;
-            }
-        }
-
-        .search-box input {
-            width: 100%;
-            padding: 12px 45px 12px 20px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 25px;
-            color: white;
-            font-size: 14px;
-            transition: all 0.3s ease;
-        }
-
-        .search-box input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 2px rgba(138, 43, 226, 0.2);
-        }
-
-        .search-btn {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            color: var(--border);
-            cursor: pointer;
-            font-size: 16px;
-            padding: 5px;
-        }
-
-        .logout-btn {
-            padding: 10px 20px;
-            background: rgba(255, 107, 107, 0.1);
-            border: 1px solid var(--secondary);
-            border-radius: 25px;
-            color: var(--secondary);
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-        }
-
-        .logout-btn:hover {
-            background: var(--secondary);
-            color: white;
-        }
-
-        /* Main Content - MOBILE FRIENDLY */
-        .main-content {
-            max-width: 1400px;
-            margin: 20px auto;
-            padding: 0 20px;
-        }
-
-        @media (min-width: 768px) {
-            .main-content {
-                margin: 30px auto;
-                padding: 0 40px;
-            }
-        }
-
-        /* Welcome Section */
-        .welcome-section {
-            background: linear-gradient(135deg, rgba(138, 43, 226, 0.1), rgba(255, 107, 107, 0.1));
-            border-radius: var(--radius);
-            padding: 25px;
-            margin-bottom: 25px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: var(--blur);
-        }
-
-        @media (min-width: 768px) {
-            .welcome-section {
-                padding: 40px;
-                margin-bottom: 30px;
-            }
-        }
-
-        .welcome-text h2 {
-            font-size: 24px;
-            margin-bottom: 10px;
-            background: linear-gradient(45deg, #fff, var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        @media (min-width: 768px) {
-            .welcome-text h2 {
-                font-size: 32px;
-            }
-        }
-
-        .welcome-text p {
-            color: var(--border);
-            line-height: 1.6;
-            font-size: 14px;
-        }
-
-        @media (min-width: 768px) {
-            .welcome-text p {
-                font-size: 16px;
-            }
-        }
-
-        /* Social Media Section */
-        .social-media-section {
-            background: linear-gradient(135deg, rgba(0, 210, 211, 0.1), rgba(255, 107, 107, 0.1));
-            border-radius: var(--radius);
-            padding: 25px;
-            margin-bottom: 25px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: var(--blur);
-        }
-
-        @media (min-width: 768px) {
-            .social-media-section {
-                padding: 30px;
-                margin-bottom: 30px;
-            }
-        }
-
-        .social-media-title {
-            font-size: 20px;
-            margin-bottom: 20px;
-            color: var(--accent);
-            text-align: center;
-        }
-
-        .social-media-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-        }
-
-        @media (min-width: 768px) {
-            .social-media-grid {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 20px;
-            }
-        }
-
-        .social-media-link {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: var(--radius);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            text-decoration: none;
-            color: white;
-            transition: all 0.3s ease;
-            text-align: center;
-        }
-
-        .social-media-link:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .social-media-link.facebook:hover {
-            background: rgba(24, 119, 242, 0.2);
-            border-color: #1877F2;
-        }
-
-        .social-media-link.instagram:hover {
-            background: rgba(225, 48, 108, 0.2);
-            border-color: #E1306C;
-        }
-
-        .social-media-link.youtube:hover {
-            background: rgba(255, 0, 0, 0.2);
-            border-color: #FF0000;
-        }
-
-        .social-media-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            color: white;
-        }
-
-        .social-media-icon.facebook {
-            background: linear-gradient(45deg, #1877F2, #0d5bb5);
-        }
-
-        .social-media-icon.instagram {
-            background: linear-gradient(45deg, #E1306C, #C13584);
-        }
-
-        .social-media-icon.youtube {
-            background: linear-gradient(45deg, #FF0000, #CC0000);
-        }
-
-        .social-media-name {
-            font-size: 14px;
-            font-weight: 500;
-            text-align: center;
-        }
-
-        /* Products Section */
-        .products-section {
-            margin-top: 30px;
-        }
-
-        @media (min-width: 768px) {
-            .products-section {
-                margin-top: 40px;
-            }
-        }
-
-        .section-header {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        @media (min-width: 768px) {
-            .section-header {
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: center;
-                margin-bottom: 30px;
-            }
-        }
-
-        .section-title {
-            font-size: 24px;
-            font-weight: 600;
-            background: linear-gradient(45deg, #fff, var(--primary-light));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        @media (min-width: 768px) {
-            .section-title {
-                font-size: 28px;
-            }
-        }
-
-        .section-controls {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            padding: 8px 16px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 25px;
-            color: var(--border);
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .filter-btn.active {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-
-        /* Products Grid - MOBILE FRIENDLY */
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-        }
-
-        @media (max-width: 767px) {
-            .products-grid {
-                grid-template-columns: 1fr;
-                gap: 15px;
-            }
-        }
-
-        .product-card {
-            background: var(--glass);
-            backdrop-filter: var(--blur);
-            border-radius: var(--radius);
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .product-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary);
-            box-shadow: var(--shadow);
-        }
-
-        .product-badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            padding: 6px 15px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            z-index: 1;
-        }
-
-        .badge-available {
-            background: rgba(0, 184, 148, 0.2);
-            color: var(--success);
-            border: 1px solid var(--success);
-        }
-
-        .badge-outofstock {
-            background: rgba(225, 112, 85, 0.2);
-            color: var(--danger);
-            border: 1px solid var(--danger);
-        }
-
-        .product-image {
-            height: 180px;
-            background: linear-gradient(45deg, var(--primary-dark), var(--darker));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        @media (min-width: 768px) {
-            .product-image {
-                height: 200px;
-            }
-        }
-
-        .product-image img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .product-card:hover .product-image img {
-            transform: scale(1.1);
-        }
-
-        .product-info {
-            padding: 20px;
-        }
-
-        .product-category {
-            color: var(--primary-light);
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
-        }
-
-        .product-name {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 10px;
-            line-height: 1.4;
-        }
-
-        .product-price {
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--accent);
-            margin: 15px 0;
-        }
-
-        .product-stock {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding-top: 15px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .stock-info {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-
-        .stock-label {
-            font-size: 12px;
-            color: var(--border);
-        }
-
-        .stock-amount {
-            font-size: 16px;
-            font-weight: 600;
-        }
-
-        .stock-bar {
-            width: 100%;
-            height: 6px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 3px;
-            overflow: hidden;
-            margin-top: 10px;
-        }
-
-        .stock-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--success), var(--accent));
-            border-radius: 3px;
-            transition: width 1s ease;
-        }
-
-        /* No Products */
-        .no-products {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 60px 20px;
-        }
-
-        .no-products i {
-            font-size: 50px;
-            color: var(--border);
-            margin-bottom: 20px;
-        }
-
-        .no-products p {
-            color: var(--border);
-            font-size: 16px;
-            line-height: 1.5;
-        }
-
-        /* Notification */
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 15px 20px;
-            background: var(--glass);
-            backdrop-filter: var(--blur);
-            border-radius: var(--radius);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: var(--shadow);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            z-index: 1000;
-            animation: slideIn 0.3s ease;
-            max-width: 400px;
-            width: calc(100% - 40px);
-        }
-
-        @media (min-width: 768px) {
-            .notification {
-                width: auto;
-            }
-        }
-
-        .notification.success {
-            border-left: 4px solid var(--success);
-        }
-
-        .notification.error {
-            border-left: 4px solid var(--danger);
-        }
-
-        .notification.info {
-            border-left: 4px solid var(--accent);
-        }
-
-        @keyframes slideIn {
+        @keyframes fadeInUp {
             from {
-                transform: translateX(100%);
                 opacity: 0;
+                transform: translateY(30px);
             }
             to {
-                transform: translateX(0);
                 opacity: 1;
+                transform: translateY(0);
             }
         }
 
-        /* Footer */
-        .main-footer {
-            background: var(--glass);
-            backdrop-filter: var(--blur);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 25px 20px;
-            margin-top: 40px;
-        }
-
-        @media (min-width: 768px) {
-            .main-footer {
-                padding: 30px 40px;
-                margin-top: 50px;
-            }
-        }
-
-        .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .footer-text {
-            color: var(--border);
-            font-size: 14px;
-            line-height: 1.5;
-            margin-bottom: 10px;
-        }
-
-        .social-links-footer {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin: 20px 0;
-        }
-
-        .social-link-footer {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-decoration: none;
-            font-size: 18px;
-            transition: transform 0.3s ease;
-        }
-
-        .social-link-footer:hover {
-            transform: translateY(-3px);
-        }
-
-        .last-updated {
-            font-size: 12px;
-            color: var(--border);
-            margin-top: 10px;
-            opacity: 0.7;
-        }
-
-        /* Mobile Touch Optimizations */
-        @media (max-width: 767px) {
-            .login-form input,
-            .login-btn,
-            .filter-btn,
-            .logout-btn {
-                font-size: 16px; /* Prevents iOS zoom */
+        /* Responsive */
+        @media (max-width: 768px) {
+            .luxury-header {
+                padding: 15px 20px;
             }
             
-            .product-card {
-                transform: none; /* Remove hover effects on mobile */
+            .logo {
+                font-size: 1.8rem;
             }
             
-            .product-card:active {
-                transform: scale(0.98); /* Add touch feedback */
+            .auth-container {
+                padding: 100px 20px 60px;
             }
             
-            .social-media-link {
-                padding: 15px;
+            .auth-box {
+                padding: 30px;
+                max-width: 100%;
+            }
+            
+            .auth-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .contact-info {
+                gap: 20px;
+                flex-direction: column;
+            }
+            
+            .luxury-footer {
+                padding: 30px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .auth-tabs {
+                flex-direction: column;
+                gap: 5px;
+            }
+            
+            .auth-tab {
+                padding: 12px;
+            }
+            
+            .auth-header h1 {
+                font-size: 2rem;
             }
         }
     </style>
-    
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Particles Background -->
-    <div class="particles" id="particles"></div>
-
-    <!-- Loading Screen -->
-    <div id="loadingScreen">
-        <div class="loader">
-            <div class="loader-inner"></div>
-            <div class="loader-inner"></div>
-            <div class="loader-inner"></div>
-        </div>
-        <div class="loading-text">Loading Luxury Experience...</div>
-    </div>
-
-    <!-- Login Page - MOBILE FRIENDLY -->
-    <div class="login-container active" id="loginContainer">
-        <div class="login-box">
-            <div class="login-logo">
-                <i class="fas fa-crown"></i>
-                <h1>Chandni Paralar 127</h1>
+    <!-- Luxury Header -->
+    <header class="luxury-header">
+        <div class="header-content">
+            <div class="logo" onclick="window.location.href = 'index.html'">
+                <i class="fas fa-spa"></i>
+                Chandani Beauty Parlour
             </div>
-            
+        </div>
+    </header>
+
+    <!-- Auth Container -->
+    <div class="auth-container">
+        <div class="auth-box">
+            <div class="auth-header">
+                <h1>Welcome Back</h1>
+                <p>Sign in to access your beauty shopping lists</p>
+            </div>
+
+            <!-- Tabs -->
+            <div class="auth-tabs">
+                <button class="auth-tab active" onclick="switchTab('login')">Login</button>
+                <button class="auth-tab" onclick="switchTab('signup')">Sign Up</button>
+            </div>
+
             <!-- Login Form -->
-            <div id="loginFormContainer">
-                <form class="login-form" id="loginForm">
-                    <div class="input-group">
-                        <label for="loginUsername">Username/Email</label>
-                        <input type="text" id="loginUsername" placeholder="Enter your username or email" required>
+            <form class="auth-form active" id="loginForm">
+                <div class="form-group">
+                    <label class="form-label">Phone Number or Email</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-user input-icon"></i>
+                        <input type="text" class="form-input" id="loginEmail" placeholder="Enter phone or email" required>
                     </div>
-                    
-                    <div class="input-group">
-                        <label for="loginPassword">Password</label>
-                        <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" class="form-input" id="loginPassword" placeholder="Enter your password" required>
                     </div>
-                    
-                    <button type="submit" class="login-btn">
-                        <i class="fas fa-sign-in-alt"></i> Login
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="auth-btn" id="loginBtn">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Sign In
                     </button>
-                    
-                    <div class="form-footer">
-                        <span style="color: var(--border);">For demo, use any username & password</span>
-                        <br>
-                        <span style="color: var(--accent); font-size: 12px;">Phone users: Tap fields to type easily</span>
+                </div>
+
+                <div class="divider">or continue with</div>
+
+                <button type="button" class="google-btn" onclick="signInWithGoogle()">
+                    <i class="fab fa-google"></i>
+                    Google
+                </button>
+            </form>
+
+            <!-- Signup Form -->
+            <form class="auth-form" id="signupForm">
+                <div class="form-group">
+                    <label class="form-label">Full Name</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-user input-icon"></i>
+                        <input type="text" class="form-input" id="signupName" placeholder="Enter your full name" required>
                     </div>
-                </form>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Phone Number</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-phone input-icon"></i>
+                        <input type="tel" class="form-input" id="signupPhone" placeholder="Enter 10-digit phone number" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Email (Optional)</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input type="email" class="form-input" id="signupEmail" placeholder="Enter your email">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" class="form-input" id="signupPassword" placeholder="Create a strong password" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Confirm Password</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" class="form-input" id="signupConfirmPassword" placeholder="Confirm your password" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Address</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-home input-icon"></i>
+                        <input type="text" class="form-input" id="signupAddress" placeholder="Enter your complete address" required>
+                    </div>
+                </div>
+
+                <div class="terms-checkbox">
+                    <input type="checkbox" id="termsAgree" required>
+                    <label for="termsAgree">
+                        I agree to the <a href="#" onclick="showTerms()">Terms & Conditions</a> and 
+                        <a href="#" onclick="showPrivacy()">Privacy Policy</a>
+                    </label>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="auth-btn" id="signupBtn">
+                        <i class="fas fa-user-plus"></i>
+                        Create Account
+                    </button>
+                </div>
+            </form>
+
+            <div class="form-footer" id="loginFooter">
+                Don't have an account? <a onclick="switchTab('signup')">Sign up here</a>
             </div>
-            
-            <div class="login-footer">
-                <p>Customer Access Only | Products added by owner will appear here automatically</p>
-                <p style="margin-top: 10px; font-size: 11px; color: var(--accent);">
-                    <i class="fas fa-mobile-alt"></i> Optimized for Mobile Phones
-                </p>
+            <div class="form-footer" id="signupFooter" style="display: none;">
+                Already have an account? <a onclick="switchTab('login')">Login here</a>
             </div>
         </div>
     </div>
 
-    <!-- Main Content -->
-    <div class="main-container" id="mainContainer">
-        <!-- Header -->
-        <header class="main-header">
-            <div class="header-content">
-                <div class="brand">
-                    <div class="brand-icon">
-                        <i class="fas fa-crown"></i>
-                    </div>
-                    <div class="brand-text">
-                        <h1>Chandni Paralar 127</h1>
-                        <p>Premium Beauty Products & Paralar</p>
-                    </div>
-                </div>
+    <!-- Footer -->
+    <footer class="luxury-footer">
+        <div class="footer-content">
+            <div class="store-info">
+                <h3>Chandani Beauty Parlour</h3>
+                <p>Shop conveniently with our digital shopping list. Select products online and visit our store to purchase!</p>
                 
-                <div class="user-controls">
-                    <div class="user-info">
-                        <div class="user-avatar" id="userAvatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div class="user-name" id="userName">Customer</div>
+               
+                  <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>chandanibeautyparlar@gmail.com</span>
                     </div>
-                    
-                    <div class="search-box">
-                        <input type="text" id="searchInput" placeholder="Search products...">
-                        <button class="search-btn" id="searchBtn">
-                            <i class="fas fa-search"></i>
-                        </button>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>[Bihar{nalanda(niyamatnagar)}], India</span>
                     </div>
-                    <button class="logout-btn" id="logoutBtn">
-                        <i class="fas fa-sign-out-alt"></i> Logout
-                    </button>
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <span>10:00 AM - 5:00 PM</span>
+                    </div>
                 </div>
             </div>
-        </header>
+        </div>
+    </footer>
 
-        <!-- Main Content -->
-        <main class="main-content">
-            <!-- Welcome Section -->
-            <section class="welcome-section">
-                <div class="welcome-text">
-                    <h2>Welcome to Chandani beauty parlar 127</h2>
-                    <p>Discover our exclusive collection of premium beauty products. Check real-time availability, prices, and stock levels. Visit our store for personalized beauty consultations.</p>
-                </div>
-            </section>
-
-            <!-- Social Media Section -->
-            <section class="social-media-section">
-                <h3 class="social-media-title">
-                    <i class="fas fa-hashtag"></i> Connect With Us
-                </h3>
-                
-                <div class="social-media-grid">
-                    <a href="https://www.youtube.com/@Chandaniparlar127" target="_blank" class="social-media-link youtube">
-                        <div class="social-media-icon youtube">
-                            <i class="fab fa-youtube"></i>
-                        </div>
-                        <div class="social-media-name">YouTube</div>
-                    </a>
-                    
-                    <a href="https://www.facebook.com/profile.php?id=61566828527833" target="_blank" class="social-media-link facebook">
-                        <div class="social-media-icon facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </div>
-                        <div class="social-media-name">Facebook</div>
-                    </a>
-                    
-                    <a href="https://www.instagram.com/chandani_parlar_127?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="social-media-link instagram">
-                        <div class="social-media-icon instagram">
-                            <i class="fab fa-instagram"></i>
-                        </div>
-                        <div class="social-media-name">Instagram</div>
-                    </a>
-                </div>
-            </section>
-
-            <!-- Products Section - FIREBASE CONNECTED -->
-            <section class="products-section">
-                <div class="section-header">
-                    <h2 class="section-title">
-                        <i class="fas fa-boxes"></i> Available Products
-                        <span style="font-size: 14px; color: var(--accent); display: block; margin-top: 5px;">
-                            <i class="fas fa-sync-alt"></i> Live Updates from Owner
-                        </span>
-                    </h2>
-                    <div class="section-controls">
-                        <button class="filter-btn active" data-filter="all">All Products</button>
-                        <button class="filter-btn" data-filter="available">Available</button>
-                        <button class="filter-btn" data-filter="outofstock">Out of Stock</button>
-                    </div>
-                </div>
-
-                <div class="products-grid" id="productsGrid">
-                    <!-- Products will be loaded automatically from Firebase -->
-                    <div class="no-products">
-                        <i class="fas fa-spinner fa-spin"></i>
-                        <p>Loading products from owner's database...</p>
-                        <p style="margin-top: 10px; font-size: 14px;">Owner adds products → Automatically appear here</p>
-                    </div>
-                </div>
-            </section>
-        </main>
-
-        <!-- Footer -->
-        <footer class="main-footer">
-            <div class="footer-content">
-                <div class="social-links-footer">
-                    <a href="https://www.youtube.com/@Chandaniparlar127" target="_blank" class="social-link-footer" style="background: #FF0000;">
-                        <i class="fab fa-youtube"></i>
-                    </a>
-                    <a href="https://www.facebook.com/profile.php?id=61566828527833" target="_blank" class="social-link-footer" style="background: #1877F2;">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="https://www.instagram.com/chandani_parlar_127?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="social-link-footer" style="background: #E1306C;">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                </div>
-                
-                <p class="footer-text">Chandani beauty parlar 127 | Premium Beauty Products & Parlor Services</p>
-                <p class="footer-text" style="margin-top: 10px;">
-                    Shop No. 127, Beauty Street, City - 123456 | Phone: +91 98765 43210
-                </p>
-                <p class="last-updated" id="lastUpdated">Last updated: --</p>
-                <p style="font-size: 12px; color: var(--accent); margin-top: 10px;">
-                    <i class="fas fa-database"></i> 
-                </p>
-            </div>
-        </footer>
+    <!-- Notification -->
+    <div class="notification" id="notification" style="display: none;">
+        <i class="fas fa-check-circle"></i>
+        <div>
+            <strong id="notificationTitle">Success!</strong>
+            <p id="notificationMessage">Operation completed successfully</p>
+        </div>
     </div>
 
-    <!-- 🔥🔥🔥 FIXED JAVASCRIPT CODE - IMAGE PROBLEM SOLVED 🔥🔥🔥 -->
     <script>
-        // Create Particles
-        function createParticles() {
-            const particles = document.getElementById('particles');
-            const particleCount = 30;
-            
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                
-                const size = Math.random() * 4 + 1;
-                const x = Math.random() * 100;
-                const y = Math.random() * 100;
-                const duration = Math.random() * 20 + 10;
-                const delay = Math.random() * 5;
-                
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                particle.style.left = `${x}%`;
-                particle.style.top = `${y}%`;
-                particle.style.opacity = Math.random() * 0.5 + 0.1;
-                particle.style.animationDuration = `${duration}s`;
-                particle.style.animationDelay = `${delay}s`;
-                
-                particles.appendChild(particle);
-            }
-        }
-
-        // 🔥 FIREBASE CONFIGURATION - YOUR DATABASE
+        // Initialize Firebase (You need to add your own config)
         const firebaseConfig = {
-            apiKey: "AIzaSyCEx0bVxJlNhCgGxQW5_qHYRlhvNmg10nw",
-            authDomain: "online-shopping-c3081.firebaseapp.com",
-            databaseURL: "https://online-shopping-c3081-default-rtdb.firebaseio.com/", // YOUR DATABASE
-            projectId: "online-shopping-c3081",
-            storageBucket: "online-shopping-c3081.appspot.com",
-            messagingSenderId: "1039257566173",
-            appId: "1:1039257566173:web:1e01e706da6c2725cae801",
-            measurementId: "G-CZ8BY79YHJ"
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
         };
 
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        const database = firebase.database();
-
-        // Application State
-        let currentUser = null;
-        let products = [];
-        let filteredProducts = [];
-
-        // ============================================
-        // 🔥🔥🔥 IMAGE HANDLER FUNCTIONS - ADDED HERE 🔥🔥🔥
-        // ============================================
-
-        // Get product image with priority (OWNER'S DATABASE FORMAT)
-        function getProductImage(product) {
-            // Debug log - can remove after testing
-            console.log('Checking image for:', product.name, {
-                hasThumbnail: !!product.imageThumbnail,
-                hasBase64: !!product.imageBase64,
-                hasImageUrl: !!product.imageUrl
+        // Switch between login and signup tabs
+        function switchTab(tab) {
+            // Update tabs
+            document.querySelectorAll('.auth-tab').forEach(btn => {
+                btn.classList.remove('active');
             });
             
-            // Priority order: thumbnail > base64 > url > default
-            if (product.imageThumbnail && isValidBase64(product.imageThumbnail)) {
-                return product.imageThumbnail; // Owner stores compressed thumbnail
-            }
-            if (product.imageBase64 && isValidBase64(product.imageBase64)) {
-                return product.imageBase64; // Owner stores full base64 image
-            }
-            if (product.imageUrl) {
-                return product.imageUrl; // Direct URL if available
-            }
-            return ''; // No image
-        }
-
-        // Check if string is valid base64 image
-        function isValidBase64(str) {
-            if (typeof str !== 'string') return false;
-            try {
-                return str.startsWith('data:image/');
-            } catch {
-                return false;
-            }
-        }
-
-        // ============================================
-        // MAIN FUNCTIONS
-        // ============================================
-
-        // Initialize Application
-        document.addEventListener('DOMContentLoaded', () => {
-            createParticles();
-            setupEventListeners();
-            checkAuth();
-            
-            // Mobile optimization
-            optimizeForMobile();
-        });
-
-        // Mobile Optimization
-        function optimizeForMobile() {
-            // Prevent zoom on input focus (iOS)
-            document.addEventListener('touchstart', function() {}, {passive: true});
-            
-            // Better touch targets
-            const buttons = document.querySelectorAll('button, .social-media-link, .product-card');
-            buttons.forEach(btn => {
-                btn.style.touchAction = 'manipulation';
+            document.querySelectorAll('.auth-form').forEach(form => {
+                form.classList.remove('active');
             });
             
-            // Handle viewport on mobile
-            if ('ontouchstart' in window) {
-                document.body.classList.add('touch-device');
-            }
-        }
-
-        // Setup Event Listeners
-        function setupEventListeners() {
-            // Login Form
-            document.getElementById('loginForm').addEventListener('submit', handleLogin);
-            
-            // Logout Button
-            document.getElementById('logoutBtn').addEventListener('click', handleLogout);
-            
-            // Search
-            document.getElementById('searchBtn').addEventListener('click', performSearch);
-            document.getElementById('searchInput').addEventListener('input', performSearch);
-            
-            // Filters - Touch friendly
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    filterProducts(this.dataset.filter);
-                }, {passive: false});
-            });
-        }
-
-        // Check Authentication
-        function checkAuth() {
-            const savedUser = localStorage.getItem('chandniParlorUser');
-            
-            if (savedUser) {
-                currentUser = JSON.parse(savedUser);
-                showMainContent();
-                loadProductsFromFirebase(); // Load products when logged in
+            if (tab === 'login') {
+                document.querySelector('.auth-tab:nth-child(1)').classList.add('active');
+                document.getElementById('loginForm').classList.add('active');
+                document.getElementById('loginFooter').style.display = 'block';
+                document.getElementById('signupFooter').style.display = 'none';
             } else {
-                showLogin();
+                document.querySelector('.auth-tab:nth-child(2)').classList.add('active');
+                document.getElementById('signupForm').classList.add('active');
+                document.getElementById('loginFooter').style.display = 'none';
+                document.getElementById('signupFooter').style.display = 'block';
             }
         }
 
-        // Handle Login
-        function handleLogin(e) {
+        // Handle login form submission
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            const username = document.getElementById('loginUsername').value.trim();
+            const loginBtn = document.getElementById('loginBtn');
+            const originalText = loginBtn.innerHTML;
+            
+            const email = document.getElementById('loginEmail').value.trim();
             const password = document.getElementById('loginPassword').value;
             
-            // Simple authentication (accept any non-empty credentials)
-            if (username && password) {
-                currentUser = {
-                    username: username,
-                    loginTime: new Date().toISOString()
+            if (!email || !password) {
+                showNotification('Error', 'Please fill all fields');
+                return;
+            }
+            
+            // Show loading
+            loginBtn.innerHTML = '<span class="spinner"></span> Signing In...';
+            loginBtn.disabled = true;
+            
+            try {
+                // Simulate API call (Replace with actual Firebase auth)
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                
+                // For demo purposes - check if it's a phone number
+                const isPhone = /^\d+$/.test(email);
+                
+                if (isPhone && password === '123456') {
+                    // Demo login success for phone
+                    showNotification('Success', 'Login successful!');
+                    setTimeout(() => {
+                        window.location.href = 'products.html';
+                    }, 1000);
+                } else if (email === 'demo@chandani.com' && password === '123456') {
+                    // Demo login success for email
+                    showNotification('Success', 'Login successful!');
+                    setTimeout(() => {
+                        window.location.href = 'products.html';
+                    }, 1000);
+                } else {
+                    throw new Error('Invalid credentials');
+                }
+                
+            } catch (error) {
+                showNotification('Error', error.message || 'Invalid phone/email or password');
+            } finally {
+                // Restore button
+                loginBtn.innerHTML = originalText;
+                loginBtn.disabled = false;
+            }
+        });
+
+        // Handle signup form submission
+        document.getElementById('signupForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const signupBtn = document.getElementById('signupBtn');
+            const originalText = signupBtn.innerHTML;
+            
+            const name = document.getElementById('signupName').value.trim();
+            const phone = document.getElementById('signupPhone').value.trim();
+            const email = document.getElementById('signupEmail').value.trim();
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('signupConfirmPassword').value;
+            const address = document.getElementById('signupAddress').value.trim();
+            const termsAgreed = document.getElementById('termsAgree').checked;
+            
+            // Validation
+            if (!name || !phone || !password || !confirmPassword || !address) {
+                showNotification('Error', 'Please fill all required fields');
+                return;
+            }
+            
+            if (!/^\d{10}$/.test(phone)) {
+                showNotification('Error', 'Please enter a valid 10-digit phone number');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                showNotification('Error', 'Passwords do not match');
+                return;
+            }
+            
+            if (password.length < 6) {
+                showNotification('Error', 'Password must be at least 6 characters');
+                return;
+            }
+            
+            if (!termsAgreed) {
+                showNotification('Error', 'Please agree to the terms and conditions');
+                return;
+            }
+            
+            // Show loading
+            signupBtn.innerHTML = '<span class="spinner"></span> Creating Account...';
+            signupBtn.disabled = true;
+            
+            try {
+                // Simulate API call (Replace with actual Firebase auth)
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                
+                // For demo purposes - save to localStorage
+                const userData = {
+                    name: name,
+                    phone: phone,
+                    email: email || `${phone}@chandani.com`,
+                    address: address,
+                    createdAt: new Date().toISOString()
                 };
                 
-                localStorage.setItem('chandniParlorUser', JSON.stringify(currentUser));
+                localStorage.setItem('chandani_user', JSON.stringify(userData));
                 
-                // Update user info
-                updateUserInfo();
+                showNotification('Success', 'Account created successfully!');
                 
-                showMainContent();
-                loadProductsFromFirebase(); // Load products after login
+                // Redirect to products page
+                setTimeout(() => {
+                    window.location.href = 'products.html';
+                }, 1500);
                 
-                showNotification('Login successful! Welcome to Chandni Parlor.', 'success');
+            } catch (error) {
+                showNotification('Error', error.message || 'Failed to create account');
+            } finally {
+                // Restore button
+                signupBtn.innerHTML = originalText;
+                signupBtn.disabled = false;
             }
-        }
+        });
 
-        // Handle Logout
-        function handleLogout() {
-            currentUser = null;
-            localStorage.removeItem('chandniParlorUser');
-            showLogin();
-            showNotification('Logged out successfully', 'success');
-        }
-
-        // Update User Info
-        function updateUserInfo() {
-            if (currentUser) {
-                document.getElementById('userName').textContent = currentUser.username;
-                const initial = currentUser.username.charAt(0).toUpperCase();
-                document.getElementById('userAvatar').innerHTML = initial;
-            }
-        }
-
-        // Show Login Screen
-        function showLogin() {
-            document.getElementById('loadingScreen').style.display = 'none';
-            document.getElementById('loginContainer').classList.add('active');
-            document.getElementById('mainContainer').classList.remove('active');
-        }
-
-        // Show Main Content
-        function showMainContent() {
-            document.getElementById('loadingScreen').style.opacity = '0';
+        // Google Sign In (Demo)
+        function signInWithGoogle() {
+            const googleBtn = document.querySelector('.google-btn');
+            const originalText = googleBtn.innerHTML;
+            
+            googleBtn.innerHTML = '<span class="spinner"></span> Connecting...';
+            googleBtn.disabled = true;
+            
             setTimeout(() => {
-                document.getElementById('loadingScreen').style.display = 'none';
-                document.getElementById('loginContainer').classList.remove('active');
-                document.getElementById('mainContainer').classList.add('active');
-            }, 500);
+                showNotification('Coming Soon', 'Google Sign-In will be available soon');
+                googleBtn.innerHTML = originalText;
+                googleBtn.disabled = false;
+            }, 1000);
         }
 
-        // 🔥 LOAD PRODUCTS FROM FIREBASE (OWNER'S DATABASE)
-        function loadProductsFromFirebase() {
-            const productsRef = database.ref('products');
-            
-            // Listen for real-time updates
-            productsRef.on('value', (snapshot) => {
-                const data = snapshot.val();
-                products = [];
-                
-                if (data) {
-                    Object.keys(data).forEach(key => {
-                        products.push({
-                            id: key,
-                            ...data[key]
-                        });
-                    });
-                    
-                    console.log(`📦 Loaded ${products.length} products from Firebase`);
-                    
-                    // Sort by date (newest first)
-                    products.sort((a, b) => {
-                        const dateA = a.createdAt ? new Date(a.createdAt) : new Date(0);
-                        const dateB = b.createdAt ? new Date(b.createdAt) : new Date(0);
-                        return dateB - dateA;
-                    });
-                }
-                
-                displayProducts();
-                updateLastUpdated();
-                
-                if (products.length > 0) {
-                    showNotification(`Products updated: ${products.length} items loaded`, 'success');
-                }
-            }, (error) => {
-                console.error('Firebase error:', error);
-                showNotification('Error loading products from database', 'error');
-                
-                // Show demo products if Firebase fails
-                loadDemoProducts();
-            });
+        // Show terms modal
+        function showTerms() {
+            showNotification('Terms & Conditions', 'Terms page will open in a new window');
         }
 
-        // 🔥🔥🔥 DISPLAY PRODUCTS - FIXED IMAGE DISPLAY 🔥🔥🔥
-        function displayProducts(productsToShow = products) {
-            const productsGrid = document.getElementById('productsGrid');
-            
-            if (productsToShow.length === 0) {
-                productsGrid.innerHTML = `
-                    <div class="no-products">
-                        <i class="fas fa-box-open"></i>
-                        <p>No products available yet. Owner will add products soon.</p>
-                        <p style="margin-top: 10px; font-size: 14px;">Check back later for updates!</p>
-                        <p style="margin-top: 5px; font-size: 12px; color: var(--accent);">
-                            <i class="fas fa-database"></i> Connected to Owner's Firebase
-                        </p>
-                    </div>
-                `;
-                return;
-            }
-            
-            productsGrid.innerHTML = productsToShow.map(product => {
-                const isAvailable = product.stock > 0;
-                const stockPercentage = Math.min((product.stock / (product.maxStock || 100)) * 100, 100);
-                
-                // Format price
-                const price = product.price ? `₹${product.price}` : '₹---';
-                
-                // 🔥🔥🔥 FIXED: USE THE NEW FUNCTION TO GET IMAGE 🔥🔥🔥
-                const imageUrl = getProductImage(product);
-                
-                return `
-                    <div class="product-card">
-                        <div class="product-badge ${isAvailable ? 'badge-available' : 'badge-outofstock'}">
-                            ${isAvailable ? 'Available' : 'Out of Stock'}
-                        </div>
-                        
-                        <div class="product-image">
-                            ${imageUrl ? 
-                                `<img src="${imageUrl}" alt="${product.name}" 
-                                     style="width: 100%; height: 100%; object-fit: cover;"
-                                     onerror="this.onerror=null; this.style.display='none'; this.parentElement.innerHTML='<div style=\"font-size: 60px; color: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; height: 100%;\"></div>';">` :
-                                `<div style="font-size: 60px; color: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; height: 100%;"></div>`
-                            }
-                        </div>
-                        
-                        <div class="product-info">
-                            <div class="product-category">${product.category || 'Beauty'}</div>
-                            <h3 class="product-name">${product.name || 'Unnamed Product'}</h3>
-                            <div class="product-price">${price}</div>
-                            
-                            <div class="product-description" style="color: var(--border); font-size: 14px; margin: 10px 0; line-height: 1.4;">
-                                ${product.description || 'Premium beauty product'}
-                            </div>
-                            
-                            <div class="product-stock">
-                                <div class="stock-info">
-                                    <span class="stock-label">Stock Available</span>
-                                    <span class="stock-amount">${product.stock || 0} units</span>
-                                </div>
-                            </div>
-                            
-                            ${isAvailable ? `
-                                <div class="stock-bar">
-                                    <div class="stock-fill" style="width: ${stockPercentage}%"></div>
-                                </div>
-                            ` : ''}
-                            
-                            ${product.addedBy ? `
-                                <div style="font-size: 11px; color: var(--border); margin-top: 10px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 10px;">
-                                    <i class="fas fa-store"></i> Added by Owner
-                                </div>
-                            ` : ''}
-                        </div>
-                    </div>
-                `;
-            }).join('');
+        // Show privacy modal
+        function showPrivacy() {
+            showNotification('Privacy Policy', 'Privacy policy page will open in a new window');
         }
 
-        // Filter Products
-        function filterProducts(filter) {
-            switch(filter) {
-                case 'available':
-                    filteredProducts = products.filter(p => p.stock > 0);
-                    break;
-                case 'outofstock':
-                    filteredProducts = products.filter(p => p.stock <= 0);
-                    break;
-                default:
-                    filteredProducts = [...products];
-            }
+        // Show notification
+        function showNotification(title, message) {
+            document.getElementById('notificationTitle').textContent = title;
+            document.getElementById('notificationMessage').textContent = message;
+            const notification = document.getElementById('notification');
+            notification.style.display = 'flex';
             
-            displayProducts(filteredProducts);
-        }
-
-        // Search Products
-        function performSearch() {
-            const query = document.getElementById('searchInput').value.toLowerCase().trim();
-            
-            if (!query) {
-                const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
-                filterProducts(activeFilter);
-                return;
-            }
-            
-            const searchResults = products.filter(product =>
-                (product.name && product.name.toLowerCase().includes(query)) ||
-                (product.category && product.category.toLowerCase().includes(query)) ||
-                (product.description && product.description.toLowerCase().includes(query))
-            );
-            
-            displayProducts(searchResults);
-        }
-
-        // Update Last Updated Time
-        function updateLastUpdated() {
-            const now = new Date();
-            const options = {
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit',
-                day: '2-digit',
-                month: 'short',
-                year: 'numeric'
-            };
-            
-            document.getElementById('lastUpdated').textContent = 
-                `Last updated: ${now.toLocaleDateString('en-IN', options)}`;
-        }
-
-        // Show Notification
-        function showNotification(message, type = 'info') {
-            // Remove existing notifications
-            const existing = document.querySelectorAll('.notification');
-            existing.forEach(n => n.remove());
-            
-            // Create new notification
-            const notification = document.createElement('div');
-            notification.className = `notification ${type}`;
-            
-            let icon = 'info-circle';
-            if (type === 'success') icon = 'check-circle';
-            if (type === 'error') icon = 'exclamation-circle';
-            
-            notification.innerHTML = `
-                <i class="fas fa-${icon}"></i>
-                <span>${message}</span>
-            `;
-            
-            document.body.appendChild(notification);
-            
-            // Auto-remove after 5 seconds
             setTimeout(() => {
-                if (notification.parentNode) {
-                    notification.style.animation = 'slideIn 0.3s ease reverse';
-                    setTimeout(() => {
-                        if (notification.parentNode) {
-                            notification.remove();
-                        }
-                    }, 300);
-                }
-            }, 5000);
+                notification.style.display = 'none';
+            }, 3000);
         }
 
-        // Demo Products (if Firebase is empty)
-        function loadDemoProducts() {
-            const demoProducts = [
-                {
-                    id: 'demo1',
-                    name: 'Premium Lipstick Set',
-                    category: 'Makeup',
-                    price: 1299,
-                    stock: 15,
-                    description: 'Long-lasting matte lipstick set',
-                    imageUrl: '',
-                    addedBy: 'Owner'
-                },
-                {
-                    id: 'demo2',
-                    name: 'Facial Cream',
-                    category: 'Skincare',
-                    price: 899,
-                    stock: 8,
-                    description: 'Anti-aging facial cream',
-                    imageUrl: '',
-                    addedBy: 'Owner'
-                },
-                {
-                    id: 'demo3',
-                    name: 'Hair Serum',
-                    category: 'Haircare',
-                    price: 699,
-                    stock: 0,
-                    description: 'Argan oil hair serum',
-                    imageUrl: '',
-                    addedBy: 'Owner'
-                }
-            ];
-            
-            products = demoProducts;
-            displayProducts();
-            showNotification('Loaded demo products. Waiting for owner to add real products.', 'info');
-        }
+        // Phone number formatting
+        document.getElementById('signupPhone').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 10) value = value.substring(0, 10);
+            e.target.value = value;
+        });
 
-        // Auto-refresh every 30 seconds
-        setInterval(updateLastUpdated, 30000);
-        
-        // Initial update
-        setTimeout(updateLastUpdated, 1000);
-        
-        // Test Firebase connection
-        setTimeout(() => {
-            console.log('🔥 FIREBASE CONNECTED SUCCESSFULLY');
-            console.log('📡 Database URL:', firebaseConfig.databaseURL);
-            console.log('👤 Project ID:', firebaseConfig.projectId);
-            console.log('📱 Mobile Optimized: Yes');
-            console.log('🔄 Real-time Updates: Active');
-            console.log('🖼️ Image Display: FIXED (Owner format: imageThumbnail > imageBase64)');
-        }, 2000);
+        // Auto-switch to login if user exists
+        window.addEventListener('load', function() {
+            const savedUser = localStorage.getItem('chandani_user');
+            if (savedUser) {
+                try {
+                    const user = JSON.parse(savedUser);
+                    document.getElementById('loginEmail').value = user.email || user.phone;
+                    switchTab('login');
+                } catch (e) {
+                    // Ignore error
+                }
+            }
+        });
     </script>
 </body>
 </html>
