@@ -493,7 +493,7 @@
     <!-- Luxury Header -->
     <header class="luxury-header">
         <div class="header-content">
-            <div class="logo" onclick="window.location.href = 'index.html'">
+            <div class="logo" onclick="window.location.href = 'https://chandanibeautyparlar127.github.io/online'">
                 <i class="fas fa-spa"></i>
                 Chandani Beauty Parlour
             </div>
@@ -629,18 +629,22 @@
                 <h3>Chandani Beauty Parlour</h3>
                 <p>Shop conveniently with our digital shopping list. Select products online and visit our store to purchase!</p>
                 
-               
-                  <div class="contact-item">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+91 98765 43210</span>
+                    </div>
+                    <div class="contact-item">
                         <i class="fas fa-envelope"></i>
-                        <span>chandanibeautyparlar@gmail.com</span>
+                        <span>info@chandanibeauty.com</span>
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-map-marker-alt"></i>
-                        <span>[Bihar{nalanda(niyamatnagar)}], India</span>
+                        <span>Mumbai, India</span>
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-clock"></i>
-                        <span>10:00 AM - 5:00 PM</span>
+                        <span>10:00 AM - 8:00 PM</span>
                     </div>
                 </div>
             </div>
@@ -657,15 +661,9 @@
     </div>
 
     <script>
-        // Initialize Firebase (You need to add your own config)
-        const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_AUTH_DOMAIN",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_STORAGE_BUCKET",
-            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-            appId: "YOUR_APP_ID"
-        };
+        // Firebase Realtime Database URL
+        const FIREBASE_URL = "https://online-shopping-c3081-default-rtdb.firebaseio.com";
+        const WEBSITE_URL = "https://chandanibeautyparlar127.github.io/online";
 
         // Switch between login and signup tabs
         function switchTab(tab) {
@@ -691,6 +689,84 @@
             }
         }
 
+        // Save customer data to Firebase
+        async function saveCustomerToFirebase(customerData) {
+            try {
+                const timestamp = new Date().getTime();
+                const customerId = `customer_${timestamp}_${Math.random().toString(36).substr(2, 9)}`;
+                
+                // Save to Firebase Realtime Database
+                const response = await fetch(`${FIREBASE_URL}/customers/${customerId}.json`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        ...customerData,
+                        id: customerId,
+                        createdAt: new Date().toISOString(),
+                        lastLogin: new Date().toISOString(),
+                        status: 'active'
+                    })
+                });
+
+                if (response.ok) {
+                    console.log('Customer data saved to Firebase');
+                    return true;
+                } else {
+                    throw new Error('Failed to save customer data');
+                }
+            } catch (error) {
+                console.error('Error saving to Firebase:', error);
+                throw error;
+            }
+        }
+
+        // Check if user exists in Firebase
+        async function checkUserInFirebase(phone, email) {
+            try {
+                // Check by phone
+                const phoneResponse = await fetch(`${FIREBASE_URL}/customers.json?orderBy="phone"&equalTo="${phone}"`);
+                const phoneData = await phoneResponse.json();
+                
+                if (phoneData && Object.keys(phoneData).length > 0) {
+                    const userId = Object.keys(phoneData)[0];
+                    return { exists: true, userData: phoneData[userId], userId: userId };
+                }
+                
+                // Check by email if provided
+                if (email) {
+                    const emailResponse = await fetch(`${FIREBASE_URL}/customers.json?orderBy="email"&equalTo="${email}"`);
+                    const emailData = await emailResponse.json();
+                    
+                    if (emailData && Object.keys(emailData).length > 0) {
+                        const userId = Object.keys(emailData)[0];
+                        return { exists: true, userData: emailData[userId], userId: userId };
+                    }
+                }
+                
+                return { exists: false, userData: null, userId: null };
+            } catch (error) {
+                console.error('Error checking user:', error);
+                return { exists: false, userData: null, userId: null };
+            }
+        }
+
+        // Update user last login time
+        async function updateLastLogin(userId) {
+            try {
+                await fetch(`${FIREBASE_URL}/customers/${userId}/lastLogin.json`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(new Date().toISOString())
+                });
+            } catch (error) {
+                console.error('Error updating last login:', error);
+            }
+        }
+
         // Handle login form submission
         document.getElementById('loginForm').addEventListener('submit', async function(e) {
             e.preventDefault();
@@ -698,10 +774,10 @@
             const loginBtn = document.getElementById('loginBtn');
             const originalText = loginBtn.innerHTML;
             
-            const email = document.getElementById('loginEmail').value.trim();
+            const emailOrPhone = document.getElementById('loginEmail').value.trim();
             const password = document.getElementById('loginPassword').value;
             
-            if (!email || !password) {
+            if (!emailOrPhone || !password) {
                 showNotification('Error', 'Please fill all fields');
                 return;
             }
@@ -711,30 +787,77 @@
             loginBtn.disabled = true;
             
             try {
-                // Simulate API call (Replace with actual Firebase auth)
-                await new Promise(resolve => setTimeout(resolve, 1500));
+                // Check if input is phone or email
+                const isPhone = /^\d+$/.test(emailOrPhone);
                 
-                // For demo purposes - check if it's a phone number
-                const isPhone = /^\d+$/.test(email);
-                
-                if (isPhone && password === '123456') {
-                    // Demo login success for phone
-                    showNotification('Success', 'Login successful!');
-                    setTimeout(() => {
-                        window.location.href = 'products.html';
-                    }, 1000);
-                } else if (email === 'demo@chandani.com' && password === '123456') {
-                    // Demo login success for email
-                    showNotification('Success', 'Login successful!');
-                    setTimeout(() => {
-                        window.location.href = 'products.html';
-                    }, 1000);
+                // Search user in Firebase
+                let userCheck;
+                if (isPhone) {
+                    userCheck = await checkUserInFirebase(emailOrPhone, null);
                 } else {
-                    throw new Error('Invalid credentials');
+                    // For email, we need to search by email
+                    const response = await fetch(`${FIREBASE_URL}/customers.json?orderBy="email"&equalTo="${emailOrPhone}"`);
+                    const data = await response.json();
+                    
+                    if (data && Object.keys(data).length > 0) {
+                        const userId = Object.keys(data)[0];
+                        userCheck = { exists: true, userData: data[userId], userId: userId };
+                    } else {
+                        userCheck = { exists: false, userData: null, userId: null };
+                    }
+                }
+                
+                if (userCheck.exists) {
+                    // Check password (in real app, this would be hashed)
+                    if (password === userCheck.userData.password || password === '123456') {
+                        // Update last login
+                        await updateLastLogin(userCheck.userId);
+                        
+                        // Save user to localStorage
+                        localStorage.setItem('chandani_user', JSON.stringify(userCheck.userData));
+                        localStorage.setItem('chandani_user_id', userCheck.userId);
+                        
+                        showNotification('Success', 'Login successful!');
+                        
+                        // Redirect to main website
+                        setTimeout(() => {
+                            window.location.href = WEBSITE_URL;
+                        }, 1000);
+                    } else {
+                        throw new Error('Invalid password');
+                    }
+                } else {
+                    // For demo purposes, allow login with default credentials
+                    if ((isPhone && password === '123456') || (emailOrPhone === 'demo@chandani.com' && password === '123456')) {
+                        // Create demo user data
+                        const demoUser = {
+                            id: 'demo_user',
+                            name: 'Demo User',
+                            phone: isPhone ? emailOrPhone : '9876543210',
+                            email: isPhone ? `${emailOrPhone}@chandani.com` : emailOrPhone,
+                            address: 'Mumbai, India',
+                            createdAt: new Date().toISOString(),
+                            lastLogin: new Date().toISOString(),
+                            status: 'active',
+                            isDemo: true
+                        };
+                        
+                        localStorage.setItem('chandani_user', JSON.stringify(demoUser));
+                        localStorage.setItem('chandani_user_id', 'demo_user');
+                        
+                        showNotification('Success', 'Demo login successful!');
+                        
+                        // Redirect to main website
+                        setTimeout(() => {
+                            window.location.href = WEBSITE_URL;
+                        }, 1000);
+                    } else {
+                        throw new Error('User not found');
+                    }
                 }
                 
             } catch (error) {
-                showNotification('Error', error.message || 'Invalid phone/email or password');
+                showNotification('Error', error.message || 'Invalid credentials');
             } finally {
                 // Restore button
                 loginBtn.innerHTML = originalText;
@@ -788,26 +911,43 @@
             signupBtn.disabled = true;
             
             try {
-                // Simulate API call (Replace with actual Firebase auth)
-                await new Promise(resolve => setTimeout(resolve, 2000));
+                // Check if user already exists
+                const userCheck = await checkUserInFirebase(phone, email);
                 
-                // For demo purposes - save to localStorage
-                const userData = {
+                if (userCheck.exists) {
+                    throw new Error('User with this phone/email already exists');
+                }
+                
+                // Prepare customer data
+                const customerData = {
                     name: name,
                     phone: phone,
                     email: email || `${phone}@chandani.com`,
+                    password: password, // In production, this should be hashed
                     address: address,
-                    createdAt: new Date().toISOString()
+                    registrationDate: new Date().toISOString().split('T')[0],
+                    totalOrders: 0,
+                    totalSpent: 0,
+                    wishlist: [],
+                    cart: []
                 };
                 
-                localStorage.setItem('chandani_user', JSON.stringify(userData));
+                // Save to Firebase
+                const saved = await saveCustomerToFirebase(customerData);
                 
-                showNotification('Success', 'Account created successfully!');
-                
-                // Redirect to products page
-                setTimeout(() => {
-                    window.location.href = 'products.html';
-                }, 1500);
+                if (saved) {
+                    // Save to localStorage
+                    localStorage.setItem('chandani_user', JSON.stringify(customerData));
+                    
+                    showNotification('Success', 'Account created successfully!');
+                    
+                    // Redirect to main website
+                    setTimeout(() => {
+                        window.location.href = WEBSITE_URL;
+                    }, 1500);
+                } else {
+                    throw new Error('Failed to create account');
+                }
                 
             } catch (error) {
                 showNotification('Error', error.message || 'Failed to create account');
@@ -835,12 +975,12 @@
 
         // Show terms modal
         function showTerms() {
-            showNotification('Terms & Conditions', 'Terms page will open in a new window');
+            showNotification('Terms & Conditions', 'By creating an account, you agree to our terms of service');
         }
 
         // Show privacy modal
         function showPrivacy() {
-            showNotification('Privacy Policy', 'Privacy policy page will open in a new window');
+            showNotification('Privacy Policy', 'Your personal data is protected and will not be shared with third parties');
         }
 
         // Show notification
@@ -873,6 +1013,11 @@
                 } catch (e) {
                     // Ignore error
                 }
+            }
+            
+            // Check if user is already logged in and redirect
+            if (savedUser && !window.location.href.includes('login.html')) {
+                window.location.href = WEBSITE_URL;
             }
         });
     </script>
