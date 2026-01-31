@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chandani Beauty Parlour | Signup/Login</title>
+    <title>Chandani Beauty Parlour | Login/Create Account</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
@@ -12,6 +12,7 @@
             --pink-light: #FFB6C1;
             --pink-dark: #DB7093;
             --gold: #D4AF37;
+            --whatsapp-green: #25D366;
             --black: #0A0A0A;
             --white: #F5F5F5;
             --bg-dark: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
@@ -240,6 +241,29 @@
 
         .light-mode .logout-btn:hover {
             background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* WhatsApp Button */
+        .whatsapp-btn {
+            background: linear-gradient(135deg, var(--whatsapp-green), #128C7E);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        .whatsapp-btn:hover {
+            background: linear-gradient(135deg, #128C7E, var(--whatsapp-green));
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
         }
 
         /* Main Content */
@@ -777,6 +801,80 @@
             font-weight: 600;
         }
 
+        /* WhatsApp Info Card */
+        .whatsapp-card {
+            background: linear-gradient(135deg, rgba(37, 211, 102, 0.1), rgba(18, 140, 126, 0.05));
+            border: 2px solid var(--whatsapp-green);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .whatsapp-icon {
+            font-size: 3rem;
+            color: var(--whatsapp-green);
+            margin-bottom: 20px;
+        }
+
+        .whatsapp-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--whatsapp-green);
+        }
+
+        .whatsapp-description {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+        }
+
+        .light-mode .whatsapp-description {
+            color: rgba(0, 0, 0, 0.8);
+        }
+
+        .whatsapp-group-info {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .light-mode .whatsapp-group-info {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .whatsapp-group-info h4 {
+            color: var(--whatsapp-green);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .whatsapp-group-info ul {
+            list-style: none;
+            padding-left: 10px;
+        }
+
+        .whatsapp-group-info li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .light-mode .whatsapp-group-info li {
+            color: rgba(0, 0, 0, 0.8);
+        }
+
+        .whatsapp-group-info li i {
+            color: var(--whatsapp-green);
+        }
+
         /* Settings */
         .setting-item {
             background: rgba(255, 255, 255, 0.05);
@@ -879,6 +977,60 @@
             background: rgba(255, 255, 255, 0.2);
             color: var(--text-dark);
             border: 1px solid var(--pink-light);
+        }
+
+        /* Error Message */
+        .error-message {
+            color: #ff6b6b;
+            font-size: 0.9rem;
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Success Message */
+        .success-message {
+            color: #51cf66;
+            font-size: 0.9rem;
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Demo User Note */
+        .demo-note {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 105, 180, 0.3);
+            border-radius: 15px;
+            padding: 15px;
+            margin-top: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--pink-light);
+        }
+
+        .light-mode .demo-note {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--pink);
+        }
+
+        /* WhatsApp Join Note */
+        .whatsapp-note {
+            background: rgba(37, 211, 102, 0.1);
+            border: 1px solid var(--whatsapp-green);
+            border-radius: 15px;
+            padding: 15px;
+            margin-top: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--whatsapp-green);
+        }
+
+        .light-mode .whatsapp-note {
+            background: rgba(37, 211, 102, 0.15);
+            color: var(--whatsapp-green);
         }
 
         /* Footer */
@@ -1018,6 +1170,8 @@
             
             .nav-links {
                 gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
             }
             
             .nav-link {
@@ -1047,7 +1201,7 @@
                 gap: 15px;
             }
             
-            .main-btn, .shopping-btn {
+            .main-btn, .shopping-btn, .whatsapp-btn {
                 width: 100%;
                 justify-content: center;
             }
@@ -1085,7 +1239,7 @@
                 justify-content: center;
             }
             
-            .logout-btn {
+            .logout-btn, .whatsapp-btn {
                 width: 100%;
                 justify-content: center;
             }
@@ -1107,6 +1261,14 @@
             .user-details {
                 font-size: 0.8rem;
             }
+            
+            .whatsapp-card {
+                padding: 20px;
+            }
+            
+            .whatsapp-title {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
@@ -1124,9 +1286,9 @@
             
             <!-- Navigation Links -->
             <div class="nav-links">
-                <a href="https://chandanibeautyparlar127.github.io/suraj/" class="nav-link" target="_blank">
+                <a href="https://chandanibeautyparlar127.github.io/online/" class="nav-link" target="_blank">
                     <i class="fas fa-shopping-bag"></i>
-                    
+                    Shop Now
                 </a>
                 
                 <!-- User Section (Shown when logged in) -->
@@ -1138,6 +1300,10 @@
                             <div class="user-phone" id="userPhone">9876543210</div>
                         </div>
                     </div>
+                    <button class="whatsapp-btn" id="whatsappHeaderBtn" onclick="openWhatsAppGroup()" style="display: none;">
+                        <i class="fab fa-whatsapp"></i>
+                        WhatsApp Group
+                    </button>
                     <button class="logout-btn" onclick="logout()">
                         <i class="fas fa-sign-out-alt"></i>
                         Logout
@@ -1157,13 +1323,28 @@
                 <i class="fas fa-sign-in-alt"></i>
                 Login
             </button>
-            <button class="main-btn secondary-btn" onclick="showSignup()">
+            <button class="main-btn secondary-btn" onclick="showCreateAccount()">
                 <i class="fas fa-user-plus"></i>
-                Sign Up
+                Create Account
             </button>
         </div>
         
-        
+        <button class="shopping-btn" onclick="goToShoppingWebsite()">
+            <i class="fas fa-shopping-bag"></i>
+            Continue Shopping Without Login
+        </button>
+
+        <!-- Demo Account Note -->
+        <div class="demo-note">
+            <i class="fas fa-info-circle"></i>
+            <strong>Demo Account:</strong> Phone: 9876543210 | Password: demo123
+        </div>
+
+        <!-- WhatsApp Group Note -->
+        <div class="whatsapp-note">
+            <i class="fab fa-whatsapp"></i>
+            <strong>Join our WhatsApp Group!</strong> Get exclusive offers, beauty tips, and updates.
+        </div>
     </div>
 
     <!-- Login Container -->
@@ -1181,6 +1362,10 @@
                         <i class="fas fa-phone input-icon"></i>
                         <input type="tel" class="form-input" id="loginPhone" placeholder="Enter 10-digit phone number" required>
                     </div>
+                    <div class="error-message" id="loginPhoneError" style="display: none;">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span id="loginPhoneErrorText"></span>
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -1188,6 +1373,10 @@
                     <div class="input-with-icon">
                         <i class="fas fa-lock input-icon"></i>
                         <input type="password" class="form-input" id="loginPassword" placeholder="Enter your password" required>
+                    </div>
+                    <div class="error-message" id="loginPasswordError" style="display: none;">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span id="loginPasswordErrorText"></span>
                     </div>
                 </div>
 
@@ -1200,25 +1389,25 @@
             </form>
 
             <div class="form-footer">
-                Don't have an account? <a onclick="showSignup()">Sign up here</a>
+                Don't have an account? <a onclick="showCreateAccount()">Create Account here</a>
             </div>
         </div>
     </div>
 
-    <!-- Signup Container -->
-    <div class="auth-container" id="signupContainer" style="display: none;">
+    <!-- Create Account Container -->
+    <div class="auth-container" id="createAccountContainer" style="display: none;">
         <div class="auth-box">
             <div class="auth-header">
                 <h1>Create Account</h1>
                 <p>Sign up to access our beauty products and shopping lists</p>
             </div>
 
-            <form id="signupForm">
+            <form id="createAccountForm">
                 <div class="form-group">
                     <label class="form-label">Full Name</label>
                     <div class="input-with-icon">
                         <i class="fas fa-user input-icon"></i>
-                        <input type="text" class="form-input" id="signupName" placeholder="Enter your full name" required>
+                        <input type="text" class="form-input" id="createName" placeholder="Enter your full name" required>
                     </div>
                 </div>
 
@@ -1226,7 +1415,11 @@
                     <label class="form-label">Phone Number</label>
                     <div class="input-with-icon">
                         <i class="fas fa-phone input-icon"></i>
-                        <input type="tel" class="form-input" id="signupPhone" placeholder="Enter 10-digit phone number" required>
+                        <input type="tel" class="form-input" id="createPhone" placeholder="Enter 10-digit phone number" required>
+                    </div>
+                    <div class="error-message" id="createPhoneError" style="display: none;">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span id="createPhoneErrorText"></span>
                     </div>
                 </div>
 
@@ -1234,7 +1427,7 @@
                     <label class="form-label">Password</label>
                     <div class="input-with-icon">
                         <i class="fas fa-lock input-icon"></i>
-                        <input type="password" class="form-input" id="signupPassword" placeholder="Create a strong password" required>
+                        <input type="password" class="form-input" id="createPassword" placeholder="Create a strong password" required>
                     </div>
                 </div>
 
@@ -1242,7 +1435,11 @@
                     <label class="form-label">Confirm Password</label>
                     <div class="input-with-icon">
                         <i class="fas fa-lock input-icon"></i>
-                        <input type="password" class="form-input" id="signupConfirmPassword" placeholder="Confirm your password" required>
+                        <input type="password" class="form-input" id="createConfirmPassword" placeholder="Confirm your password" required>
+                    </div>
+                    <div class="error-message" id="createConfirmPasswordError" style="display: none;">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span id="createConfirmPasswordErrorText"></span>
                     </div>
                 </div>
 
@@ -1250,20 +1447,26 @@
                     <label class="form-label">Address</label>
                     <div class="input-with-icon">
                         <i class="fas fa-home input-icon"></i>
-                        <input type="text" class="form-input" id="signupAddress" placeholder="Enter your complete address" required>
+                        <input type="text" class="form-input" id="createAddress" placeholder="Enter your complete address" required>
                     </div>
                 </div>
 
                 <div class="terms-checkbox">
-                    <input type="checkbox" id="termsAgree" required>
-                    <label for="termsAgree">
-                        I agree to the <a href="#" onclick="showTerms()">Terms & Conditions</a> and 
-                        <a href="#" onclick="showPrivacy()">Privacy Policy</a>
+                    <input type="checkbox" id="createTermsAgree" required>
+                    <label for="createTermsAgree">
+                        I agree to the <a href="#" onclick="showTerms()">Terms & Conditions</a>, 
+                        <a href="#" onclick="showPrivacy()">Privacy Policy</a> and
+                        <a href="#" onclick="showWhatsAppTerms()">WhatsApp Group Terms</a>
                     </label>
                 </div>
 
+                <div class="whatsapp-note" style="margin: 20px 0;">
+                    <i class="fab fa-whatsapp"></i>
+                    <strong>Automatic WhatsApp Group Join:</strong> After creating account, you'll be automatically added to our exclusive WhatsApp group for updates and offers.
+                </div>
+
                 <div class="form-actions">
-                    <button type="submit" class="form-btn" id="signupBtn">
+                    <button type="submit" class="form-btn" id="createAccountBtn">
                         <i class="fas fa-user-plus"></i>
                         Create Account
                     </button>
@@ -1288,6 +1491,10 @@
                 <button class="account-tab active" onclick="switchTab('profile')">
                     <i class="fas fa-user"></i>
                     Profile
+                </button>
+                <button class="account-tab" onclick="switchTab('whatsapp')">
+                    <i class="fab fa-whatsapp"></i>
+                    WhatsApp
                 </button>
                 <button class="account-tab" onclick="switchTab('settings')">
                     <i class="fas fa-cog"></i>
@@ -1316,21 +1523,62 @@
                         <p id="totalOrders">0</p>
                     </div>
                     <div class="info-item">
+                        <h3><i class="fas fa-rupee-sign"></i> Total Spent</h3>
+                        <p id="totalSpent">₹0</p>
+                    </div>
+                    <div class="info-item">
                         <h3><i class="fas fa-heart"></i> Wishlist Items</h3>
                         <p id="wishlistCount">0</p>
                     </div>
-                    <div class="info-item">
-                        <button class="secondary-btn" onclick="goToShoppingWebsite()" style="width: auto;">
-                        <h3><i class="fas fa-heart"></i> shopping now</h3>
+                </div>
+
+                <div class="form-actions" style="margin-top: 40px;">
+                    <button class="secondary-btn" onclick="goToShoppingWebsite()" style="width: auto;">
+                        <i class="fas fa-shopping-bag"></i>
+                        Continue Shopping
+                    </button>
+                </div>
+            </div>
+
+            <!-- WhatsApp Section -->
+            <div class="account-info-section" id="whatsappSection">
+                <div class="whatsapp-card">
+                    <div class="whatsapp-icon">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                    <h2 class="whatsapp-title">Chandani Beauty Parlour WhatsApp Group</h2>
+                    <p class="whatsapp-description">
+                        You are a member of our exclusive WhatsApp group! Get instant updates about:
+                    </p>
+                    
+                    <div class="whatsapp-group-info">
+                        <h4><i class="fas fa-check-circle"></i> Group Benefits:</h4>
+                        <ul>
+                            <li><i class="fas fa-gift"></i> Exclusive offers and discounts</li>
+                            <li><i class="fas fa-bell"></i> New product announcements</li>
+                            <li><i class="fas fa-calendar-star"></i> Special event invitations</li>
+                            <li><i class="fas fa-tips"></i> Beauty tips and tutorials</li>
+                            <li><i class="fas fa-headset"></i> Priority customer support</li>
+                            <li><i class="fas fa-flash"></i> Flash sales and limited-time deals</li>
+                        </ul>
+                    </div>
+
+                    <div class="form-actions" style="margin-top: 30px;">
+                        <button class="whatsapp-btn" onclick="openWhatsAppGroup()" style="font-size: 1.2rem; padding: 15px 30px;">
+                            <i class="fab fa-whatsapp"></i>
+                            Open WhatsApp Group
+                        </button>
                     </div>
                 </div>
 
-               
+                <div class="whatsapp-note" style="margin-top: 20px;">
+                    <i class="fas fa-info-circle"></i>
+                    <strong>Note:</strong> Make sure you have WhatsApp installed on your device. If you're already in the group, clicking the button will open the existing group chat.
                 </div>
             </div>
 
             <!-- Settings Section -->
-            <div class="settings-section" id="settingsSection">
+            <div class="account-info-section" id="settingsSection">
                 <div class="setting-item">
                     <div class="setting-info">
                         <div class="setting-title">Dark Mode</div>
@@ -1345,11 +1593,14 @@
                 <div class="setting-item">
                     <div class="setting-info">
                         <div class="setting-title">Language</div>
-                        <div class="setting-desc"> language</div>
+                        <div class="setting-desc">Choose your preferred language</div>
                     </div>
                     <select class="language-select" id="languageSelect">
                         <option value="en">English</option>
-                       
+                        <option value="hi">हिंदी</option>
+                        <option value="mr">मराठी</option>
+                        <option value="gu">ગુજરાતી</option>
+                        <option value="bn">বাংলা</option>
                     </select>
                 </div>
 
@@ -1406,8 +1657,8 @@
                         <span>Mumbai, India</span>
                     </div>
                     <div class="contact-item">
-                        <i class="fas fa-clock"></i>
-                        <span>10:00 AM - 8:00 PM</span>
+                        <i class="fab fa-whatsapp"></i>
+                        <span>WhatsApp Group: Chandani Beauty</span>
                     </div>
                 </div>
             </div>
@@ -1425,13 +1676,43 @@
 
     <script>
         // Configuration
-        const FIREBASE_URL = "https://online-shopping-c3081-default-rtdb.firebaseio.com";
         const MAIN_WEBSITE_URL = "https://chandanibeautyparlar127.github.io/online/";
+        const WHATSAPP_GROUP_URL = "https://chat.whatsapp.com/FIg7oWBTKD192gzGpMsX7I";
         
         // Global variables
         let currentUser = null;
         let currentLanguage = 'en';
         let isDarkMode = true;
+
+        // Initialize local storage for users
+        function initializeUsersStorage() {
+            if (!localStorage.getItem('chandani_users')) {
+                // Create demo user
+                const demoUser = {
+                    id: 'demo_user_001',
+                    name: 'Demo User',
+                    phone: '9876543210',
+                    password: 'demo123',
+                    address: 'Mumbai, India',
+                    registrationDate: '2024-01-01',
+                    totalOrders: 0,
+                    totalSpent: 0,
+                    wishlist: [],
+                    cart: [],
+                    createdAt: new Date().toISOString(),
+                    lastLogin: new Date().toISOString(),
+                    status: 'active',
+                    isVerified: true,
+                    whatsappJoined: true,
+                    whatsappJoinDate: '2024-01-01'
+                };
+                
+                localStorage.setItem('chandani_users', JSON.stringify({
+                    '9876543210': demoUser
+                }));
+                console.log('Demo user created: Phone: 9876543210, Password: demo123');
+            }
+        }
 
         // Confetti Animation Function
         function createConfetti() {
@@ -1444,7 +1725,9 @@
                 '#FF1493', // Deep Pink
                 '#FFB6C1', // Light Pink
                 '#FFFFFF', // White
-                '#FF69B4'  // Pink
+                '#FF69B4', // Pink
+                '#25D366', // WhatsApp Green
+                '#128C7E'  // WhatsApp Dark Green
             ];
             
             // Create 150 confetti pieces
@@ -1488,14 +1771,92 @@
             }
         }
 
+        // Open WhatsApp Group
+        function openWhatsAppGroup() {
+            console.log('Opening WhatsApp group...');
+            window.open(WHATSAPP_GROUP_URL, '_blank');
+            
+            // Mark user as joined WhatsApp group
+            if (currentUser) {
+                const users = getAllUsers();
+                if (users[currentUser.phone]) {
+                    users[currentUser.phone].whatsappJoined = true;
+                    users[currentUser.phone].whatsappJoinDate = new Date().toISOString().split('T')[0];
+                    saveUsers(users);
+                    
+                    // Update current user
+                    currentUser.whatsappJoined = true;
+                    currentUser.whatsappJoinDate = users[currentUser.phone].whatsappJoinDate;
+                    localStorage.setItem('chandani_current_user', JSON.stringify(currentUser));
+                }
+            }
+            
+            showNotification('WhatsApp Group', 'Opening WhatsApp group...');
+        }
+
+        // Automatically join WhatsApp group on account creation
+        function autoJoinWhatsAppGroup(userPhone) {
+            console.log('Auto-joining WhatsApp group for:', userPhone);
+            
+            // Update user data
+            const users = getAllUsers();
+            if (users[userPhone]) {
+                users[userPhone].whatsappJoined = true;
+                users[userPhone].whatsappJoinDate = new Date().toISOString().split('T')[0];
+                saveUsers(users);
+                
+                // Update current user if logged in
+                if (currentUser && currentUser.phone === userPhone) {
+                    currentUser.whatsappJoined = true;
+                    currentUser.whatsappJoinDate = users[userPhone].whatsappJoinDate;
+                    localStorage.setItem('chandani_current_user', JSON.stringify(currentUser));
+                }
+            }
+            
+            // Open WhatsApp group in new tab after 2 seconds
+            setTimeout(() => {
+                window.open(WHATSAPP_GROUP_URL, '_blank');
+                showNotification('WhatsApp Group', 'You have been added to our WhatsApp group!');
+            }, 2000);
+        }
+
+        // Show error message
+        function showError(elementId, message) {
+            const errorElement = document.getElementById(elementId);
+            if (errorElement) {
+                errorElement.style.display = 'flex';
+                const spanElement = errorElement.querySelector('span');
+                if (spanElement) {
+                    spanElement.textContent = message;
+                }
+                console.log('Error:', message);
+            }
+        }
+
+        // Hide error message
+        function hideError(elementId) {
+            const errorElement = document.getElementById(elementId);
+            if (errorElement) {
+                errorElement.style.display = 'none';
+            }
+        }
+
+        // Validate phone number
+        function validatePhoneNumber(phone) {
+            const isValid = /^\d{10}$/.test(phone);
+            console.log('Phone validation:', phone, '=>', isValid);
+            return isValid;
+        }
+
         // Check if user is logged in
         function checkLoginStatus() {
-            const savedUser = localStorage.getItem('chandani_user');
+            const savedUser = localStorage.getItem('chandani_current_user');
             if (savedUser) {
                 try {
                     const user = JSON.parse(savedUser);
                     if (user && user.phone) {
                         currentUser = user;
+                        console.log('User already logged in:', user);
                         
                         // Update user section
                         updateUserSection();
@@ -1518,7 +1879,7 @@
             document.getElementById('userSection').style.display = 'none';
             document.getElementById('mainContent').style.display = 'flex';
             document.getElementById('loginContainer').style.display = 'none';
-            document.getElementById('signupContainer').style.display = 'none';
+            document.getElementById('createAccountContainer').style.display = 'none';
             document.getElementById('accountContainer').style.display = 'none';
             
             // Load settings for guest
@@ -1533,14 +1894,25 @@
                 const userAvatar = document.getElementById('userAvatar');
                 const userName = document.getElementById('userName');
                 const userPhone = document.getElementById('userPhone');
+                const whatsappHeaderBtn = document.getElementById('whatsappHeaderBtn');
                 
                 // Update header user info
-                userAvatar.textContent = currentUser.name ? currentUser.name.charAt(0).toUpperCase() : 'U';
-                userName.textContent = currentUser.name || 'User Name';
-                userPhone.textContent = currentUser.phone || '9876543210';
+                if (userAvatar) userAvatar.textContent = currentUser.name ? currentUser.name.charAt(0).toUpperCase() : 'U';
+                if (userName) userName.textContent = currentUser.name || 'User Name';
+                if (userPhone) userPhone.textContent = currentUser.phone || '9876543210';
+                
+                // Show WhatsApp button if user has joined
+                if (whatsappHeaderBtn) {
+                    if (currentUser.whatsappJoined) {
+                        whatsappHeaderBtn.style.display = 'flex';
+                    } else {
+                        whatsappHeaderBtn.style.display = 'none';
+                    }
+                }
                 
                 // Show user section
                 document.getElementById('userSection').style.display = 'flex';
+                console.log('User section updated');
             } else {
                 document.getElementById('userSection').style.display = 'none';
             }
@@ -1559,28 +1931,30 @@
                 const wishlistCount = document.getElementById('wishlistCount');
                 
                 // Update profile info
-                profileAvatar.textContent = currentUser.name ? currentUser.name.charAt(0).toUpperCase() : 'U';
-                profileName.textContent = currentUser.name || 'User Name';
-                profilePhone.textContent = `+91 ${currentUser.phone}` || '+91 9876543210';
-                profileAddress.textContent = currentUser.address || 'Mumbai, India';
+                if (profileAvatar) profileAvatar.textContent = currentUser.name ? currentUser.name.charAt(0).toUpperCase() : 'U';
+                if (profileName) profileName.textContent = currentUser.name || 'User Name';
+                if (profilePhone) profilePhone.textContent = `+91 ${currentUser.phone}` || '+91 9876543210';
+                if (profileAddress) profileAddress.textContent = currentUser.address || 'Mumbai, India';
                 
                 // Update other info
-                memberSince.textContent = currentUser.registrationDate || '2024-01-01';
-                totalOrders.textContent = currentUser.totalOrders || '0';
-                totalSpent.textContent = `₹${currentUser.totalSpent || '0'}`;
-                wishlistCount.textContent = currentUser.wishlist ? currentUser.wishlist.length : '0';
+                if (memberSince) memberSince.textContent = currentUser.registrationDate || '2024-01-01';
+                if (totalOrders) totalOrders.textContent = currentUser.totalOrders || '0';
+                if (totalSpent) totalSpent.textContent = `₹${currentUser.totalSpent || '0'}`;
+                if (wishlistCount) wishlistCount.textContent = currentUser.wishlist ? currentUser.wishlist.length : '0';
+                
+                console.log('Account page updated');
             }
         }
 
         // Logout function
         function logout() {
-            // Clear user data from localStorage
-            localStorage.removeItem('chandani_user');
-            localStorage.removeItem('chandani_user_id');
+            // Clear current user from localStorage
+            localStorage.removeItem('chandani_current_user');
             currentUser = null;
             
             // Show notification
             showNotification('Logged Out', 'You have been successfully logged out');
+            console.log('User logged out');
             
             // Refresh page to show main content
             setTimeout(() => {
@@ -1602,16 +1976,24 @@
         function showLogin() {
             document.getElementById('mainContent').style.display = 'none';
             document.getElementById('loginContainer').style.display = 'flex';
-            document.getElementById('signupContainer').style.display = 'none';
+            document.getElementById('createAccountContainer').style.display = 'none';
             document.getElementById('accountContainer').style.display = 'none';
+            
+            // Clear previous errors
+            hideError('loginPhoneError');
+            hideError('loginPasswordError');
         }
 
-        // Show signup form
-        function showSignup() {
+        // Show create account form
+        function showCreateAccount() {
             document.getElementById('mainContent').style.display = 'none';
             document.getElementById('loginContainer').style.display = 'none';
-            document.getElementById('signupContainer').style.display = 'flex';
+            document.getElementById('createAccountContainer').style.display = 'flex';
             document.getElementById('accountContainer').style.display = 'none';
+            
+            // Clear previous errors
+            hideError('createPhoneError');
+            hideError('createConfirmPasswordError');
         }
 
         // Show account page
@@ -1623,7 +2005,7 @@
             
             document.getElementById('mainContent').style.display = 'none';
             document.getElementById('loginContainer').style.display = 'none';
-            document.getElementById('signupContainer').style.display = 'none';
+            document.getElementById('createAccountContainer').style.display = 'none';
             document.getElementById('accountContainer').style.display = 'flex';
             
             // Update account page data
@@ -1641,10 +2023,17 @@
             if (tabName === 'profile') {
                 document.querySelectorAll('.account-tab')[0].classList.add('active');
                 document.getElementById('profileSection').classList.add('active');
+                document.getElementById('whatsappSection').classList.remove('active');
                 document.getElementById('settingsSection').classList.remove('active');
-            } else {
+            } else if (tabName === 'whatsapp') {
                 document.querySelectorAll('.account-tab')[1].classList.add('active');
                 document.getElementById('profileSection').classList.remove('active');
+                document.getElementById('whatsappSection').classList.add('active');
+                document.getElementById('settingsSection').classList.remove('active');
+            } else {
+                document.querySelectorAll('.account-tab')[2].classList.add('active');
+                document.getElementById('profileSection').classList.remove('active');
+                document.getElementById('whatsappSection').classList.remove('active');
                 document.getElementById('settingsSection').classList.add('active');
             }
         }
@@ -1654,21 +2043,26 @@
             // Load dark mode setting
             const savedDarkMode = localStorage.getItem('chandani_dark_mode');
             isDarkMode = savedDarkMode ? JSON.parse(savedDarkMode) : true;
-            document.getElementById('darkModeToggle').checked = isDarkMode;
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            if (darkModeToggle) darkModeToggle.checked = isDarkMode;
             applyTheme(isDarkMode);
             
             // Load language setting
             const savedLanguage = localStorage.getItem('chandani_language') || 'en';
             currentLanguage = savedLanguage;
-            document.getElementById('languageSelect').value = currentLanguage;
+            const languageSelect = document.getElementById('languageSelect');
+            if (languageSelect) languageSelect.value = currentLanguage;
             
             // Load notification settings
             const savedNotifications = localStorage.getItem('chandani_notifications');
             const savedEmailUpdates = localStorage.getItem('chandani_email_updates');
             
-            document.getElementById('notificationsToggle').checked = 
+            const notificationsToggle = document.getElementById('notificationsToggle');
+            const emailUpdatesToggle = document.getElementById('emailUpdatesToggle');
+            
+            if (notificationsToggle) notificationsToggle.checked = 
                 savedNotifications ? JSON.parse(savedNotifications) : true;
-            document.getElementById('emailUpdatesToggle').checked = 
+            if (emailUpdatesToggle) emailUpdatesToggle.checked = 
                 savedEmailUpdates ? JSON.parse(savedEmailUpdates) : true;
         }
 
@@ -1684,103 +2078,107 @@
         // Save settings to localStorage
         function saveSettings() {
             // Save dark mode
-            isDarkMode = document.getElementById('darkModeToggle').checked;
-            localStorage.setItem('chandani_dark_mode', JSON.stringify(isDarkMode));
-            applyTheme(isDarkMode);
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            if (darkModeToggle) {
+                isDarkMode = darkModeToggle.checked;
+                localStorage.setItem('chandani_dark_mode', JSON.stringify(isDarkMode));
+                applyTheme(isDarkMode);
+            }
             
             // Save language
-            currentLanguage = document.getElementById('languageSelect').value;
-            localStorage.setItem('chandani_language', currentLanguage);
+            const languageSelect = document.getElementById('languageSelect');
+            if (languageSelect) {
+                currentLanguage = languageSelect.value;
+                localStorage.setItem('chandani_language', currentLanguage);
+            }
             
             // Save other settings
-            localStorage.setItem('chandani_notifications', 
-                JSON.stringify(document.getElementById('notificationsToggle').checked));
-            localStorage.setItem('chandani_email_updates', 
-                JSON.stringify(document.getElementById('emailUpdatesToggle').checked));
+            const notificationsToggle = document.getElementById('notificationsToggle');
+            const emailUpdatesToggle = document.getElementById('emailUpdatesToggle');
+            
+            if (notificationsToggle) {
+                localStorage.setItem('chandani_notifications', 
+                    JSON.stringify(notificationsToggle.checked));
+            }
+            if (emailUpdatesToggle) {
+                localStorage.setItem('chandani_email_updates', 
+                    JSON.stringify(emailUpdatesToggle.checked));
+            }
             
             // Show success message
             showNotification('Settings Saved', 'Your preferences have been saved successfully');
         }
 
-        // Check if user exists in Firebase
-        async function checkUserInFirebase(phone) {
-            try {
-                console.log('Checking user in Firebase for phone:', phone);
-                
-                // Search by phone
-                const response = await fetch(`${FIREBASE_URL}/customers.json?orderBy="phone"&equalTo="${phone}"`);
-                
-                if (!response.ok) {
-                    throw new Error('Failed to check user');
-                }
-                
-                const data = await response.json();
-                console.log('Firebase response:', data);
-                
-                if (data && Object.keys(data).length > 0) {
-                    const userId = Object.keys(data)[0];
-                    return { exists: true, userData: data[userId], userId: userId };
-                }
-                
-                return { exists: false, userData: null, userId: null };
-            } catch (error) {
-                console.error('Error checking user:', error);
-                return { exists: false, userData: null, userId: null };
-            }
+        // Get all users from localStorage
+        function getAllUsers() {
+            const usersData = localStorage.getItem('chandani_users');
+            return usersData ? JSON.parse(usersData) : {};
         }
 
-        // Save customer data to Firebase
-        async function saveCustomerToFirebase(customerData) {
-            try {
-                // Generate unique ID
-                const timestamp = Date.now();
-                const random = Math.random().toString(36).substr(2, 9);
-                const customerId = `customer_${timestamp}_${random}`;
-                
-                console.log('Saving customer to Firebase:', customerData);
-                
-                // Save to Firebase Realtime Database
-                const response = await fetch(`${FIREBASE_URL}/customers/${customerId}.json`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        ...customerData,
-                        id: customerId,
-                        createdAt: new Date().toISOString(),
-                        lastLogin: new Date().toISOString(),
-                        status: 'active',
-                        isVerified: true
-                    })
-                });
-
-                if (response.ok) {
-                    console.log('Customer data saved to Firebase successfully');
-                    return customerId;
-                } else {
-                    const error = await response.text();
-                    console.error('Firebase error:', error);
-                    throw new Error('Failed to save customer data');
-                }
-            } catch (error) {
-                console.error('Error saving to Firebase:', error);
-                throw error;
-            }
+        // Save users to localStorage
+        function saveUsers(users) {
+            localStorage.setItem('chandani_users', JSON.stringify(users));
         }
 
-        // Update user last login time
-        async function updateLastLogin(userId) {
-            try {
-                await fetch(`${FIREBASE_URL}/customers/${userId}/lastLogin.json`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(new Date().toISOString())
-                });
-            } catch (error) {
-                console.error('Error updating last login:', error);
+        // Check if user exists
+        function checkUserExists(phone) {
+            const users = getAllUsers();
+            const userExists = users.hasOwnProperty(phone);
+            console.log('Check user exists:', phone, '=>', userExists);
+            return userExists;
+        }
+
+        // Get user by phone
+        function getUserByPhone(phone) {
+            const users = getAllUsers();
+            const user = users[phone];
+            console.log('Get user by phone:', phone, '=>', user ? 'Found' : 'Not found');
+            return user;
+        }
+
+        // Create new user
+        function createUser(userData) {
+            const users = getAllUsers();
+            const phone = userData.phone;
+            
+            // Check if user already exists
+            if (users[phone]) {
+                console.log('User already exists:', phone);
+                return false;
+            }
+            
+            // Create user ID
+            const userId = `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+            
+            // Prepare complete user data with WhatsApp join info
+            const completeUserData = {
+                ...userData,
+                id: userId,
+                createdAt: new Date().toISOString(),
+                lastLogin: new Date().toISOString(),
+                status: 'active',
+                isVerified: true,
+                whatsappJoined: true, // Automatically mark as joined
+                whatsappJoinDate: new Date().toISOString().split('T')[0]
+            };
+            
+            // Add user to users object
+            users[phone] = completeUserData;
+            
+            // Save users
+            saveUsers(users);
+            
+            console.log('User created successfully with WhatsApp join:', completeUserData);
+            return completeUserData;
+        }
+
+        // Update user last login
+        function updateUserLastLogin(phone) {
+            const users = getAllUsers();
+            if (users[phone]) {
+                users[phone].lastLogin = new Date().toISOString();
+                saveUsers(users);
+                console.log('Last login updated for:', phone);
             }
         }
 
@@ -1794,13 +2192,18 @@
             const phone = document.getElementById('loginPhone').value.trim();
             const password = document.getElementById('loginPassword').value;
             
+            // Clear previous errors
+            hideError('loginPhoneError');
+            hideError('loginPasswordError');
+            
+            // Basic validation
             if (!phone || !password) {
-                showNotification('Error', 'Please fill all fields');
+                showError('loginPhoneError', 'Please fill all fields');
                 return;
             }
             
-            if (!/^\d{10}$/.test(phone)) {
-                showNotification('Error', 'Please enter a valid 10-digit phone number');
+            if (!validatePhoneNumber(phone)) {
+                showError('loginPhoneError', 'Please enter a valid 10-digit phone number');
                 return;
             }
             
@@ -1809,21 +2212,28 @@
             loginBtn.disabled = true;
             
             try {
-                // Check user in Firebase
-                const userCheck = await checkUserInFirebase(phone);
+                console.log('Login attempt for phone:', phone);
                 
-                if (userCheck.exists) {
+                // Check if user exists
+                const user = getUserByPhone(phone);
+                
+                if (user) {
+                    console.log('User found, checking password...');
+                    
                     // Check password
-                    if (password === userCheck.userData.password) {
+                    if (password === user.password) {
+                        console.log('Password correct! Login successful');
+                        
                         // Update last login
-                        await updateLastLogin(userCheck.userId);
+                        updateUserLastLogin(phone);
                         
                         // Update user data
-                        currentUser = userCheck.userData;
+                        currentUser = user;
                         
-                        // Save user to localStorage
-                        localStorage.setItem('chandani_user', JSON.stringify(currentUser));
-                        localStorage.setItem('chandani_user_id', userCheck.userId);
+                        // Save current user to localStorage
+                        localStorage.setItem('chandani_current_user', JSON.stringify(currentUser));
+                        
+                        console.log('User saved to localStorage');
                         
                         // Update UI
                         updateUserSection();
@@ -1840,14 +2250,17 @@
                         }, 1000);
                         
                     } else {
-                        throw new Error('Invalid password');
+                        console.log('Password incorrect');
+                        showError('loginPasswordError', 'Invalid password. Please try again.');
                     }
                 } else {
-                    throw new Error('User not found. Please sign up first.');
+                    console.log('User not found');
+                    showError('loginPhoneError', 'User not found. Please create account first.');
                 }
                 
             } catch (error) {
-                showNotification('Error', error.message || 'Login failed');
+                console.log('Login error:', error.message);
+                showError('loginPhoneError', 'Login failed. Please try again.');
             } finally {
                 // Restore button
                 loginBtn.innerHTML = originalText;
@@ -1855,60 +2268,70 @@
             }
         });
 
-        // Handle signup form submission
-        document.getElementById('signupForm').addEventListener('submit', async function(e) {
+        // Handle create account form submission
+        document.getElementById('createAccountForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            const signupBtn = document.getElementById('signupBtn');
-            const originalText = signupBtn.innerHTML;
+            const createBtn = document.getElementById('createAccountBtn');
+            const originalText = createBtn.innerHTML;
             
-            const name = document.getElementById('signupName').value.trim();
-            const phone = document.getElementById('signupPhone').value.trim();
-            const password = document.getElementById('signupPassword').value;
-            const confirmPassword = document.getElementById('signupConfirmPassword').value;
-            const address = document.getElementById('signupAddress').value.trim();
-            const termsAgreed = document.getElementById('termsAgree').checked;
+            const name = document.getElementById('createName').value.trim();
+            const phone = document.getElementById('createPhone').value.trim();
+            const password = document.getElementById('createPassword').value;
+            const confirmPassword = document.getElementById('createConfirmPassword').value;
+            const address = document.getElementById('createAddress').value.trim();
+            const termsAgreed = document.getElementById('createTermsAgree').checked;
+            
+            // Clear previous errors
+            hideError('createPhoneError');
+            hideError('createConfirmPasswordError');
             
             // Validation
             if (!name || !phone || !password || !confirmPassword || !address) {
-                showNotification('Error', 'Please fill all required fields');
+                showError('createPhoneError', 'Please fill all required fields');
                 return;
             }
             
-            if (!/^\d{10}$/.test(phone)) {
-                showNotification('Error', 'Please enter a valid 10-digit phone number');
+            if (!validatePhoneNumber(phone)) {
+                showError('createPhoneError', 'Please enter a valid 10-digit phone number');
                 return;
             }
             
             if (password !== confirmPassword) {
-                showNotification('Error', 'Passwords do not match');
+                showError('createConfirmPasswordError', 'Passwords do not match');
                 return;
             }
             
             if (password.length < 6) {
-                showNotification('Error', 'Password must be at least 6 characters');
+                showError('createConfirmPasswordError', 'Password must be at least 6 characters');
                 return;
             }
             
             if (!termsAgreed) {
-                showNotification('Error', 'Please agree to the terms and conditions');
+                showError('createPhoneError', 'Please agree to the terms and conditions');
                 return;
             }
             
             // Show loading
-            signupBtn.innerHTML = '<span class="spinner"></span> Creating Account...';
-            signupBtn.disabled = true;
+            createBtn.innerHTML = '<span class="spinner"></span> Creating Account...';
+            createBtn.disabled = true;
             
             try {
-                // Check if user already exists
-                const userCheck = await checkUserInFirebase(phone);
+                console.log('Create account attempt for phone:', phone);
                 
-                if (userCheck.exists) {
-                    throw new Error('User with this phone number already exists');
+                // Check if user already exists
+                const userExists = checkUserExists(phone);
+                
+                if (userExists) {
+                    console.log('User already exists');
+                    showError('createPhoneError', 'This phone number is already registered. Please login instead.');
+                    return;
                 }
                 
-                // Prepare customer data
-                const customerData = {
+                console.log('Creating new user...');
+                
+                // Prepare user data
+                const userData = {
                     name: name,
                     phone: phone,
                     password: password,
@@ -1920,17 +2343,19 @@
                     cart: []
                 };
                 
-                // Save to Firebase
-                const customerId = await saveCustomerToFirebase(customerData);
+                // Create user
+                const createdUser = createUser(userData);
                 
-                if (customerId) {
-                    // Update user data
-                    currentUser = customerData;
-                    currentUser.id = customerId;
+                if (createdUser) {
+                    console.log('User created successfully');
                     
-                    // Save to localStorage
-                    localStorage.setItem('chandani_user', JSON.stringify(currentUser));
-                    localStorage.setItem('chandani_user_id', customerId);
+                    // Update user data
+                    currentUser = createdUser;
+                    
+                    // Save current user to localStorage
+                    localStorage.setItem('chandani_current_user', JSON.stringify(currentUser));
+                    
+                    console.log('User saved to localStorage');
                     
                     // Update UI
                     updateUserSection();
@@ -1941,20 +2366,25 @@
                     // Show success notification
                     showNotification('Success', 'Account created successfully! Welcome to Chandani Beauty Parlour.');
                     
-                    // Show account page after 1 second
+                    // Auto join WhatsApp group
+                    autoJoinWhatsAppGroup(phone);
+                    
+                    // Show account page after 3 seconds
                     setTimeout(() => {
                         showAccountPage();
-                    }, 1000);
+                        switchTab('whatsapp');
+                    }, 3000);
                     
                 } else {
                     throw new Error('Failed to create account');
                 }
                 
             } catch (error) {
-                showNotification('Error', error.message || 'Failed to create account. Please try again.');
+                console.log('Create account error:', error.message);
+                showError('createPhoneError', error.message || 'Failed to create account. Please try again.');
             } finally {
-                signupBtn.innerHTML = originalText;
-                signupBtn.disabled = false;
+                createBtn.innerHTML = originalText;
+                createBtn.disabled = false;
             }
         });
 
@@ -1968,42 +2398,78 @@
             showNotification('Privacy Policy', 'Your personal data is protected and will not be shared with third parties');
         }
 
+        // Show WhatsApp terms modal
+        function showWhatsAppTerms() {
+            showNotification('WhatsApp Group Terms', 'By joining our WhatsApp group, you agree to receive updates, offers, and beauty tips. You can leave the group anytime.');
+        }
+
         // Show notification
         function showNotification(title, message) {
-            document.getElementById('notificationTitle').textContent = title;
-            document.getElementById('notificationMessage').textContent = message;
+            const notificationTitle = document.getElementById('notificationTitle');
+            const notificationMessage = document.getElementById('notificationMessage');
             const notification = document.getElementById('notification');
-            notification.style.display = 'flex';
+            
+            if (notificationTitle) notificationTitle.textContent = title;
+            if (notificationMessage) notificationMessage.textContent = message;
+            if (notification) notification.style.display = 'flex';
+            
+            console.log(`Notification: ${title} - ${message}`);
             
             setTimeout(() => {
-                notification.style.display = 'none';
+                if (notification) notification.style.display = 'none';
             }, 3000);
         }
 
         // Phone number formatting
-        document.getElementById('signupPhone').addEventListener('input', function(e) {
+        document.getElementById('createPhone').addEventListener('input', function(e) {
             let value = e.target.value.replace(/\D/g, '');
             if (value.length > 10) value = value.substring(0, 10);
             e.target.value = value;
+            
+            // Clear error when typing
+            hideError('createPhoneError');
         });
 
         document.getElementById('loginPhone').addEventListener('input', function(e) {
             let value = e.target.value.replace(/\D/g, '');
             if (value.length > 10) value = value.substring(0, 10);
             e.target.value = value;
+            
+            // Clear error when typing
+            hideError('loginPhoneError');
         });
 
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('Page loaded - Initializing...');
+            
+            // Initialize users storage
+            initializeUsersStorage();
+            
             // Check login status
             const isLoggedIn = checkLoginStatus();
+            console.log('Login status check result:', isLoggedIn);
             
             // Add event listener for dark mode toggle
-            document.getElementById('darkModeToggle').addEventListener('change', function() {
-                isDarkMode = this.checked;
-                applyTheme(isDarkMode);
-                localStorage.setItem('chandani_dark_mode', JSON.stringify(isDarkMode));
-            });
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            if (darkModeToggle) {
+                darkModeToggle.addEventListener('change', function() {
+                    isDarkMode = this.checked;
+                    applyTheme(isDarkMode);
+                    localStorage.setItem('chandani_dark_mode', JSON.stringify(isDarkMode));
+                });
+            }
+            
+            // Add demo account auto-fill
+            setTimeout(() => {
+                const loginPhone = document.getElementById('loginPhone');
+                const loginPassword = document.getElementById('loginPassword');
+                if (loginPhone && loginPassword) {
+                    loginPhone.value = '9876543210';
+                    loginPassword.value = 'demo123';
+                    console.log('Demo account auto-filled');
+                }
+            }, 500);
         });
     </script>
 </body>
