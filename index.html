@@ -1491,7 +1491,7 @@
                     <div class="profile-avatar" id="profileAvatar">U</div>
                     <div class="profile-details">
                         <h2 class="profile-name" id="profileName">User Name</h2>
-                        <div class="profile-phone" id="profilePhone">+91 9876543210</div>
+                        <div class="profile-phone" id="profilePhone">+91 </div>
                         <div class="profile-address" id="profileAddress">[India{Nalanda(niyamatnagar more)</div>
                     </div>
                 </div>
@@ -1876,7 +1876,7 @@
                 // Update header user info
                 if (userAvatar) userAvatar.textContent = currentUser.name ? currentUser.name.charAt(0).toUpperCase() : 'U';
                 if (userName) userName.textContent = currentUser.name || 'User Name';
-                if (userPhone) userPhone.textContent = currentUser.phone || '9876543210';
+                if (userPhone) userPhone.textContent = currentUser.phone || '';
                 
                 // Show WhatsApp button if user has joined
                 if (whatsappHeaderBtn) {
@@ -1910,7 +1910,7 @@
                 // Update profile info
                 if (profileAvatar) profileAvatar.textContent = currentUser.name ? currentUser.name.charAt(0).toUpperCase() : 'U';
                 if (profileName) profileName.textContent = currentUser.name || 'User Name';
-                if (profilePhone) profilePhone.textContent = `+91 ${currentUser.phone}` || '+91 9876543210';
+                if (profilePhone) profilePhone.textContent = `+91 ${currentUser.phone}` || '+91 ';
                 if (profileAddress) profileAddress.textContent = currentUser.address || 'Mumbai, India';
                 
                 // Update other info
@@ -2442,8 +2442,8 @@
                 const loginPhone = document.getElementById('loginPhone');
                 const loginPassword = document.getElementById('loginPassword');
                 if (loginPhone && loginPassword) {
-                    loginPhone.value = '9876543210';
-                    loginPassword.value = 'demo123';
+                    loginPhone.value = '';
+                    loginPassword.value = '';
                     console.log('Demo account auto-filled');
                 }
             }, 500);
