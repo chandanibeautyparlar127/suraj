@@ -1667,9 +1667,9 @@
                 // Create demo user
                 const demoUser = {
                     id: 'demo_user_001',
-                    name: 'Demo User',
-                    phone: '9876543210',
-                    password: 'demo123',
+                    name: '',
+                    phone: '',
+                    password: '',
                     address: 'Mumbai, India',
                     registrationDate: '2024-01-01',
                     totalOrders: 0,
@@ -1685,9 +1685,9 @@
                 };
                 
                 localStorage.setItem('chandani_users', JSON.stringify({
-                    '9876543210': demoUser
+                    '': demoUser
                 }));
-                console.log('Demo user created: Phone: 9876543210, Password: demo123');
+                console.log('Demo user created: Phone: , Password: ');
             }
         }
 
