@@ -1,418 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>English Mastery | Premium Learning</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Grammar Master</title>
 <style>
-/* ================= PREMIUM DESIGN ================= */
-:root {
-  --bg-main: #070913; --bg-card: #101425; --bg-hover: #181e36; --bg-inner: #0a0d1a;
-  --purple: #8b5cf6; --purple-light: #a78bfa; --blue: #3b82f6;
-  --green: #10b981; --green-bg: rgba(16, 185, 129, 0.1);
-  --red: #ef4444; --red-bg: rgba(239, 68, 68, 0.1);
-  --yellow: #f59e0b; --text-main: #f8fafc; --text-muted: #94a3b8;
-  --border: rgba(255, 255, 255, 0.08); --border-glow: rgba(139, 92, 246, 0.3);
-  --font-main: "Outfit", sans-serif; --font-code: "Space Grotesk", monospace;
-  --ease: cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-  font-family: var(--font-main); background-color: var(--bg-main); color: var(--text-main);
-  min-height: 100vh; overflow-x: hidden; line-height: 1.6;
-  background-image: radial-gradient(circle at 15% 50%, rgba(139, 92, 246, 0.05), transparent 25%), radial-gradient(circle at 85% 30%, rgba(59, 130, 246, 0.05), transparent 25%);
-}
-button { font-family: inherit; cursor: pointer; border: none; outline: none; background: none; color: inherit; }
-::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: var(--bg-main); }
-::-webkit-scrollbar-thumb { background: var(--bg-hover); border-radius: 8px; }
-
-/* Screens */
-.screen { display: none; min-height: 100vh; }
-.screen.active { display: block; animation: fadeUp 0.5s var(--ease) forwards; }
-@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-/* Headers & Navigation */
-.nav-header { padding: 20px 24px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; background: rgba(7, 9, 19, 0.9); backdrop-filter: blur(10px); }
-.nav-brand { font-family: var(--font-code); font-size: 20px; font-weight: 800; background: linear-gradient(135deg, #a78bfa, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-.btn-back { padding: 10px 20px; border-radius: 12px; background: var(--bg-card); border: 1px solid var(--border); font-weight: 600; }
-.btn-back:hover { background: var(--bg-hover); border-color: var(--purple); }
-
-/* Home & Module Lists */
-.modules-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; max-width: 1000px; margin: 40px auto; padding: 0 24px; }
-.module-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; padding: 30px; cursor: pointer; transition: all 0.3s var(--ease); }
-.module-card:hover { transform: translateY(-5px); border-color: var(--border-glow); }
-.mc-icon { font-size: 32px; margin-bottom: 16px; }
-.mc-title { font-size: 20px; font-weight: 700; }
-.mc-desc { font-size: 14px; color: var(--text-muted); }
-
-.cards-container { max-width: 900px; margin: 0 auto; padding: 20px 24px; display: flex; flex-direction: column; gap: 16px; }
-.lesson-card-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 24px; display: flex; align-items: center; gap: 20px; cursor: pointer; transition: 0.2s; }
-.lesson-card-item:hover { background: var(--bg-hover); border-color: var(--purple-light); transform: translateX(5px); }
-.lci-num { width: 40px; height: 40px; border-radius: 12px; background: rgba(139, 92, 246, 0.15); color: var(--purple-light); display: grid; place-items: center; font-weight: 700; }
-.lci-title { font-size: 18px; font-weight: 600; }
-
-/* Lesson Content */
-.lesson-content { max-width: 900px; margin: 0 auto; padding: 20px 24px 100px; }
-.lesson-h1 { font-size: 32px; font-weight: 800; margin-bottom: 8px; }
-
-/* Verb Grid */
-.verb-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 12px; margin: 20px 0; }
-.verb-btn { padding: 16px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; text-align: center; font-weight: 700; font-size: 18px; color: var(--yellow); transition: 0.2s; }
-.verb-btn:hover { background: var(--bg-hover); border-color: var(--yellow); transform: translateY(-2px); }
-.verb-btn.active { background: var(--purple); color: white; border-color: var(--purple); }
-
-/* Detail Sections */
-.detail-section { display: none; margin-top: 24px; animation: fadeUp 0.3s; }
-.detail-section.active { display: block; }
-.ds-header { display: flex; justify-content: space-between; align-items: center; background: var(--bg-card); padding: 16px 24px; border-radius: 12px 12px 0 0; border: 1px solid var(--border); border-bottom: none; }
-.ds-title { font-size: 20px; font-weight: 700; color: var(--purple-light); }
-.play-game-btn { padding: 8px 20px; background: linear-gradient(135deg, var(--green), #059669); border-radius: 20px; font-weight: 700; font-size: 13px; display: flex; gap: 6px; }
-.examples-list { background: var(--bg-inner); border: 1px solid var(--border); border-radius: 0 0 12px 12px; padding: 20px; max-height: 500px; overflow-y: auto; }
-.example-item { background: var(--bg-card); padding: 16px; border-radius: 8px; margin-bottom: 12px; border-left: 3px solid var(--blue); }
-.ex-en { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
-.ex-hi { font-size: 14px; color: var(--text-muted); }
-
-/* Games */
-.game-container { background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-top: 20px; text-align: center; }
-.game-header { display: flex; justify-content: space-between; margin-bottom: 24px; font-size: 14px; color: var(--text-muted); font-family: var(--font-code); }
-.mcq-btn { display: block; width: 100%; padding: 16px; background: var(--bg-inner); border: 1.5px solid var(--border); border-radius: 12px; margin-bottom: 12px; text-align: left; font-size: 16px; transition: 0.2s; }
-.mcq-btn:hover:not(:disabled) { border-color: var(--purple); background: var(--bg-hover); }
-.mcq-btn.correct { background: var(--green-bg); border-color: var(--green); color: var(--green); }
-.mcq-btn.wrong { background: var(--red-bg); border-color: var(--red); color: var(--red); }
-
-.arrange-area { min-height: 80px; padding: 16px; background: var(--bg-inner); border: 1.5px dashed var(--border); border-radius: 12px; display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; justify-content: center;}
-.arrange-pool { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 24px; justify-content: center; }
-.chip { padding: 12px 20px; background: var(--bg-hover); border: 1px solid var(--border); border-radius: 10px; font-weight: 600; font-size: 16px; transition: 0.2s; }
-.chip:hover { border-color: var(--yellow); transform: translateY(-2px); }
-.chip.placed { background: rgba(139, 92, 246, 0.2); border-color: var(--purple); }
-.btn-primary { padding: 14px 40px; background: var(--purple); border-radius: 30px; font-weight: 700; color: white; }
-.btn-primary:disabled { opacity: 0.5; }
-.toast { position: fixed; top: 80px; left: 50%; transform: translate(-50%, -100px); padding: 16px 24px; border-radius: 12px; font-weight: 700; opacity: 0; transition: 0.3s; z-index: 200; }
-.toast.show { transform: translate(-50%, 0); opacity: 1; }
-.toast.success { background: var(--green); color: white; }
-.toast.error { background: var(--red); color: white; }
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI',sans-serif; }
+body { background:linear-gradient(135deg,#667eea,#764ba2); min-height:100vh; padding:20px; }
+#app { max-width:1000px; margin:0 auto; }
+header { display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; color:#fff; }
+header h1 { font-size:1.5rem; }
+#backBtn { padding:8px 16px; border:none; border-radius:8px; background:rgba(255,255,255,.2); color:#fff; cursor:pointer; display:none; font-size:.9rem; }
+#backBtn:hover { background:rgba(255,255,255,.35); }
+#breadcrumb { color:rgba(255,255,255,.85); margin-bottom:15px; font-size:.9rem; }
+#content { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:15px; }
+.card { background:#fff; border-radius:12px; padding:20px; cursor:pointer; transition:.2s; box-shadow:0 4px 15px rgba(0,0,0,.1); }
+.card:hover { transform:translateY(-5px); box-shadow:0 8px 25px rgba(0,0,0,.2); }
+.card-icon { font-size:2rem; margin-bottom:10px; }
+.card-title { font-weight:600; color:#333; }
+.card-sub { font-size:.85rem; color:#666; margin-top:6px; }
+.detail-view { background:#fff; border-radius:12px; padding:25px; color:#333; grid-column:1/-1; }
+.detail-view h2 { color:#667eea; margin-bottom:15px; }
+.section { margin-bottom:20px; padding-bottom:15px; border-bottom:1px solid #eee; }
+.section-title { font-weight:600; color:#764ba2; margin-bottom:10px; font-size:1.05rem; }
+.structure { background:#eef2ff; padding:10px 14px; border-radius:6px; margin:8px 0; font-family:monospace; color:#333; }
+.example { padding:8px 12px; margin:6px 0; background:#f9f9f9; border-left:3px solid #667eea; border-radius:4px; }
+.example .en { font-weight:500; color:#222; }
+.example .hi { color:#666; font-size:.9rem; display:block; margin-top:2px; }
+.practice-tabs { display:flex; gap:10px; margin:15px 0; flex-wrap:wrap; }
+.ptab { padding:8px 18px; border:2px solid #667eea; background:#fff; color:#667eea; border-radius:6px; cursor:pointer; font-weight:600; }
+.ptab.active { background:#667eea; color:#fff; }
+.question-box { background:#f5f7ff; padding:18px; border-radius:8px; margin-bottom:15px; }
+.question-box .q { font-size:1.1rem; margin-bottom:12px; color:#333; }
+.options { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.option { padding:12px; border:2px solid #ddd; border-radius:6px; cursor:pointer; text-align:center; transition:.2s; background:#fff; }
+.option:hover { border-color:#667eea; }
+.option.correct { background:#4caf50; color:#fff; border-color:#4caf50; }
+.option.wrong { background:#f44336; color:#fff; border-color:#f44336; }
+input[type="text"] { width:100%; padding:12px; border:2px solid #ddd; border-radius:6px; font-size:1rem; margin:10px 0; }
+.btn { padding:10px 22px; border:none; border-radius:6px; background:#667eea; color:#fff; cursor:pointer; font-weight:600; font-size:1rem; margin-right:8px; }
+.btn:hover { background:#5568d3; }
+.feedback { padding:12px; margin:10px 0; border-radius:6px; font-weight:600; }
+.feedback.correct { background:#e8f5e9; color:#2e7d32; }
+.feedback.wrong { background:#ffebee; color:#c62828; }
+.progress { color:#666; margin-bottom:10px; font-size:.9rem; font-weight:600; }
+.reveal { background:#fff3e0; padding:12px; border-radius:6px; margin:10px 0; color:#e65100; }
+@media(max-width:600px) { .options{grid-template-columns:1fr;} }
 </style>
 </head>
 <body>
-
-<!-- HOME -->
-<div class="screen active" id="screen-home">
-  <div class="nav-header"><div class="nav-brand">ENGLISH MASTERY</div></div>
-  <div class="modules-grid" id="homeModules"></div>
+<div id="app">
+  <header>
+    <h1>📚 English Grammar Master</h1>
+    <button id="backBtn" onclick="goBack()">← Back</button>
+  </header>
+  <div id="breadcrumb"></div>
+  <div id="content"></div>
 </div>
-
-<!-- MODULE CARDS -->
-<div class="screen" id="screen-module">
-  <div class="nav-header"><button class="btn-back" onclick="showScreen('screen-home')">← Back</button></div>
-  <div style="text-align: center; margin-top: 40px;">
-    <h1 id="modTitle" style="font-size: 36px; font-weight: 800;"></h1>
-    <p id="modDesc" style="color: var(--text-muted);"></p>
-  </div>
-  <div class="cards-container" id="moduleCards"></div>
-</div>
-
-<!-- LESSON VIEW (Verb Tobe, Modals, etc) -->
-<div class="screen" id="screen-lesson">
-  <div class="nav-header"><button class="btn-back" onclick="goBackToModule()">← Back</button></div>
-  <div class="lesson-content">
-    <h1 class="lesson-h1" id="lessonTitle"></h1>
-    <div id="verbGrid" class="verb-grid"></div>
-    <div id="detailContainer"></div>
-  </div>
-</div>
-
-<!-- GAME VIEW -->
-<div class="screen" id="screen-game">
-  <div class="nav-header"><button class="btn-back" onclick="goBackToLesson()">← Back</button></div>
-  <div class="lesson-content" id="gameBody"></div>
-</div>
-
-<div class="toast" id="toast">Correct!</div>
-
-<!-- Load Data Files -->
 <script src="module1.js"></script>
 <script src="module2.js"></script>
-
-<script>
-/* ================= SOUND ENGINE ================= */
-const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-function playSound(type) {
-  if (audioCtx.state === 'suspended') audioCtx.resume();
-  const osc = audioCtx.createOscillator(); const gain = audioCtx.createGain();
-  osc.connect(gain); gain.connect(audioCtx.destination);
-  if (type === 'click') { osc.frequency.setValueAtTime(400, audioCtx.currentTime); gain.gain.setValueAtTime(0.1, audioCtx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1); osc.start(); osc.stop(audioCtx.currentTime + 0.1); }
-  else if (type === 'correct') { osc.frequency.setValueAtTime(500, audioCtx.currentTime); osc.frequency.setValueAtTime(1000, audioCtx.currentTime + 0.1); gain.gain.setValueAtTime(0.1, audioCtx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4); osc.start(); osc.stop(audioCtx.currentTime + 0.4); }
-  else if (type === 'wrong') { osc.frequency.setValueAtTime(300, audioCtx.currentTime); osc.frequency.exponentialRampToValueAtTime(150, audioCtx.currentTime + 0.3); gain.gain.setValueAtTime(0.1, audioCtx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3); osc.start(); osc.stop(audioCtx.currentTime + 0.3); }
-}
-
-/* ================= GLOBAL VARIABLES ================= */
-let allModules = [];
-if (typeof MODULE1_BEVERBS !== 'undefined') allModules.push({ id: 'mod1', title: 'Module 1', desc: 'Grammar & Verbs', icon: '📗', cards: [MODULE1_BEVERBS, ... (typeof MODULE1_VERBS !== 'undefined' ? [MODULE1_VERBS] : [])] });
-if (typeof module2Data !== 'undefined') allModules.push(module2Data);
-
-let currentModule = null;
-let currentCard = null;
-let currentVerbObj = null;
-let gameData = [];
-let gameIndex = 0;
-let gameType = 'arrange'; // 'arrange' or 'mcq'
-let selectedWords = [];
-
-/* ================= NAVIGATION ================= */
-function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  window.scrollTo(0,0);
-}
-
-function renderHome() {
-  document.getElementById("homeModules").innerHTML = allModules.map(mod => `
-    <div class="module-card" onclick="openModule('${mod.id}')">
-      <div class="mc-icon">${mod.icon}</div>
-      <div class="mc-title">${mod.title}</div>
-      <div class="mc-desc">${mod.desc}</div>
-    </div>
-  `).join("");
-}
-renderHome();
-
-function openModule(modId) {
-  playSound('click');
-  currentModule = allModules.find(m => m.id === modId);
-  document.getElementById("modTitle").innerText = currentModule.title;
-  document.getElementById("modDesc").innerText = currentModule.desc;
-  document.getElementById("moduleCards").innerHTML = currentModule.cards.map((card, idx) => `
-    <div class="lesson-card-item" onclick="openLesson('${card.id}')">
-      <div class="lci-num">${idx + 1}</div>
-      <div class="lci-title">${card.title}</div>
-    </div>
-  `).join("");
-  showScreen("screen-module");
-}
-
-function goBackToModule() { playSound('click'); showScreen("screen-module"); }
-function goBackToLesson() { playSound('click'); showScreen("screen-lesson"); }
-
-/* ================= LESSON LOGIC ================= */
-function openLesson(cardId) {
-  playSound('click');
-  currentCard = currentModule.cards.find(c => c.id === cardId);
-  document.getElementById("lessonTitle").innerText = currentCard.title;
-  
-  // Clear old data
-  document.getElementById("verbGrid").innerHTML = "";
-  document.getElementById("detailContainer").innerHTML = "";
-
-  // If it's a Be Verbs type (interactive)
-  if (currentCard.type === 'beverbs') {
-    document.getElementById("verbGrid").innerHTML = currentCard.verbs.map((v, i) => `
-      <div class="verb-btn" onclick="selectVerb(${i}, this)">${v.word}</div>
-    `).join("");
-    showScreen("screen-lesson");
-  } 
-  // If it's a normal teach type (Modals)
-  else if (currentCard.type === 'teach') {
-    let html = `<div class="game-container" style="text-align:left;">
-      <h2 style="color:var(--purple-light); margin-bottom:12px;">${currentCard.content[0].title}</h2>
-      <p>${currentCard.content[0].text}</p>
-      <div style="margin-top:16px; padding:16px; background:var(--bg-inner); border-radius:8px; font-family:var(--font-code); color:var(--yellow);">
-        ${currentCard.content[0].formula}
-      </div>
-    </div>`;
-    document.getElementById("detailContainer").innerHTML = html;
-    showScreen("screen-lesson");
-  }
-}
-
-function selectVerb(index, btn) {
-  playSound('click');
-  document.querySelectorAll('.verb-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  
-  currentVerbObj = currentCard.verbs[index];
-  
-  let html = `
-    <div class="detail-section active">
-      <div class="ds-header">
-        <div class="ds-title">${currentVerbObj.word} = ${currentVerbObj.hi} <span style="font-size:12px; color:var(--text-muted); font-weight:normal;">(${currentVerbObj.usage})</span></div>
-      </div>
-      <div class="examples-list">
-  `;
-
-  // Render Simple, Negative, Wh
-  const types = [
-    { key: 'simple', label: 'Simple Sentences', color: 'var(--green)' },
-    { key: 'negative', label: 'Negative Sentences', color: 'var(--red)' },
-    { key: 'wh', label: 'WH Questions', color: 'var(--blue)' }
-  ];
-
-  types.forEach(t => {
-    if (currentVerbObj.examples[t.key]) {
-      html += `<div style="display:flex; justify-content:space-between; align-items:center; margin: 20px 0 10px 0;">
-        <h3 style="color:${t.color}; font-size:16px;">${t.label}</h3>
-        <button class="play-game-btn" onclick="startGame('${t.key}')">🎮 Practice</button>
-      </div>`;
-      
-      currentVerbObj.examples[t.key].forEach(ex => {
-        html += `<div class="example-item"><div class="ex-en">${ex.en}</div><div class="ex-hi">${ex.hi}</div></div>`;
-      });
-    }
-  });
-
-  html += `</div></div>`;
-  document.getElementById("detailContainer").innerHTML = html;
-}
-
-/* ================= DYNAMIC GAME ENGINE ================= */
-function startGame(exampleType) {
-  playSound('click');
-  const examples = currentVerbObj.examples[exampleType];
-  if (!examples || examples.length === 0) return alert("No data for practice!");
-
-  // Pick 5 random questions from the selected category
-  gameData = [...examples].sort(() => 0.5 - Math.random()).slice(0, 5);
-  gameIndex = 0;
-  
-  // Mix of Arrange and MCQ games
-  gameType = Math.random() > 0.5 ? 'arrange' : 'mcq';
-  
-  showScreen("screen-game");
-  renderGame();
-}
-
-function renderGame() {
-  const container = document.getElementById("gameBody");
-  
-  if (gameIndex >= gameData.length) {
-    container.innerHTML = `<div class="game-container">
-      <h2 style="color:var(--green); font-size:30px;">🎉 Practice Complete!</h2>
-      <p style="margin-bottom:20px;">You mastered these sentences.</p>
-      <button class="btn-primary" onclick="goBackToLesson()">Back to Lesson</button>
-    </div>`;
-    playSound('correct');
-    return;
-  }
-
-  const currentQ = gameData[gameIndex];
-  selectedWords = [];
-
-  if (gameType === 'mcq') {
-    // Generate MCQ (What is the Hindi meaning?)
-    // Get 3 wrong options from other questions
-    let wrongOptions = currentVerbObj.examples.simple
-        .filter(ex => ex.hi !== currentQ.hi)
-        .sort(() => 0.5 - Math.random()).slice(0, 3).map(ex => ex.hi);
-    
-    // If not enough wrong options, pull from negative/wh
-    if (wrongOptions.length < 3) {
-       wrongOptions = ["गलत विकल्प 1", "गलत विकल्प 2", "गलत विकल्प 3"];
-    }
-
-    let options = [currentQ.hi, ...wrongOptions].sort(() => 0.5 - Math.random());
-    let correctIdx = options.indexOf(currentQ.hi);
-
-    container.innerHTML = `
-      <div class="game-container">
-        <div class="game-header"><span>Question ${gameIndex+1} of 5</span><span>Translation</span></div>
-        <h2 style="font-size:24px; margin-bottom:24px;">${currentQ.en}</h2>
-        <div id="mcqOptions">
-          ${options.map((opt, i) => `
-            <button class="mcq-btn" onclick="checkMCQ(${i}, ${correctIdx}, this)">${opt}</button>
-          `).join("")}
-        </div>
-      </div>
-    `;
-  } 
-  else {
-    // Arrange Words Game
-    const words = currentQ.words || currentQ.en.split(" ");
-    const shuffled = [...words].sort(() => 0.5 - Math.random());
-
-    container.innerHTML = `
-      <div class="game-container">
-        <div class="game-header"><span>Question ${gameIndex+1} of 5</span><span>Arrange Words</span></div>
-        <h2 style="font-size:18px; color:var(--text-muted); margin-bottom:24px;">Translate: ${currentQ.hi}</h2>
-        
-        <div class="arrange-area" id="arrangeArea"></div>
-        <div class="arrange-pool" id="arrangePool">
-          ${shuffled.map((w, i) => `<div class="chip" id="chip-${i}" onclick="selectWord('${w.replace(/'/g, "\\'")}', ${i})">${w}</div>`).join("")}
-        </div>
-
-        <button class="btn-primary" id="checkBtn" onclick="checkArrange('${currentQ.en.replace(/'/g, "\\'")}')" disabled>Check</button>
-      </div>
-    `;
-  }
-}
-
-function checkMCQ(selected, correct, btn) {
-  const btns = document.querySelectorAll(".mcq-btn");
-  btns.forEach(b => b.disabled = true);
-  
-  if (selected === correct) {
-    btn.classList.add("correct");
-    playSound('correct');
-    showToast("Correct!", true);
-    setTimeout(() => { gameIndex++; renderGame(); }, 1500);
-  } else {
-    btn.classList.add("wrong");
-    btns[correct].classList.add("correct");
-    playSound('wrong');
-    showToast("Wrong!", false);
-    setTimeout(() => { gameIndex++; renderGame(); }, 2500);
-  }
-}
-
-function selectWord(word, id) {
-  playSound('click');
-  selectedWords.push({ word, id });
-  document.getElementById(`chip-${id}`).style.display = 'none';
-  document.getElementById("arrangeArea").innerHTML = selectedWords.map((item, i) => `<div class="chip placed" onclick="removeWord(${i})">${item.word}</div>`).join("");
-  document.getElementById("checkBtn").disabled = selectedWords.length === 0;
-}
-
-function removeWord(index) {
-  playSound('click');
-  const removed = selectedWords.splice(index, 1)[0];
-  document.getElementById(`chip-${removed.id}`).style.display = '';
-  document.getElementById("arrangeArea").innerHTML = selectedWords.map((item, i) => `<div class="chip placed" onclick="removeWord(${i})">${item.word}</div>`).join("");
-  document.getElementById("checkBtn").disabled = selectedWords.length === 0;
-}
-
-function checkArrange(correctSentence) {
-  const userSentence = selectedWords.map(w => w.word).join(" ").replace(/[.,?]/g, '');
-  const target = correctSentence.replace(/[.,?]/g, '');
-
-  if (userSentence.toLowerCase() === target.toLowerCase()) {
-    playSound('correct');
-    showToast("Perfect!", true);
-    setTimeout(() => { gameIndex++; renderGame(); }, 1500);
-  } else {
-    playSound('wrong');
-    showToast("Try Again!", false);
-    // Reset after 1 sec
-    setTimeout(() => { 
-      selectedWords = []; 
-      document.querySelectorAll('.arrange-pool .chip').forEach(c => c.style.display = '');
-      document.getElementById("arrangeArea").innerHTML = "";
-      document.getElementById("checkBtn").disabled = true;
-    }, 1000);
-  }
-}
-
-/* Toast */
-let toastTimer;
-function showToast(msg, isSuccess) {
-  const toast = document.getElementById("toast");
-  toast.className = `toast show ${isSuccess ? 'success' : 'error'}`;
-  toast.innerText = msg;
-  clearTimeout(toastTimer); toastTimer = setTimeout(() => toast.classList.remove('show'), 2000);
-}
-</script>
+<script src="practice.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
