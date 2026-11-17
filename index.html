@@ -3,63 +3,752 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>English Grammar Master</title>
+<title>🎮 English Grammar Quest</title>
 <style>
-* { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI',sans-serif; }
-body { background:linear-gradient(135deg,#667eea,#764ba2); min-height:100vh; padding:20px; }
-#app { max-width:1000px; margin:0 auto; }
-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; color:#fff; }
-header h1 { font-size:1.5rem; }
-#backBtn { padding:8px 16px; border:none; border-radius:8px; background:rgba(255,255,255,.2); color:#fff; cursor:pointer; display:none; font-size:.9rem; }
-#backBtn:hover { background:rgba(255,255,255,.35); }
-#breadcrumb { color:rgba(255,255,255,.85); margin-bottom:15px; font-size:.9rem; }
-#content { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:15px; }
-.card { background:#fff; border-radius:12px; padding:20px; cursor:pointer; transition:.2s; box-shadow:0 4px 15px rgba(0,0,0,.1); }
-.card:hover { transform:translateY(-5px); box-shadow:0 8px 25px rgba(0,0,0,.2); }
-.card-icon { font-size:2rem; margin-bottom:10px; }
-.card-title { font-weight:600; color:#333; }
-.card-sub { font-size:.85rem; color:#666; margin-top:6px; }
-.detail-view { background:#fff; border-radius:12px; padding:25px; color:#333; grid-column:1/-1; }
-.detail-view h2 { color:#667eea; margin-bottom:15px; }
-.section { margin-bottom:20px; padding-bottom:15px; border-bottom:1px solid #eee; }
-.section-title { font-weight:600; color:#764ba2; margin-bottom:10px; font-size:1.05rem; }
-.structure { background:#eef2ff; padding:10px 14px; border-radius:6px; margin:8px 0; font-family:monospace; color:#333; }
-.example { padding:8px 12px; margin:6px 0; background:#f9f9f9; border-left:3px solid #667eea; border-radius:4px; }
-.example .en { font-weight:500; color:#222; }
-.example .hi { color:#666; font-size:.9rem; display:block; margin-top:2px; }
-.practice-tabs { display:flex; gap:10px; margin:15px 0; flex-wrap:wrap; }
-.ptab { padding:8px 18px; border:2px solid #667eea; background:#fff; color:#667eea; border-radius:6px; cursor:pointer; font-weight:600; }
-.ptab.active { background:#667eea; color:#fff; }
-.question-box { background:#f5f7ff; padding:18px; border-radius:8px; margin-bottom:15px; }
-.question-box .q { font-size:1.1rem; margin-bottom:12px; color:#333; }
-.options { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-.option { padding:12px; border:2px solid #ddd; border-radius:6px; cursor:pointer; text-align:center; transition:.2s; background:#fff; }
-.option:hover { border-color:#667eea; }
-.option.correct { background:#4caf50; color:#fff; border-color:#4caf50; }
-.option.wrong { background:#f44336; color:#fff; border-color:#f44336; }
-input[type="text"] { width:100%; padding:12px; border:2px solid #ddd; border-radius:6px; font-size:1rem; margin:10px 0; }
-.btn { padding:10px 22px; border:none; border-radius:6px; background:#667eea; color:#fff; cursor:pointer; font-weight:600; font-size:1rem; margin-right:8px; }
-.btn:hover { background:#5568d3; }
-.feedback { padding:12px; margin:10px 0; border-radius:6px; font-weight:600; }
-.feedback.correct { background:#e8f5e9; color:#2e7d32; }
-.feedback.wrong { background:#ffebee; color:#c62828; }
-.progress { color:#666; margin-bottom:10px; font-size:.9rem; font-weight:600; }
-.reveal { background:#fff3e0; padding:12px; border-radius:6px; margin:10px 0; color:#e65100; }
-@media(max-width:600px) { .options{grid-template-columns:1fr;} }
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',system-ui,sans-serif;-webkit-tap-highlight-color:transparent;}
+body{background:linear-gradient(135deg,#667eea 0%,#764ba2 50%,#f093fb 100%);background-attachment:fixed;min-height:100vh;padding:14px;overflow-x:hidden;}
+#app{max-width:1000px;margin:0 auto;position:relative;z-index:1;}
+
+/* ========= TOP HUD (Game Bar) ========= */
+.hud{display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.95);padding:12px 18px;border-radius:16px;margin-bottom:14px;box-shadow:0 8px 32px rgba(0,0,0,.2);backdrop-filter:blur(10px);gap:10px;flex-wrap:wrap;}
+.hud-brand{font-size:1.15rem;font-weight:800;color:#667eea;display:flex;align-items:center;gap:8px;}
+.hud-stats{display:flex;gap:14px;align-items:center;}
+.stat{display:flex;align-items:center;gap:6px;background:linear-gradient(135deg,#f0f4ff,#e6ecff);padding:6px 12px;border-radius:20px;font-weight:700;color:#4a5568;font-size:.9rem;transition:.3s;}
+.stat.bump{transform:scale(1.15);background:linear-gradient(135deg,#fff3cd,#ffe08a);}
+.stat .icon{font-size:1.1rem;}
+#backBtn{padding:8px 16px;border:none;border-radius:10px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;cursor:pointer;font-size:.9rem;font-weight:700;display:none;box-shadow:0 4px 12px rgba(102,126,234,.4);transition:.2s;}
+#backBtn:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(102,126,234,.6);}
+
+#breadcrumb{color:#fff;margin-bottom:14px;font-size:.92rem;font-weight:600;text-shadow:0 2px 4px rgba(0,0,0,.2);padding:8px 14px;background:rgba(255,255,255,.15);border-radius:10px;backdrop-filter:blur(6px);display:inline-block;}
+
+#content{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px;}
+
+/* ========= CARDS ========= */
+.card{background:#fff;border-radius:20px;padding:24px 20px;cursor:pointer;transition:all .3s cubic-bezier(.4,0,.2,1);box-shadow:0 6px 20px rgba(0,0,0,.15);position:relative;overflow:hidden;border-top:5px solid #667eea;}
+.card::before{content:'';position:absolute;top:0;right:0;width:100px;height:100px;background:radial-gradient(circle at top right,rgba(102,126,234,.15),transparent 70%);pointer-events:none;}
+.card:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 14px 32px rgba(0,0,0,.25);}
+.card:active{transform:translateY(-2px) scale(.99);}
+.card.icon-green{border-top-color:#4CAF50;}
+.card.icon-orange{border-top-color:#FF9800;}
+.card.icon-pink{border-top-color:#E91E63;}
+.card.icon-purple{border-top-color:#9C27B0;}
+.card-icon{font-size:2.4rem;margin-bottom:12px;display:inline-block;}
+.card-title{font-weight:800;color:#2d3748;font-size:1.1rem;margin-bottom:4px;}
+.card-sub{font-size:.85rem;color:#718096;font-weight:500;}
+.card.disabled{opacity:.75;cursor:not-allowed;}
+.card.disabled:hover{transform:none;box-shadow:0 6px 20px rgba(0,0,0,.1);}
+.badge{position:absolute;top:12px;right:12px;background:linear-gradient(135deg,#FF9800,#FF5722);color:#fff;font-size:.65rem;padding:4px 10px;border-radius:12px;font-weight:800;letter-spacing:.5px;box-shadow:0 2px 8px rgba(255,87,34,.4);animation:pulseBadge 2s infinite;}
+@keyframes pulseBadge{0%,100%{transform:scale(1);}50%{transform:scale(1.08);}}
+
+/* ========= DETAIL VIEW ========= */
+.detail-view{background:#fff;border-radius:20px;padding:26px;color:#2d3748;grid-column:1/-1;box-shadow:0 10px 40px rgba(0,0,0,.2);animation:slideIn .4s;}
+@keyframes slideIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+.detail-view h2{color:#667eea;margin-bottom:18px;font-size:1.5rem;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.detail-view h2 .meaning-pill{background:linear-gradient(135deg,#eef2ff,#e0e7ff);padding:6px 14px;border-radius:20px;font-size:.95rem;color:#4c51bf;font-weight:700;}
+
+.section{margin-bottom:22px;padding-bottom:18px;border-bottom:2px dashed #e2e8f0;}
+.section:last-of-type{border-bottom:none;padding-bottom:0;}
+.section-title{font-weight:800;color:#764ba2;margin-bottom:12px;font-size:1.02rem;display:flex;align-items:center;gap:8px;letter-spacing:.3px;}
+
+.structure{background:linear-gradient(90deg,#eef2ff,#f5f3ff);padding:12px 16px;border-radius:10px;margin:8px 0;font-family:'Courier New',monospace;color:#4a5568;font-size:.92rem;border-left:4px solid #667eea;font-weight:600;}
+.structure b{color:#667eea;}
+
+.example{padding:10px 14px;margin:8px 0;background:#f7fafc;border-left:4px solid #667eea;border-radius:8px;transition:.2s;}
+.example:hover{background:#edf2f7;transform:translateX(4px);}
+.example .en{font-weight:600;color:#1a202c;font-size:.95rem;display:block;}
+.example .hi{color:#718096;font-size:.88rem;display:block;margin-top:3px;}
+
+/* ========= PRACTICE TABS (game buttons) ========= */
+.practice-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0 14px;}
+.ptab{padding:14px 10px;border:none;border-radius:14px;background:#f7fafc;color:#4a5568;cursor:pointer;font-weight:800;font-size:.9rem;transition:all .25s;display:flex;flex-direction:column;align-items:center;gap:4px;border:3px solid transparent;}
+.ptab .em{font-size:1.4rem;}
+.ptab:hover{transform:translateY(-3px);background:#edf2f7;}
+.ptab.active{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border-color:#5a4ba8;box-shadow:0 8px 20px rgba(102,126,234,.4);transform:translateY(-3px);}
+
+/* ========= QUESTION BOX ========= */
+.game-arena{background:linear-gradient(135deg,#f8f9ff,#f0f4ff);padding:22px;border-radius:18px;border:2px solid #e0e7ff;margin-top:10px;}
+.game-progress{display:flex;justify-content:space-between;font-size:.85rem;font-weight:700;color:#4a5568;margin-bottom:10px;}
+.progress-bar{height:12px;background:#e2e8f0;border-radius:8px;overflow:hidden;margin-bottom:18px;box-shadow:inset 0 2px 4px rgba(0,0,0,.05);}
+.progress-fill{height:100%;background:linear-gradient(90deg,#4CAF50,#8BC34A);border-radius:8px;transition:width .5s cubic-bezier(.4,0,.2,1);box-shadow:0 0 12px rgba(76,175,80,.5);}
+
+.q-text{font-size:1.1rem;margin-bottom:16px;color:#2d3748;font-weight:600;line-height:1.6;padding:14px;background:#fff;border-radius:12px;border-left:5px solid #667eea;}
+.options{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.option{padding:16px 14px;border:3px solid #e2e8f0;border-radius:14px;cursor:pointer;text-align:center;transition:all .2s;background:#fff;font-weight:700;font-size:1rem;color:#4a5568;position:relative;overflow:hidden;}
+.option:hover{border-color:#667eea;transform:translateY(-2px);box-shadow:0 6px 16px rgba(102,126,234,.2);}
+.option.correct{background:linear-gradient(135deg,#4CAF50,#66BB6A);color:#fff;border-color:#4CAF50;animation:correctPulse .5s;}
+.option.wrong{background:linear-gradient(135deg,#F44336,#EF5350);color:#fff;border-color:#F44336;animation:shake .4s;}
+@keyframes correctPulse{0%{transform:scale(1);}50%{transform:scale(1.05);}100%{transform:scale(1);}}
+@keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-8px);}75%{transform:translateX(8px);}}
+
+input[type="text"]{width:100%;padding:16px;border:3px solid #e2e8f0;border-radius:14px;font-size:1.05rem;margin:12px 0;outline:none;font-weight:500;transition:.2s;}
+input[type="text"]:focus{border-color:#667eea;box-shadow:0 0 0 4px rgba(102,126,234,.15);}
+
+.btn{padding:14px 28px;border:none;border-radius:12px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;cursor:pointer;font-weight:800;font-size:1rem;margin-right:8px;margin-top:8px;box-shadow:0 4px 14px rgba(102,126,234,.4);transition:.2s;}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(102,126,234,.55);}
+.btn:active{transform:translateY(0);}
+.btn.green{background:linear-gradient(135deg,#4CAF50,#66BB6A);box-shadow:0 4px 14px rgba(76,175,80,.4);}
+
+.feedback{padding:16px;margin:14px 0;border-radius:14px;font-weight:700;font-size:1rem;animation:slideIn .3s;}
+.feedback.correct{background:linear-gradient(135deg,#e8f5e9,#c8e6c9);color:#1b5e20;border-left:5px solid #4CAF50;}
+.feedback.wrong{background:linear-gradient(135deg,#ffebee,#ffcdd2);color:#b71c1c;border-left:5px solid #F44336;}
+.reveal{background:linear-gradient(135deg,#fff3e0,#ffe0b2);padding:14px;border-radius:12px;margin:10px 0;color:#e65100;border-left:5px solid #FF9800;font-weight:700;}
+
+/* ========= WIN SCREEN ========= */
+.win-screen{background:linear-gradient(135deg,#fff,#f0f8ff);padding:40px 24px;border-radius:20px;text-align:center;animation:slideIn .5s;}
+.win-screen .trophy{font-size:5rem;animation:trophyBounce 1s infinite;display:inline-block;}
+@keyframes trophyBounce{0%,100%{transform:translateY(0) rotate(-5deg);}50%{transform:translateY(-15px) rotate(5deg);}}
+.win-screen h3{color:#667eea;font-size:1.6rem;margin:14px 0;}
+.win-screen .score-big{font-size:2.8rem;font-weight:900;color:#4CAF50;margin:10px 0;}
+.win-screen .stars{font-size:2.2rem;margin:12px 0;letter-spacing:8px;}
+
+/* ========= COMING SOON ========= */
+.coming-soon{background:#fff;border-radius:20px;padding:70px 25px;text-align:center;grid-column:1/-1;box-shadow:0 10px 40px rgba(0,0,0,.2);}
+.coming-soon .icon{font-size:5rem;margin-bottom:20px;display:inline-block;animation:trophyBounce 2s infinite;}
+.coming-soon h2{color:#667eea;margin-bottom:10px;font-size:1.5rem;}
+.coming-soon p{color:#718096;font-size:1rem;max-width:400px;margin:0 auto;line-height:1.6;}
+
+/* ========= CONFETTI ========= */
+#confetti{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;}
+
+/* ========= FLOATING SCORE POPUP ========= */
+.score-pop{position:fixed;font-size:1.5rem;font-weight:900;color:#4CAF50;pointer-events:none;z-index:10000;animation:scoreFloat 1.2s forwards;text-shadow:0 2px 8px rgba(0,0,0,.3);}
+@keyframes scoreFloat{0%{opacity:0;transform:translateY(0) scale(.5);}20%{opacity:1;transform:translateY(-20px) scale(1.2);}100%{opacity:0;transform:translateY(-100px) scale(.8);}}
+
+@media(max-width:600px){
+  .options{grid-template-columns:1fr;}
+  .practice-tabs{grid-template-columns:1fr 1fr 1fr;gap:6px;}
+  .ptab{padding:10px 6px;font-size:.75rem;}
+  .ptab .em{font-size:1.15rem;}
+  .hud{padding:10px 12px;}
+  .hud-brand{font-size:.95rem;}
+  .stat{padding:5px 10px;font-size:.8rem;}
+  .card{padding:18px 14px;}
+  .card-icon{font-size:2rem;}
+}
 </style>
 </head>
 <body>
+
+<canvas id="confetti"></canvas>
+
 <div id="app">
-  <header>
-    <h1>📚 English Grammar Master</h1>
+  <div class="hud">
+    <div class="hud-brand">🎮 Grammar Quest</div>
+    <div class="hud-stats">
+      <div class="stat" id="statScore"><span class="icon">⭐</span><span id="scoreVal">0</span></div>
+      <div class="stat" id="statStreak"><span class="icon">🔥</span><span id="streakVal">0</span></div>
+      <div class="stat" id="statLevel"><span class="icon">🏆</span>Lv <span id="levelVal">1</span></div>
+    </div>
     <button id="backBtn" onclick="goBack()">← Back</button>
-  </header>
+  </div>
   <div id="breadcrumb"></div>
   <div id="content"></div>
 </div>
+
 <script src="module1.js"></script>
 <script src="module2.js"></script>
-<script src="practice.js"></script>
-<script src="app.js"></script>
+<script src="module3.js"></script>
+<script src="module4.js"></script>
+
+<script>
+// ========================================================
+//  GAME STATE (Score, Streak, Level)
+// ========================================================
+const GameState = {
+  score: parseInt(localStorage.getItem('gq_score')||'0'),
+  streak: parseInt(localStorage.getItem('gq_streak')||'0'),
+  level: parseInt(localStorage.getItem('gq_level')||'1'),
+  save(){
+    localStorage.setItem('gq_score', this.score);
+    localStorage.setItem('gq_streak', this.streak);
+    localStorage.setItem('gq_level', this.level);
+  },
+  addScore(pts){
+    this.score += pts;
+    const newLevel = Math.floor(this.score / 100) + 1;
+    if (newLevel > this.level) { this.level = newLevel; playSound('levelup'); }
+    this.save(); updateHUD();
+  },
+  correct(){
+    this.streak++;
+    this.addScore(10 + Math.min(this.streak, 5) * 2); // bonus for streak
+    this.save(); updateHUD();
+  },
+  wrong(){
+    this.streak = 0;
+    this.save(); updateHUD();
+  }
+};
+
+function updateHUD(){
+  document.getElementById('scoreVal').textContent = GameState.score;
+  document.getElementById('streakVal').textContent = GameState.streak;
+  document.getElementById('levelVal').textContent = GameState.level;
+}
+function bumpStat(id){
+  const el = document.getElementById(id);
+  el.classList.add('bump');
+  setTimeout(()=>el.classList.remove('bump'), 400);
+}
+
+// ========================================================
+//  SOUND ENGINE (Web Audio API - no files needed)
+// ========================================================
+let audioCtx = null;
+function getAudioCtx(){
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  return audioCtx;
+}
+
+function playSound(type){
+  try{
+    const ctx = getAudioCtx();
+    const now = ctx.currentTime;
+    if (type === 'correct'){
+      playTone(ctx, [523.25, 659.25, 783.99], now, 0.12, 'sine', 0.18);
+    } else if (type === 'wrong'){
+      playTone(ctx, [220, 165], now, 0.18, 'sawtooth', 0.12);
+    } else if (type === 'click'){
+      playTone(ctx, [600], now, 0.05, 'sine', 0.08);
+    } else if (type === 'levelup'){
+      playTone(ctx, [523.25, 659.25, 783.99, 1046.50], now, 0.12, 'triangle', 0.2);
+    } else if (type === 'win'){
+      playTone(ctx, [523.25, 659.25, 783.99, 1046.50, 1318.51], now, 0.15, 'triangle', 0.22);
+    }
+  }catch(e){}
+}
+
+function playTone(ctx, freqs, start, dur, wave, vol){
+  freqs.forEach((f, i) => {
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = wave;
+    osc.frequency.value = f;
+    osc.connect(gain); gain.connect(ctx.destination);
+    const t = start + i * dur;
+    gain.gain.setValueAtTime(0, t);
+    gain.gain.linearRampToValueAtTime(vol, t + 0.02);
+    gain.gain.exponentialRampToValueAtTime(0.001, t + dur);
+    osc.start(t); osc.stop(t + dur + 0.05);
+  });
+}
+
+// ========================================================
+//  CONFETTI ENGINE
+// ========================================================
+const confettiCanvas = document.getElementById('confetti');
+const cctx = confettiCanvas.getContext('2d');
+let confettiPieces = [];
+function resizeConfetti(){ confettiCanvas.width = window.innerWidth; confettiCanvas.height = window.innerHeight; }
+resizeConfetti(); window.addEventListener('resize', resizeConfetti);
+
+function burstConfetti(x, y, count=40){
+  const colors = ['#667eea','#764ba2','#4CAF50','#FF9800','#F44336','#E91E63','#FFEB3B','#00BCD4'];
+  for (let i=0; i<count; i++){
+    confettiPieces.push({
+      x: x || window.innerWidth/2,
+      y: y || window.innerHeight/2,
+      vx: (Math.random()-0.5)*14,
+      vy: -Math.random()*12 - 4,
+      size: 6 + Math.random()*8,
+      color: colors[Math.floor(Math.random()*colors.length)],
+      rot: Math.random()*Math.PI*2,
+      rotV: (Math.random()-0.5)*0.3,
+      life: 100 + Math.random()*40
+    });
+  }
+}
+
+function rainConfetti(){
+  for (let i=0; i<120; i++){
+    setTimeout(()=>{
+      confettiPieces.push({
+        x: Math.random()*window.innerWidth,
+        y: -20,
+        vx: (Math.random()-0.5)*3,
+        vy: 2 + Math.random()*3,
+        size: 6 + Math.random()*8,
+        color: ['#667eea','#764ba2','#4CAF50','#FF9800','#F44336','#E91E63','#FFEB3B'][Math.floor(Math.random()*7)],
+        rot: Math.random()*Math.PI*2,
+        rotV: (Math.random()-0.5)*0.2,
+        life: 200
+      });
+    }, i*30);
+  }
+}
+
+function tickConfetti(){
+  cctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+  confettiPieces.forEach(p => {
+    p.x += p.vx; p.y += p.vy; p.vy += 0.35; p.vx *= 0.99;
+    p.rot += p.rotV; p.life -= 1;
+    if (p.y < confettiCanvas.height + 50 && p.life > 0){
+      cctx.save();
+      cctx.translate(p.x, p.y);
+      cctx.rotate(p.rot);
+      cctx.fillStyle = p.color;
+      cctx.fillRect(-p.size/2, -p.size/2, p.size, p.size);
+      cctx.restore();
+    }
+  });
+  confettiPieces = confettiPieces.filter(p => p.y < confettiCanvas.height + 50 && p.life > 0);
+  requestAnimationFrame(tickConfetti);
+}
+tickConfetti();
+
+function showScorePop(x, y, text){
+  const el = document.createElement('div');
+  el.className = 'score-pop';
+  el.textContent = text;
+  el.style.left = x+'px'; el.style.top = y+'px';
+  document.body.appendChild(el);
+  setTimeout(()=>el.remove(), 1200);
+}
+
+// ========================================================
+//  NAVIGATION
+// ========================================================
+const ALL_MODULES = () => [MODULE1, MODULE2, MODULE3, MODULE4];
+let stack = [{ view:'home' }];
+
+function navigate(r){ playSound('click'); stack.push(r); window.scrollTo({top:0,behavior:'smooth'}); render(); }
+function goBack(){ if(stack.length > 1){ playSound('click'); stack.pop(); render(); } }
+function getModule(id){ return ALL_MODULES().find(m=>m.id===id); }
+
+function render(){
+  const cur = stack[stack.length-1];
+  const content = document.getElementById('content');
+  const backBtn = document.getElementById('backBtn');
+  const crumb = document.getElementById('breadcrumb');
+
+  backBtn.style.display = stack.length > 1 ? 'inline-block' : 'none';
+  content.style.display = 'grid';
+  content.innerHTML = '';
+
+  if (cur.view === 'home') return renderHome(content, crumb);
+  if (cur.view === 'module') return renderModule(cur, content, crumb);
+  if (cur.view === 'group') return renderGroup(cur, content, crumb);
+  if (cur.view === 'verb') return renderVerb(cur, content, crumb);
+  if (cur.view === 'sub') return renderSub(cur, content, crumb);
+  if (cur.view === 'detail') return renderGrammarDetail(cur, content, crumb);
+  if (cur.view === 'coming') return renderComingSoon(cur, content, crumb);
+}
+
+// ========================================================
+//  HOME
+// ========================================================
+function renderHome(content, crumb){
+  crumb.textContent = '🏠 Home — Choose a Module';
+  ALL_MODULES().forEach(m => {
+    const disabled = m.enabled === false;
+    const cls = disabled ? 'disabled' : ['icon-purple','icon-green','icon-orange','icon-pink'][ALL_MODULES().indexOf(m)];
+    content.innerHTML += `
+      <div class="card ${cls} ${disabled?'disabled':''}" onclick="${disabled ? `navigate({view:'coming',mod:'${m.id}'})` : `navigate({view:'module',mod:'${m.id}'})`}">
+        ${disabled ? '<span class="badge">COMING SOON</span>' : ''}
+        <div class="card-icon">${m.icon}</div>
+        <div class="card-title">${m.title}</div>
+        <div class="card-sub">${m.sub}</div>
+      </div>`;
+  });
+}
+
+// ========================================================
+//  MODULE VIEW
+// ========================================================
+function renderModule(cur, content, crumb){
+  const mod = getModule(cur.mod);
+  crumb.textContent = `${mod.icon} ${mod.title}`;
+  const colorClasses = ['icon-purple','icon-green','icon-orange','icon-pink'];
+  mod.groups.forEach((g, i) => {
+    content.innerHTML += `
+      <div class="card ${colorClasses[i%4]}" onclick="navigate({view:'group',mod:'${mod.id}',gid:'${g.id}'})">
+        <div class="card-icon">${g.icon}</div>
+        <div class="card-title">${g.title}</div>
+        <div class="card-sub">${g.verbs ? g.verbs.length+' verbs' : (g.subs ? g.subs.length+' topics' : '')}</div>
+      </div>`;
+  });
+}
+
+// ========================================================
+//  GROUP VIEW
+// ========================================================
+function renderGroup(cur, content, crumb){
+  const mod = getModule(cur.mod);
+  const grp = mod.groups.find(g => g.id===cur.gid);
+  crumb.textContent = `${mod.title} › ${grp.title}`;
+  const colorClasses = ['icon-purple','icon-green','icon-orange','icon-pink'];
+
+  if (grp.verbs){
+    grp.verbs.forEach((v, i) => {
+      content.innerHTML += `
+        <div class="card ${colorClasses[i%4]}" onclick="navigate({view:'verb',mod:'${mod.id}',gid:'${grp.id}',name:'${v.name.replace(/'/g,"\\'")}'})">
+          <div class="card-icon">📘</div>
+          <div class="card-title">${v.name}</div>
+          <div class="card-sub">${v.meaning}</div>
+        </div>`;
+    });
+  } else if (grp.subs){
+    grp.subs.forEach((s, i) => {
+      content.innerHTML += `
+        <div class="card ${colorClasses[i%4]}" onclick="navigate({view:'sub',mod:'${mod.id}',gid:'${grp.id}',sid:'${s.id}'})">
+          <div class="card-icon">${s.icon||'📄'}</div>
+          <div class="card-title">${s.title}</div>
+          <div class="card-sub">${s.subs ? s.subs.length+' sub-topics' : 'Click to learn'}</div>
+        </div>`;
+    });
+  }
+}
+
+// ========================================================
+//  SUB VIEW (for nested items like Present Tense)
+// ========================================================
+function renderSub(cur, content, crumb){
+  const mod = getModule(cur.mod);
+  const grp = mod.groups.find(g => g.id===cur.gid);
+  const sub = grp.subs.find(s => s.id===cur.sid);
+  crumb.textContent = `${grp.title} › ${sub.title}`;
+
+  if (sub.subs){
+    const colorClasses = ['icon-purple','icon-green','icon-orange','icon-pink'];
+    sub.subs.forEach((s, i) => {
+      if (s.subs) {
+        content.innerHTML += `
+          <div class="card ${colorClasses[i%4]}" onclick="navigate({view:'sub',mod:'${mod.id}',gid:'${grp.id}',sid:'${s.id}'})">
+            <div class="card-icon">${s.icon||'📄'}</div>
+            <div class="card-title">${s.title}</div>
+            <div class="card-sub">${s.subs.length+' types'}</div>
+          </div>`;
+      } else {
+        content.innerHTML += `
+          <div class="card ${colorClasses[i%4]}" onclick="navigate({view:'detail',mod:'${mod.id}',gid:'${grp.id}',sid:'${sub.id}',ssid:'${s.id}'})">
+            <div class="card-icon">${s.icon||'📄'}</div>
+            <div class="card-title">${s.title}</div>
+            <div class="card-sub">Learn + Practice</div>
+          </div>`;
+      }
+    });
+  } else {
+    // Direct detail
+    content.style.display = 'block';
+    renderGrammarDetail({ mod: cur.mod, gid: cur.gid, sid: cur.sid, ssid: null }, content, crumb);
+  }
+}
+
+// ========================================================
+//  VERB VIEW (with practice at bottom)
+// ========================================================
+function renderVerb(cur, content, crumb){
+  const mod = getModule(cur.mod);
+  const grp = mod.groups.find(g => g.id===cur.gid);
+  const verb = grp.verbs.find(v => v.name===cur.name);
+  crumb.textContent = `Verb › ${verb.name}`;
+  content.style.display = 'block';
+
+  const html = `
+    <div class="detail-view">
+      <h2>📘 ${verb.name} <span class="meaning-pill">${verb.meaning}</span></h2>
+      <div class="section">
+        <div class="section-title">🎯 Use / उपयोग</div>
+        <div>${verb.usage}</div>
+      </div>
+      <div class="section">
+        <div class="section-title">🧱 Structures / बनावट</div>
+        <div class="structure"><b>✅ Simple:</b> ${verb.structure.s}</div>
+        <div class="structure"><b>❌ Negative:</b> ${verb.structure.n}</div>
+        <div class="structure"><b>❓ Wh-Question:</b> ${verb.structure.w}</div>
+      </div>
+      ${exBlock('✅ Simple Sentences', verb.ex.s)}
+      ${exBlock('❌ Negative Sentences', verb.ex.n)}
+      ${exBlock('❓ Wh-Question Sentences', verb.ex.w)}
+
+      <div class="section" style="border-top:3px solid #667eea;border-bottom:none;padding-top:20px;margin-top:8px;">
+        <div class="section-title">🎮 Practice Time! Choose difficulty:</div>
+        <div class="practice-tabs">
+          <button class="ptab active" id="tab-basic" onclick="startPractice('${cur.mod}','${cur.gid}','${verb.name.replace(/'/g,"\\'")}','basic',this)">
+            <span class="em">🌱</span>Basic<br><small style="font-size:.7rem;opacity:.8">MCQ</small>
+          </button>
+          <button class="ptab" id="tab-hard" onclick="startPractice('${cur.mod}','${cur.gid}','${verb.name.replace(/'/g,"\\'")}','hard',this)">
+            <span class="em">🔥</span>Hard<br><small style="font-size:.7rem;opacity:.8">हिं→Eng</small>
+          </button>
+          <button class="ptab" id="tab-advance" onclick="startPractice('${cur.mod}','${cur.gid}','${verb.name.replace(/'/g,"\\'")}','advance',this)">
+            <span class="em">💎</span>Advance<br><small style="font-size:.7rem;opacity:.8">Eng→हिं</small>
+          </button>
+        </div>
+        <div id="practiceArea"></div>
+      </div>
+    </div>`;
+  content.innerHTML = html;
+  startPractice(cur.mod, cur.gid, verb.name, 'basic');
+}
+
+// ========================================================
+//  GRAMMAR DETAIL (sentence, clause, tense)
+// ========================================================
+function renderGrammarDetail(cur, content, crumb){
+  const mod = getModule(cur.mod);
+  const grp = mod.groups.find(g => g.id===cur.gid);
+  const sub = grp.subs.find(s => s.id===cur.sid);
+  const item = cur.ssid ? sub.subs.find(s=>s.id===cur.ssid) : sub;
+  crumb.textContent = item.title;
+  content.style.display = 'block';
+
+  const html = `
+    <div class="detail-view">
+      <h2>${item.icon||'📄'} ${item.title}</h2>
+      <div class="section">
+        <div class="section-title">📖 Definition / परिभाषा</div>
+        <div>${item.def || 'No definition'}</div>
+      </div>
+      <div class="section">
+        <div class="section-title">🧱 Rule / नियम / Structure</div>
+        <div class="structure">${item.rule || ''}</div>
+      </div>
+      ${exBlock('✅ Simple Examples', item.ex.s)}
+      ${exBlock('❌ Negative Examples', item.ex.n)}
+      ${exBlock('❓ Wh-Question Examples', item.ex.w)}
+
+      <div class="section" style="border-top:3px solid #667eea;border-bottom:none;padding-top:20px;margin-top:8px;">
+        <div class="section-title">🎮 Practice Time!</div>
+        <div class="practice-tabs">
+          <button class="ptab active" onclick="startPracticeGrammar('${cur.mod}','${cur.gid}','${cur.sid}','${cur.ssid||''}','basic',this)">
+            <span class="em">🌱</span>Basic
+          </button>
+          <button class="ptab" onclick="startPracticeGrammar('${cur.mod}','${cur.gid}','${cur.sid}','${cur.ssid||''}','hard',this)">
+            <span class="em">🔥</span>Hard
+          </button>
+          <button class="ptab" onclick="startPracticeGrammar('${cur.mod}','${cur.gid}','${cur.sid}','${cur.ssid||''}','advance',this)">
+            <span class="em">💎</span>Advance
+          </button>
+        </div>
+        <div id="practiceArea"></div>
+      </div>
+    </div>`;
+  content.innerHTML = html;
+  startPracticeGrammar(cur.mod, cur.gid, cur.sid, cur.ssid||'', 'basic');
+}
+
+function exBlock(title, arr){
+  if (!arr) return '';
+  return `<div class="section"><div class="section-title">${title}</div>
+    ${arr.map(x=>`<div class="example"><span class="en">${x.e}</span><span class="hi">${x.h}</span></div>`).join('')}
+  </div>`;
+}
+
+// ========================================================
+//  COMING SOON
+// ========================================================
+function renderComingSoon(cur, content, crumb){
+  const mod = getModule(cur.mod);
+  crumb.textContent = mod.title;
+  content.innerHTML = `<div class="coming-soon">
+    <div class="icon">🚧</div>
+    <h2>${mod.title} — Coming Soon!</h2>
+    <p>इस module पर जल्द ही काम शुरू होगा। जब आप <code>${mod.id==='m3'?'module3.js':'module4.js'}</code> में अपना code paste करके <code>enabled: true</code> कर देंगे, तब यहाँ content show होगा।</p>
+  </div>`;
+}
+
+// ========================================================
+//  PRACTICE ENGINE (GAME MODE)
+// ========================================================
+let PS = { questions:[], idx:0, correct:0, streak:0, type:'', ref:null };
+
+function getVerbPool(modId, gid, name){
+  const mod = getModule(modId);
+  const grp = mod.groups.find(g=>g.id===gid);
+  const verb = grp.verbs.find(v=>v.name===name);
+  return { verb, pool: grp.verbs };
+}
+
+function startPractice(modId, gid, name, type, el){
+  if (el){
+    document.querySelectorAll('.ptab').forEach(t=>t.classList.remove('active'));
+    el.classList.add('active');
+  }
+  const {verb, pool} = getVerbPool(modId, gid, name);
+  const questions = generateQuestions(verb, type, pool);
+  PS = { questions, idx:0, correct:0, streak:0, type, ref:{kind:'verb',verb} };
+  renderQuestion();
+}
+
+function startPracticeGrammar(modId, gid, sid, ssid, type, el){
+  if (el){
+    document.querySelectorAll('.ptab').forEach(t=>t.classList.remove('active'));
+    el.classList.add('active');
+  }
+  const mod = getModule(modId);
+  const grp = mod.groups.find(g=>g.id===gid);
+  const sub = grp.subs.find(s=>s.id===sid);
+  const item = ssid ? sub.subs.find(s=>s.id===ssid) : sub;
+  const questions = generateQuestions(item, type, []);
+  PS = { questions, idx:0, correct:0, streak:0, type, ref:{kind:'grammar', item} };
+  renderQuestion();
+}
+
+function generateQuestions(item, type, pool){
+  const allEx = [...(item.ex.s||[]), ...(item.ex.n||[]), ...(item.ex.w||[])];
+  const qs = [];
+  if (type === 'basic'){
+    allEx.forEach(ex => {
+      const verb = item.name || null;
+      let blanked, answer;
+      if (verb){
+        const esc = verb.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+        blanked = ex.e.replace(new RegExp(`\\b${esc}\\b`,'i'),'_____');
+        answer = verb;
+        if (!blanked.includes('_____')) return;
+      } else {
+        // For grammar items: blank a random word
+        const words = ex.e.split(' ');
+        if (words.length < 3) return;
+        const bi = Math.floor(Math.random() * words.length);
+        answer = words[bi];
+        words[bi] = '_____';
+        blanked = words.join(' ');
+      }
+      const wrongs = pool.filter(p=>p.name !== answer).sort(()=>Math.random()-.5).slice(0,3).map(p=>p.name);
+      const opts = shuffle([answer, ...wrongs]);
+      qs.push({ q: blanked, options: opts, answer, hint: ex.h });
+    });
+    // If no verb-based, produce "which is correct?" style using examples
+    if (qs.length === 0 && allEx.length > 0){
+      allEx.forEach(ex => {
+        const words = ex.e.split(' ');
+        const bi = Math.floor(Math.random()*words.length);
+        const correct = words[bi];
+        const bank = ['is','are','was','will','has','the','a','do','does','not','to','in','on','and'];
+        const wrongs = bank.filter(w=>w.toLowerCase()!==correct.toLowerCase()).sort(()=>Math.random()-.5).slice(0,3);
+        qs.push({ q: words.map((w,i)=>i===bi?'_____':w).join(' '), options: shuffle([correct,...wrongs]), answer: correct, hint: ex.h });
+      });
+    }
+  } else if (type === 'hard'){
+    allEx.forEach(ex => qs.push({ q: ex.h, answer: ex.e, prompt: 'अंग्रेजी में अनुवाद करें:' }));
+  } else {
+    allEx.forEach(ex => qs.push({ q: ex.e, answer: ex.h, prompt: 'हिंदी में अनुवाद करें:' }));
+  }
+  return shuffle(qs).slice(0, 20);
+}
+
+function renderQuestion(){
+  const area = document.getElementById('practiceArea');
+  if (!area) return;
+
+  if (PS.idx >= PS.questions.length){
+    return renderWin(area);
+  }
+
+  const q = PS.questions[PS.idx];
+  const pct = (PS.idx / PS.questions.length) * 100;
+
+  let html = `
+    <div class="game-arena">
+      <div class="game-progress">
+        <span>📊 Question ${PS.idx+1} / ${PS.questions.length}</span>
+        <span>✅ ${PS.correct} correct ${PS.streak>1?'🔥x'+PS.streak:''}</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>`;
+
+  if (PS.type === 'basic'){
+    html += `<div class="q-text">${q.q}</div>
+      <div class="options" id="opts">
+        ${q.options.map(o=>`<div class="option" data-val="${o.replace(/"/g,'&quot;')}" onclick="answerMCQ(this, '${escapeAttr(o)}', '${escapeAttr(q.answer)}', '${escapeAttr(q.hint||'')}')">${o}</div>`).join('')}
+      </div>`;
+  } else {
+    html += `<div class="q-text">${q.prompt}<br><strong style="color:#667eea;font-size:1.15rem;">${q.q}</strong></div>
+      <input type="text" id="ansInput" placeholder="अपना उत्तर लिखें..." autocomplete="off" onkeydown="if(event.key==='Enter')submitTyped('${escapeAttr(q.answer)}')">
+      <button class="btn green" onclick="submitTyped('${escapeAttr(q.answer)}')">✓ Submit</button>
+      <div id="typedFeedback"></div>`;
+  }
+
+  html += `</div>`;
+  area.innerHTML = html;
+  if (PS.type !== 'basic'){
+    const inp = document.getElementById('ansInput');
+    if (inp) setTimeout(()=>inp.focus(), 100);
+  }
+}
+
+function answerMCQ(el, chosen, answer, hint){
+  if (el.dataset.answered) return;
+  document.querySelectorAll('#opts .option').forEach(o => o.dataset.answered = '1');
+
+  const rect = el.getBoundingClientRect();
+  if (chosen === answer){
+    el.classList.add('correct');
+    playSound('correct');
+    GameState.correct(); bumpStat('statScore'); bumpStat('statStreak');
+    showScorePop(rect.left + rect.width/2 - 20, rect.top, '+' + (10 + Math.min(GameState.streak,5)*2));
+    burstConfetti(rect.left + rect.width/2, rect.top + rect.height/2, 20);
+    PS.correct++;
+  } else {
+    el.classList.add('wrong');
+    playSound('wrong');
+    GameState.wrong(); bumpStat('statStreak');
+    document.querySelectorAll('#opts .option').forEach(o => {
+      if (o.textContent.trim() === answer) o.classList.add('correct');
+    });
+  }
+  setTimeout(() => { PS.idx++; renderQuestion(); }, 1100);
+}
+
+function submitTyped(answer){
+  const inp = document.getElementById('ansInput');
+  const fb = document.getElementById('typedFeedback');
+  if (!inp || inp.disabled) return;
+  const rect = inp.getBoundingClientRect();
+
+  if (checkAnswer(inp.value, answer)){
+    fb.innerHTML = `<div class="feedback correct">✅ Correct! +12 pts</div>`;
+    playSound('correct');
+    GameState.correct(); bumpStat('statScore'); bumpStat('statStreak');
+    showScorePop(rect.left + rect.width/2 - 20, rect.top, '+' + (10 + Math.min(GameState.streak,5)*2));
+    burstConfetti(rect.left + rect.width/2, rect.top, 25);
+    PS.correct++;
+    inp.disabled = true;
+    setTimeout(() => { PS.idx++; renderQuestion(); }, 1200);
+  } else {
+    fb.innerHTML = `<div class="feedback wrong">❌ गलत उत्तर</div>
+      <div class="reveal"><b>सही उत्तर:</b> ${answer}</div>`;
+    playSound('wrong');
+    GameState.wrong(); bumpStat('statStreak');
+    inp.disabled = true;
+    setTimeout(() => { PS.idx++; renderQuestion(); }, 2200);
+  }
+}
+
+function renderWin(area){
+  const total = PS.questions.length;
+  const score = PS.correct;
+  const pct = total ? Math.round((score/total)*100) : 0;
+  let stars = 1;
+  if (pct >= 50) stars = 2;
+  if (pct >= 80) stars = 3;
+
+  area.innerHTML = `
+    <div class="win-screen">
+      <div class="trophy">🏆</div>
+      <h3>${pct>=80?'शानदार!':pct>=50?'बहुत बढ़िया!':'अच्छी कोशिश!'}</h3>
+      <div class="stars">${'⭐'.repeat(stars)}${'☆'.repeat(3-stars)}</div>
+      <div class="score-big">${score} / ${total}</div>
+      <p style="color:#718096;margin-bottom:20px;">Accuracy: ${pct}%</p>
+      <button class="btn" onclick="document.querySelectorAll('.ptab').forEach(t=>t.classList.remove('active'));document.querySelector('.ptab').classList.add('active');PS.idx=0;PS.correct=0;renderQuestion();">🔁 Retry</button>
+    </div>`;
+  playSound('win');
+  rainConfetti();
+}
+
+// ========================================================
+//  HELPERS
+// ========================================================
+function shuffle(a){ return a.slice().sort(()=>Math.random()-.5); }
+function normalize(s){ return (s||'').toLowerCase().replace(/[.,?!'";:।]/g,'').replace(/\s+/g,' ').trim(); }
+function checkAnswer(u, e){ return normalize(u) === normalize(e); }
+function escapeAttr(s){ return (s||'').replace(/'/g,"\\'").replace(/"/g,'&quot;'); }
+
+// ========================================================
+//  INIT
+// ========================================================
+updateHUD();
+render();
+</script>
 </body>
 </html>
