@@ -1,160 +1,161 @@
-var MODULE1_BEVERBS = {
-  id: 'beverbs',
-  title: 'Be Verbs',
-  icon: '🔗',
-  desc: 'is, am, are, was, were, shall be, will be, has, have',
-  type: 'beverbs',
-  verbs: [
+// module1.js - Complete Verb Data
+const MODULE1 = {
+  id: 'm1', title: 'Module 1: Verbs', icon: '📘', sub: 'Verb to Be, Modals, Semi-Modals',
+  groups: [
     {
-      word: 'is', hi: 'है', usage: 'He/She/It के साथ (Present)',
-      examples: {
-        simple: [
-          { en: 'This is a pen.', hi: 'यह एक कलम है।', words: ['This', 'is', 'a', 'pen'] },
-          { en: 'That is a cat.', hi: 'वह एक बिल्ली है।', words: ['That', 'is', 'a', 'cat'] },
-          { en: 'He is a boy.', hi: 'वह एक लड़का है।', words: ['He', 'is', 'a', 'boy'] },
-          { en: 'She is a girl.', hi: 'वह एक लड़की है।', words: ['She', 'is', 'a', 'girl'] },
-          { en: 'It is a dog.', hi: 'यह एक कुत्ता है।', words: ['It', 'is', 'a', 'dog'] },
-          { en: 'This is an apple.', hi: 'यह एक सेब है।', words: ['This', 'is', 'an', 'apple'] },
-          { en: 'That is a bird.', hi: 'वह एक पक्षी है।', words: ['That', 'is', 'a', 'bird'] },
-          { en: 'He is my brother.', hi: 'वह मेरा भाई है।', words: ['He', 'is', 'my', 'brother'] },
-          { en: 'She is my mother.', hi: 'वह मेरी माँ है।', words: ['She', 'is', 'my', 'mother'] },
-          { en: 'It is a book.', hi: 'यह एक किताब है।', words: ['It', 'is', 'a', 'book'] }
-        ],
-        negative: [
-          { en: 'He is not a player.', hi: 'वह खिलाड़ी नहीं है।', words: ['He', 'is', 'not', 'a', 'player'] },
-          { en: 'She is not a nurse.', hi: 'वह नर्स नहीं है।', words: ['She', 'is', 'not', 'a', 'nurse'] },
-          { en: 'It is not a dog.', hi: 'यह कुत्ता नहीं है।', words: ['It', 'is', 'not', 'a', 'dog'] },
-          { en: 'He is not sad.', hi: 'वह उदास नहीं है।', words: ['He', 'is', 'not', 'sad'] },
-          { en: 'She is not angry.', hi: 'वह गुस्सा नहीं है।', words: ['She', 'is', 'not', 'angry'] }
-        ],
-        wh: [
-          { en: 'What is your name?', hi: 'तुम्हारा नाम क्या है?', words: ['What', 'is', 'your', 'name'] },
-          { en: 'Where is my pen?', hi: 'मेरी कलम कहाँ है?', words: ['Where', 'is', 'my', 'pen'] },
-          { en: 'Who is that boy?', hi: 'वह लड़का कौन है?', words: ['Who', 'is', 'that', 'boy'] },
-          { en: 'Why is he late?', hi: 'वह लेट क्यों है?', words: ['Why', 'is', 'he', 'late'] },
-          { en: 'How is your health?', hi: 'तुम्हारी तबीयत कैसी है?', words: ['How', 'is', 'your', 'health'] }
-        ]
-      }
+      id: 'verb-to-be', title: 'Verb To Be', icon: '🔵',
+      verbs: [
+        { name:'is', meaning:'है (एकवचन, वर्तमान)', usage:'He/She/It या एकवचन noun के साथ।',
+          structure:{s:'S + is + Complement', n:'S + is + not + Complement', w:'Wh-word + is + S + Complement?'},
+          ex:{s:[{e:'He is a doctor.',h:'वह डॉक्टर है।'},{e:'She is happy.',h:'वह खुश है।'},{e:'It is a book.',h:'यह एक किताब है।'}],
+              n:[{e:'He is not a doctor.',h:'वह डॉक्टर नहीं है।'},{e:'She is not happy.',h:'वह खुश नहीं है।'},{e:'It is not a book.',h:'यह किताब नहीं है।'}],
+              w:[{e:'Who is he?',h:'वह कौन है?'},{e:'Why is she happy?',h:'वह क्यों खुश है?'},{e:'What is this?',h:'यह क्या है?'}]}},
+        { name:'am', meaning:'हूँ (I के साथ, वर्तमान)', usage:'Sirf "I" के साथ प्रयोग।',
+          structure:{s:'I + am + Complement', n:'I + am + not + Complement', w:'Wh-word + am + I + Complement?'},
+          ex:{s:[{e:'I am a student.',h:'मैं एक छात्र हूँ।'},{e:'I am happy.',h:'मैं खुश हूँ।'},{e:'I am ready.',h:'मैं तैयार हूँ।'}],
+              n:[{e:'I am not a student.',h:'मैं छात्र नहीं हूँ।'},{e:'I am not happy.',h:'मैं खुश नहीं हूँ।'},{e:'I am not ready.',h:'मैं तैयार नहीं हूँ।'}],
+              w:[{e:'Who am I?',h:'मैं कौन हूँ?'},{e:'Why am I sad?',h:'मैं उदास क्यों हूँ?'},{e:'Where am I?',h:'मैं कहाँ हूँ?'}]}},
+        { name:'are', meaning:'हैं/हो (बहुवचन, वर्तमान)', usage:'We/They/You और बहुवचन nouns के साथ।',
+          structure:{s:'S + are + Complement', n:'S + are + not + Complement', w:'Wh-word + are + S + Complement?'},
+          ex:{s:[{e:'They are friends.',h:'वे दोस्त हैं।'},{e:'We are ready.',h:'हम तैयार हैं।'},{e:'You are smart.',h:'तुम होशियार हो।'}],
+              n:[{e:'They are not friends.',h:'वे दोस्त नहीं हैं।'},{e:'We are not ready.',h:'हम तैयार नहीं हैं।'},{e:'You are not smart.',h:'तुम होशियार नहीं हो।'}],
+              w:[{e:'Who are they?',h:'वे कौन हैं?'},{e:'Why are you sad?',h:'तुम उदास क्यों हो?'},{e:'Where are they?',h:'वे कहाँ हैं?'}]}},
+        { name:'was', meaning:'था/थी (एकवचन, भूतकाल)', usage:'I/He/She/It के साथ भूतकाल में।',
+          structure:{s:'S + was + Complement', n:'S + was + not + Complement', w:'Wh-word + was + S + Complement?'},
+          ex:{s:[{e:'He was a teacher.',h:'वह शिक्षक था।'},{e:'She was ill.',h:'वह बीमार थी।'},{e:'I was busy.',h:'मैं व्यस्त था।'}],
+              n:[{e:'He was not a teacher.',h:'वह शिक्षक नहीं था।'},{e:'She was not ill.',h:'वह बीमार नहीं थी।'},{e:'I was not busy.',h:'मैं व्यस्त नहीं था।'}],
+              w:[{e:'Where was he?',h:'वह कहाँ था?'},{e:'Why was she ill?',h:'वह बीमार क्यों थी?'},{e:'Who was he?',h:'वह कौन था?'}]}},
+        { name:'were', meaning:'थे/थीं (बहुवचन, भूतकाल)', usage:'We/They/You के साथ भूतकाल में।',
+          structure:{s:'S + were + Complement', n:'S + were + not + Complement', w:'Wh-word + were + S + Complement?'},
+          ex:{s:[{e:'They were happy.',h:'वे खुश थे।'},{e:'We were tired.',h:'हम थके थे।'},{e:'You were late.',h:'तुम देर से थे।'}],
+              n:[{e:'They were not happy.',h:'वे खुश नहीं थे।'},{e:'We were not tired.',h:'हम थके नहीं थे।'},{e:'You were not late.',h:'तुम देर से नहीं थे।'}],
+              w:[{e:'Where were they?',h:'वे कहाँ थे?'},{e:'Why were you late?',h:'तुम देर से क्यों थे?'},{e:'Who were they?',h:'वे कौन थे?'}]}},
+        { name:'shall be', meaning:'होगा/होंगे (भविष्य, I/We)', usage:'I/We के साथ भविष्य काल में।',
+          structure:{s:'S + shall be + Complement', n:'S + shall not be + Complement', w:'Wh-word + shall + S + be + Complement?'},
+          ex:{s:[{e:'I shall be there.',h:'मैं वहाँ होऊँगा।'},{e:'We shall be ready.',h:'हम तैयार होंगे।'},{e:'I shall be a doctor.',h:'मैं डॉक्टर बनूँगा।'}],
+              n:[{e:'I shall not be there.',h:'मैं वहाँ नहीं होऊँगा।'},{e:'We shall not be ready.',h:'हम तैयार नहीं होंगे।'},{e:'I shall not be late.',h:'मैं देर नहीं करूँगा।'}],
+              w:[{e:'Where shall I be?',h:'मैं कहाँ होऊँगा?'},{e:'When shall we be ready?',h:'हम कब तैयार होंगे?'},{e:'Why shall I be late?',h:'मैं देर क्यों करूँगा?'}]}},
+        { name:'will be', meaning:'होगा/होंगे (भविष्य)', usage:'सभी subjects के साथ भविष्य में।',
+          structure:{s:'S + will be + Complement', n:'S + will not be + Complement', w:'Wh-word + will + S + be + Complement?'},
+          ex:{s:[{e:'He will be a doctor.',h:'वह डॉक्टर बनेगा।'},{e:'She will be happy.',h:'वह खुश होगी।'},{e:'They will be late.',h:'वे देर करेंगे।'}],
+              n:[{e:'He will not be a doctor.',h:'वह डॉक्टर नहीं बनेगा।'},{e:'She will not be happy.',h:'वह खुश नहीं होगी।'},{e:'They will not be late.',h:'वे देर नहीं करेंगे।'}],
+              w:[{e:'Who will be the winner?',h:'विजेता कौन होगा?'},{e:'When will he be back?',h:'वह कब वापस आएगा?'},{e:'Why will she be angry?',h:'वह क्यों गुस्सा होगी?'}]}},
+        { name:'has', meaning:'पास है / चुका है (एकवचन)', usage:'He/She/It के साथ perfect tense में।',
+          structure:{s:'S + has + V3 / Object', n:'S + has + not + V3 / Object', w:'Wh-word + has + S + V3?'},
+          ex:{s:[{e:'He has a car.',h:'उसके पास कार है।'},{e:'She has finished.',h:'वह खत्म कर चुकी है।'},{e:'It has rained.',h:'बारिश हो चुकी है।'}],
+              n:[{e:'He has no car.',h:'उसके पास कार नहीं है।'},{e:'She has not finished.',h:'वह खत्म नहीं कर चुकी।'},{e:'It has not rained.',h:'बारिश नहीं हुई।'}],
+              w:[{e:'Has he come?',h:'क्या वह आया है?'},{e:'What has she done?',h:'उसने क्या किया है?'},{e:'Why has he left?',h:'वह क्यों चला गया है?'}]}},
+        { name:'have', meaning:'पास है / चुका है (बहुवचन/I)', usage:'I/We/They/You के साथ।',
+          structure:{s:'S + have + V3 / Object', n:'S + have + not + V3 / Object', w:'Wh-word + have + S + V3?'},
+          ex:{s:[{e:'I have a pen.',h:'मेरे पास पेन है।'},{e:'They have gone.',h:'वे जा चुके हैं।'},{e:'We have finished.',h:'हम खत्म कर चुके हैं।'}],
+              n:[{e:'I have no pen.',h:'मेरे पास पेन नहीं है।'},{e:'They have not gone.',h:'वे नहीं गए हैं।'},{e:'We have not finished.',h:'हमने खत्म नहीं किया।'}],
+              w:[{e:'Have you eaten?',h:'क्या तुम खा चुके हो?'},{e:'What have you done?',h:'तुमने क्या किया है?'},{e:'Why have they left?',h:'वे क्यों चले गए हैं?'}]}},
+        { name:'had', meaning:'था/थी/चुका था (भूतकाल)', usage:'Past perfect में सभी subjects के साथ।',
+          structure:{s:'S + had + V3 / Object', n:'S + had + not + V3 / Object', w:'Wh-word + had + S + V3?'},
+          ex:{s:[{e:'I had a car.',h:'मेरे पास कार थी।'},{e:'He had finished.',h:'वह खत्म कर चुका था।'},{e:'They had left.',h:'वे जा चुके थे।'}],
+              n:[{e:'I had no car.',h:'मेरे पास कार नहीं थी।'},{e:'He had not finished.',h:'वह खत्म नहीं किया था।'},{e:'They had not left.',h:'वे नहीं गए थे।'}],
+              w:[{e:'Had he come?',h:'क्या वह आया था?'},{e:'What had she done?',h:'उसने क्या किया था?'},{e:'Why had they left?',h:'वे क्यों गए थे?'}]}},
+        { name:'shall have', meaning:'पास होगा / चुका होगा (I/We, भविष्य)', usage:'I/We के साथ future perfect में।',
+          structure:{s:'S + shall have + V3', n:'S + shall not have + V3', w:'Wh-word + shall + S + have + V3?'},
+          ex:{s:[{e:'I shall have finished.',h:'मैं खत्म कर चुका होऊँगा।'},{e:'We shall have left.',h:'हम जा चुके होंगे।'},{e:'I shall have a car.',h:'मेरे पास कार होगी।'}],
+              n:[{e:'I shall not have finished.',h:'मैं खत्म नहीं कर चुका होऊँगा।'},{e:'We shall not have left.',h:'हम नहीं गए होंगे।'},{e:'I shall not have a car.',h:'मेरे पास कार नहीं होगी।'}],
+              w:[{e:'When shall I have finished?',h:'मैं कब खत्म कर चुका होऊँगा?'},{e:'What shall we have done?',h:'हम क्या कर चुके होंगे?'},{e:'Where shall I have been?',h:'मैं कहाँ होऊँगा?'}]}},
+        { name:'will have', meaning:'पास होगा / चुका होगा (भविष्य)', usage:'Future perfect में सभी subjects के साथ।',
+          structure:{s:'S + will have + V3', n:'S + will not have + V3', w:'Wh-word + will + S + have + V3?'},
+          ex:{s:[{e:'He will have finished.',h:'वह खत्म कर चुका होगा।'},{e:'They will have left.',h:'वे जा चुके होंगे।'},{e:'She will have arrived.',h:'वह पहुँच चुकी होगी।'}],
+              n:[{e:'He will not have finished.',h:'वह खत्म नहीं कर चुका होगा।'},{e:'They will not have left.',h:'वे नहीं गए होंगे।'},{e:'She will not have arrived.',h:'वह नहीं पहुँची होगी।'}],
+              w:[{e:'When will he have finished?',h:'वह कब खत्म कर चुका होगा?'},{e:'What will they have done?',h:'उन्होंने क्या किया होगा?'},{e:'Where will she have gone?',h:'वह कहाँ जा चुकी होगी?'}]}}
+      ]
     },
     {
-      word: 'am', hi: 'हूँ', usage: 'I के साथ (Present)',
-      examples: {
-        simple: [
-          { en: 'I am a doctor.', hi: 'मैं डॉक्टर हूँ।', words: ['I', 'am', 'a', 'doctor'] },
-          { en: 'I am a writer.', hi: 'मैं लेखक हूँ।', words: ['I', 'am', 'a', 'writer'] },
-          { en: 'I am a singer.', hi: 'मैं गायक हूँ।', words: ['I', 'am', 'a', 'singer'] },
-          { en: 'I am a player.', hi: 'मैं खिलाड़ी हूँ।', words: ['I', 'am', 'a', 'player'] },
-          { en: 'I am sad.', hi: 'मैं उदास हूँ।', words: ['I', 'am', 'sad'] }
-        ],
-        negative: [
-          { en: 'I am not a doctor.', hi: 'मैं डॉक्टर नहीं हूँ।', words: ['I', 'am', 'not', 'a', 'doctor'] },
-          { en: 'I am not a writer.', hi: 'मैं लेखक नहीं हूँ।', words: ['I', 'am', 'not', 'a', 'writer'] },
-          { en: 'I am not a singer.', hi: 'मैं गायक नहीं हूँ।', words: ['I', 'am', 'not', 'a', 'singer'] },
-          { en: 'I am not a player.', hi: 'मैं खिलाड़ी नहीं हूँ।', words: ['I', 'am', 'not', 'a', 'player'] },
-          { en: 'I am not sad.', hi: 'मैं उदास नहीं हूँ।', words: ['I', 'am', 'not', 'sad'] }
-        ],
-        wh: [
-          { en: 'Who am I?', hi: 'मैं कौन हूँ?', words: ['Who', 'am', 'I'] },
-          { en: 'Why am I happy?', hi: 'मैं क्यों खुश हूँ?', words: ['Why', 'am', 'I', 'happy'] },
-          { en: 'Where am I from?', hi: 'मैं कहाँ से हूँ?', words: ['Where', 'am', 'I', 'from'] },
-          { en: 'How old am I?', hi: 'मैं कितने साल का हूँ?', words: ['How', 'old', 'am', 'I'] },
-          { en: 'Why am I hungry?', hi: 'मैं क्यों भूखा हूँ?', words: ['Why', 'am', 'I', 'hungry'] }
-        ]
-      }
+      id: 'modals', title: 'Modals Verbs', icon: '🟢',
+      verbs: [
+        { name:'can', meaning:'सकता है (क्षमता/अनुमति)', usage:'Ability या permission के लिए।',
+          structure:{s:'S + can + V1 + O', n:'S + cannot + V1 + O', w:'Wh-word + can + S + V1 + O?'},
+          ex:{s:[{e:'I can swim.',h:'मैं तैर सकता हूँ।'},{e:'She can sing.',h:'वह गा सकती है।'},{e:'They can help.',h:'वे मदद कर सकते हैं।'}],
+              n:[{e:'I cannot swim.',h:'मैं तैर नहीं सकता।'},{e:'She cannot sing.',h:'वह गा नहीं सकती।'},{e:'They cannot help.',h:'वे मदद नहीं कर सकते।'}],
+              w:[{e:'Can you swim?',h:'क्या तुम तैर सकते हो?'},{e:'What can she do?',h:'वह क्या कर सकती है?'},{e:'How can I help?',h:'मैं कैसे मदद कर सकता हूँ?'}]}},
+        { name:'may', meaning:'सकता है (अनुमति/संभावना)', usage:'Permission या possibility के लिए।',
+          structure:{s:'S + may + V1 + O', n:'S + may not + V1 + O', w:'Wh-word + may + S + V1 + O?'},
+          ex:{s:[{e:'May I come in?',h:'क्या मैं अंदर आ सकता हूँ?'},{e:'It may rain.',h:'बारिश हो सकती है।'},{e:'He may pass.',h:'वह पास हो सकता है।'}],
+              n:[{e:'It may not rain.',h:'बारिश नहीं हो सकती।'},{e:'He may not pass.',h:'वह पास नहीं हो सकता।'},{e:'You may not go.',h:'तुम जा नहीं सकते।'}],
+              w:[{e:'May I help you?',h:'क्या मैं मदद कर सकता हूँ?'},{e:'What may happen?',h:'क्या हो सकता है?'},{e:'When may he come?',h:'वह कब आ सकता है?'}]}},
+        { name:'should', meaning:'चाहिए (सलाह/कर्तव्य)', usage:'Advice या duty के लिए।',
+          structure:{s:'S + should + V1 + O', n:'S + should not + V1 + O', w:'Wh-word + should + S + V1 + O?'},
+          ex:{s:[{e:'You should study.',h:'तुम्हें पढ़ना चाहिए।'},{e:'He should rest.',h:'उसे आराम करना चाहिए।'},{e:'We should help.',h:'हमें मदद करनी चाहिए।'}],
+              n:[{e:'You should not smoke.',h:'तुम्हें धूम्रपान नहीं करना चाहिए।'},{e:'He should not lie.',h:'उसे झूठ नहीं बोलना चाहिए।'},{e:'We should not waste time.',h:'हमें समय बर्बाद नहीं करना चाहिए।'}],
+              w:[{e:'What should I do?',h:'मुझे क्या करना चाहिए?'},{e:'Why should we go?',h:'हमें क्यों जाना चाहिए?'},{e:'When should he come?',h:'उसे कब आना चाहिए?'}]}},
+        { name:'could', meaning:'सकता था (भूतकाल/विनम्र)', usage:'Past ability या polite request।',
+          structure:{s:'S + could + V1 + O', n:'S + could not + V1 + O', w:'Wh-word + could + S + V1 + O?'},
+          ex:{s:[{e:'I could swim.',h:'मैं तैर सकता था।'},{e:'She could sing.',h:'वह गा सकती थी।'},{e:'Could you help me?',h:'क्या आप मेरी मदद कर सकते हैं?'}],
+              n:[{e:'I could not swim.',h:'मैं तैर नहीं सकता था।'},{e:'She could not sing.',h:'वह गा नहीं सकती थी।'},{e:'He could not come.',h:'वह आ नहीं सका।'}],
+              w:[{e:'Could you repeat?',h:'क्या आप दोहरा सकते हैं?'},{e:'What could I do?',h:'मैं क्या कर सकता था?'},{e:'Why could she not come?',h:'वह क्यों नहीं आ सकी?'}]}},
+        { name:'must', meaning:'जरूर/चाहिए (अनिवार्यता)', usage:'Necessity या strong obligation।',
+          structure:{s:'S + must + V1 + O', n:'S + must not + V1 + O', w:'Wh-word + must + S + V1 + O?'},
+          ex:{s:[{e:'You must go.',h:'तुम्हें जाना ही होगा।'},{e:'We must help.',h:'हमें मदद करनी ही होगी।'},{e:'He must study.',h:'उसे पढ़ना ही होगा।'}],
+              n:[{e:'You must not lie.',h:'तुम्हें झूठ नहीं बोलना चाहिए।'},{e:'He must not smoke.',h:'उसे धूम्रपान नहीं करना चाहिए।'},{e:'We must not be late.',h:'हमें देर नहीं करनी चाहिए।'}],
+              w:[{e:'Why must I go?',h:'मुझे क्यों जाना ही होगा?'},{e:'When must he leave?',h:'उसे कब जाना ही होगा?'},{e:'What must we do?',h:'हमें क्या करना ही होगा?'}]}},
+        { name:'will', meaning:'गा/गी/गे (भविष्य)', usage:'Future actions के लिए।',
+          structure:{s:'S + will + V1 + O', n:'S + will not + V1 + O', w:'Wh-word + will + S + V1 + O?'},
+          ex:{s:[{e:'I will go.',h:'मैं जाऊँगा।'},{e:'She will sing.',h:'वह गाएगी।'},{e:'They will come.',h:'वे आएँगे।'}],
+              n:[{e:'I will not go.',h:'मैं नहीं जाऊँगा।'},{e:'She will not sing.',h:'वह नहीं गाएगी।'},{e:'They will not come.',h:'वे नहीं आएँगे।'}],
+              w:[{e:'Will you help me?',h:'क्या तुम मेरी मदद करोगे?'},{e:'When will he come?',h:'वह कब आएगा?'},{e:'What will she do?',h:'वह क्या करेगी?'}]}},
+        { name:'shall', meaning:'गा/गी (I/We, भविष्य)', usage:'I/We के साथ भविष्य या प्रस्ताव।',
+          structure:{s:'S + shall + V1 + O', n:'S + shall not + V1 + O', w:'Wh-word + shall + S + V1 + O?'},
+          ex:{s:[{e:'I shall go.',h:'मैं जाऊँगा।'},{e:'We shall meet.',h:'हम मिलेंगे।'},{e:'Shall we start?',h:'क्या हम शुरू करें?'}],
+              n:[{e:'I shall not go.',h:'मैं नहीं जाऊँगा।'},{e:'We shall not stop.',h:'हम नहीं रुकेंगे।'},{e:'I shall not tell.',h:'मैं नहीं बताऊँगा।'}],
+              w:[{e:'Shall we go?',h:'क्या हम जाएँ?'},{e:'When shall I come?',h:'मैं कब आऊँ?'},{e:'What shall we do?',h:'हम क्या करें?'}]}},
+        { name:'would', meaning:'ता/ती/ते (भूतकाल/विनम्र)', usage:'Polite request या past habit।',
+          structure:{s:'S + would + V1 + O', n:'S + would not + V1 + O', w:'Wh-word + would + S + V1 + O?'},
+          ex:{s:[{e:'I would like tea.',h:'मुझे चाय पसंद होगी।'},{e:'He would help us.',h:'वह हमारी मदद करता था।'},{e:'Would you please?',h:'क्या आप कृपया करेंगे?'}],
+              n:[{e:'I would not go.',h:'मैं नहीं जाऊँगा।'},{e:'He would not listen.',h:'वह नहीं सुनता था।'},{e:'She would not agree.',h:'वह नहीं मानती थी।'}],
+              w:[{e:'Would you help me?',h:'क्या आप मदद करेंगे?'},{e:'Why would he lie?',h:'वह झूठ क्यों बोलेगा?'},{e:'What would you like?',h:'आप क्या पसंद करेंगे?'}]}},
+        { name:'might', meaning:'शायद (कम संभावना)', usage:'Slight possibility बताने के लिए।',
+          structure:{s:'S + might + V1 + O', n:'S + might not + V1 + O', w:'Wh-word + might + S + V1 + O?'},
+          ex:{s:[{e:'It might rain.',h:'शायद बारिश हो।'},{e:'He might come.',h:'वह शायद आए।'},{e:'She might agree.',h:'वह शायद मान जाए।'}],
+              n:[{e:'It might not rain.',h:'शायद बारिश न हो।'},{e:'He might not come.',h:'वह शायद न आए।'},{e:'She might not agree.',h:'वह शायद न माने।'}],
+              w:[{e:'Might I help you?',h:'क्या मैं मदद कर सकता हूँ?'},{e:'When might he arrive?',h:'वह कब पहुँच सकता है?'},{e:'What might happen?',h:'क्या हो सकता है?'}]}},
+        { name:'ought', meaning:'चाहिए (नैतिक कर्तव्य)', usage:'Moral duty या strong advice के लिए।',
+          structure:{s:'S + ought to + V1 + O', n:'S + ought not to + V1 + O', w:'Wh-word + ought + S + to + V1?'},
+          ex:{s:[{e:'We ought to help.',h:'हमें मदद करनी चाहिए।'},{e:'He ought to study.',h:'उसे पढ़ना चाहिए।'},{e:'You ought to respect elders.',h:'तुम्हें बड़ों का सम्मान करना चाहिए।'}],
+              n:[{e:'We ought not to waste.',h:'हमें बर्बाद नहीं करना चाहिए।'},{e:'He ought not to lie.',h:'उसे झूठ नहीं बोलना चाहिए।'},{e:'You ought not to smoke.',h:'तुम्हें धूम्रपान नहीं करना चाहिए।'}],
+              w:[{e:'Ought I to help?',h:'क्या मुझे मदद करनी चाहिए?'},{e:'What ought we to do?',h:'हमें क्या करना चाहिए?'},{e:'Why ought he to go?',h:'उसे क्यों जाना चाहिए?'}]}}
+      ]
     },
     {
-      word: 'are', hi: 'हैं/हो', usage: 'We/You/They के साथ (Present)',
-      examples: {
-        simple: [
-          { en: 'We are ready.', hi: 'हम तैयार हैं।', words: ['We', 'are', 'ready'] },
-          { en: 'You are late.', hi: 'तुम लेट हो।', words: ['You', 'are', 'late'] },
-          { en: 'They are sad.', hi: 'वे उदास हैं।', words: ['They', 'are', 'sad'] },
-          { en: 'We are busy.', hi: 'हम व्यस्त हैं।', words: ['We', 'are', 'busy'] },
-          { en: 'You are tired.', hi: 'तुम थके हुए हो।', words: ['You', 'are', 'tired'] }
-        ],
-        negative: [
-          { en: 'We are not ready.', hi: 'हम तैयार नहीं हैं।', words: ['We', 'are', 'not', 'ready'] },
-          { en: 'You are not late.', hi: 'तुम लेट नहीं हो।', words: ['You', 'are', 'not', 'late'] },
-          { en: 'They are not sad.', hi: 'वे उदास नहीं हैं।', words: ['They', 'are', 'not', 'sad'] },
-          { en: 'We are not busy.', hi: 'हम व्यस्त नहीं हैं।', words: ['We', 'are', 'not', 'busy'] },
-          { en: 'You are not tired.', hi: 'तुम थके हुए नहीं हो।', words: ['You', 'are', 'not', 'tired'] }
-        ],
-        wh: [
-          { en: 'Where are they?', hi: 'वे कहाँ हैं?', words: ['Where', 'are', 'they'] },
-          { en: 'Why are you sad?', hi: 'तुम क्यों उदास हो?', words: ['Why', 'are', 'you', 'sad'] },
-          { en: 'How are they?', hi: 'वे कैसे हैं?', words: ['How', 'are', 'they'] },
-          { en: 'What are you doing?', hi: 'तुम क्या कर रहे हो?', words: ['What', 'are', 'you', 'doing'] },
-          { en: 'Where are you from?', hi: 'तुम कहाँ से हो?', words: ['Where', 'are', 'you', 'from'] }
-        ]
-      }
-    },
-    {
-      word: 'was', hi: 'था/थी', usage: 'He/She/It/I के साथ (Past)',
-      examples: {
-        simple: [
-          { en: 'He was a teacher.', hi: 'वह शिक्षक था।', words: ['He', 'was', 'a', 'teacher'] },
-          { en: 'She was happy.', hi: 'वह खुश थी।', words: ['She', 'was', 'happy'] },
-          { en: 'It was cold.', hi: 'यह ठंडा था।', words: ['It', 'was', 'cold'] },
-          { en: 'I was busy.', hi: 'मैं व्यस्त था।', words: ['I', 'was', 'busy'] },
-          { en: 'The book was new.', hi: 'किताब नई थी।', words: ['The', 'book', 'was', 'new'] }
-        ],
-        negative: [
-          { en: 'He was not a teacher.', hi: 'वह शिक्षक नहीं था।', words: ['He', 'was', 'not', 'a', 'teacher'] },
-          { en: 'She was not happy.', hi: 'वह खुश नहीं थी।', words: ['She', 'was', 'not', 'happy'] },
-          { en: 'It was not cold.', hi: 'यह ठंडा नहीं था।', words: ['It', 'was', 'not', 'cold'] },
-          { en: 'I was not busy.', hi: 'मैं व्यस्त नहीं था।', words: ['I', 'was', 'not', 'busy'] },
-          { en: 'The book was not new.', hi: 'किताब नई नहीं थी।', words: ['The', 'book', 'was', 'not', 'new'] }
-        ],
-        wh: [
-          { en: 'Where was he?', hi: 'वह कहाँ था?', words: ['Where', 'was', 'he'] },
-          { en: 'Why was she sad?', hi: 'वह उदास क्यों थी?', words: ['Why', 'was', 'she', 'sad'] },
-          { en: 'What was that?', hi: 'वह क्या था?', words: ['What', 'was', 'that'] },
-          { en: 'Who was your teacher?', hi: 'तुम्हारे शिक्षक कौन थे?', words: ['Who', 'was', 'your', 'teacher'] },
-          { en: 'When was the match?', hi: 'मैच कब था?', words: ['When', 'was', 'the', 'match'] }
-        ]
-      }
-    },
-    {
-      word: 'were', hi: 'थे/थीं', usage: 'We/You/They के साथ (Past)',
-      examples: {
-        simple: [
-          { en: 'They were happy.', hi: 'वे खुश थे।', words: ['They', 'were', 'happy'] },
-          { en: 'We were late.', hi: 'हम लेट थे।', words: ['We', 'were', 'late'] },
-          { en: 'You were right.', hi: 'तुम सही थे।', words: ['You', 'were', 'right'] },
-          { en: 'The boys were tired.', hi: 'लड़के थके हुए थे।', words: ['The', 'boys', 'were', 'tired'] },
-          { en: 'The girls were ready.', hi: 'लड़कियां तैयार थीं।', words: ['The', 'girls', 'were', 'ready'] }
-        ],
-        negative: [
-          { en: 'They were not happy.', hi: 'वे खुश नहीं थे।', words: ['They', 'were', 'not', 'happy'] },
-          { en: 'We were not late.', hi: 'हम लेट नहीं थे।', words: ['We', 'were', 'not', 'late'] },
-          { en: 'You were not right.', hi: 'तुम सही नहीं थे।', words: ['You', 'were', 'not', 'right'] },
-          { en: 'The boys were not tired.', hi: 'लड़के थके हुए नहीं थे।', words: ['The', 'boys', 'were', 'not', 'tired'] },
-          { en: 'The girls were not ready.', hi: 'लड़कियां तैयार नहीं थीं।', words: ['The', 'girls', 'were', 'not', 'ready'] }
-        ],
-        wh: [
-          { en: 'Where were you?', hi: 'तुम कहाँ थे?', words: ['Where', 'were', 'you'] },
-          { en: 'Why were they sad?', hi: 'वे उदास क्यों थे?', words: ['Why', 'were', 'they', 'sad'] },
-          { en: 'How were the exams?', hi: 'परीक्षा कैसी थी?', words: ['How', 'were', 'the', 'exams'] },
-          { en: 'Who were those people?', hi: 'वे लोग कौन थे?', words: ['Who', 'were', 'those', 'people'] },
-          { en: 'When were you born?', hi: 'तुम कब पैदा हुए थे?', words: ['When', 'were', 'you', 'born'] }
-        ]
-      }
-    }
-  ]
-};
-
-// Modals ka data (Aap isme apne hisaab se aur add kar sakte hain)
-var MODULE1_MODALS = {
-  id: 'modals',
-  title: 'Modals Verbs',
-  icon: '⚡',
-  desc: 'can, may, should, could, must...',
-  type: 'teach',
-  content: [
-    {
-      title: "What are Modals?",
-      text: "Modals helping verbs hote hain jo kisi action ki ability, possibility, permission, ya necessity batate hain.",
-      formula: "Can, May, Should, Could, Must, Will, Shall, Would, Might"
+      id: 'semi-modals', title: 'Semi Modals Verbs', icon: '🟡',
+      verbs: [
+        { name:'need', meaning:'जरूरत है', usage:'किसी चीज़ की आवश्यकता बताने के लिए।',
+          structure:{s:'S + need + O', n:'S + do not + need + O', w:'Wh-word + do + S + need + O?'},
+          ex:{s:[{e:'I need help.',h:'मुझे मदद चाहिए।'},{e:'She needs a pen.',h:'उसे पेन चाहिए।'},{e:'We need time.',h:'हमें समय चाहिए।'}],
+              n:[{e:'I do not need help.',h:'मुझे मदद नहीं चाहिए।'},{e:'She does not need a pen.',h:'उसे पेन नहीं चाहिए।'},{e:'We do not need time.',h:'हमें समय नहीं चाहिए।'}],
+              w:[{e:'Do you need help?',h:'क्या तुम्हें मदद चाहिए?'},{e:'What do you need?',h:'तुम्हें क्या चाहिए?'},{e:'Why do you need money?',h:'तुम्हें पैसे क्यों चाहिए?'}]}},
+        { name:'need to', meaning:'जरूरत है (क्रिया के साथ)', usage:'Verb के साथ necessity बताने के लिए।',
+          structure:{s:'S + need to + V1 + O', n:'S + do not + need to + V1', w:'Wh-word + do + S + need to + V1?'},
+          ex:{s:[{e:'I need to go.',h:'मुझे जाना है।'},{e:'She needs to study.',h:'उसे पढ़ना है।'},{e:'We need to talk.',h:'हमें बात करनी है।'}],
+              n:[{e:'I do not need to go.',h:'मुझे जाना नहीं है।'},{e:'She does not need to study.',h:'उसे पढ़ना नहीं है।'},{e:'We do not need to talk.',h:'हमें बात नहीं करनी।'}],
+              w:[{e:'Do you need to go?',h:'क्या तुम्हें जाना है?'},{e:'Why does she need to study?',h:'उसे क्यों पढ़ना है?'},{e:'When do we need to meet?',h:'हमें कब मिलना है?'}]}},
+        { name:'dare', meaning:'हिम्मत करना', usage:'Challenge या courage बताने के लिए।',
+          structure:{s:'S + dare + (to) + V1', n:'S + do not + dare + (to) + V1', w:'Wh-word + dare + S + V1?'},
+          ex:{s:[{e:'He dare not go.',h:'वह जाने की हिम्मत नहीं करता।'},{e:'I dare to speak.',h:'मैं बोलने की हिम्मत करता हूँ।'},{e:'She dared to ask.',h:'उसने पूछने की हिम्मत की।'}],
+              n:[{e:'He does not dare to go.',h:'वह जाने की हिम्मत नहीं करता।'},{e:'I do not dare to speak.',h:'मैं बोलने की हिम्मत नहीं करता।'},{e:'She did not dare to ask.',h:'उसने पूछने की हिम्मत नहीं की।'}],
+              w:[{e:'How dare you?',h:'तुम्हारी हिम्मत कैसे हुई?'},{e:'Dare he come?',h:'क्या वह आने की हिम्मत करेगा?'},{e:'Why dare she speak?',h:'वह क्यों बोलने की हिम्मत करती है?'}]}},
+        { name:'dare to', meaning:'हिम्मत करना (to के साथ)', usage:'Formal English में courage के लिए।',
+          structure:{s:'S + dare to + V1', n:'S + do not + dare to + V1', w:'Wh-word + dare + S + to + V1?'},
+          ex:{s:[{e:'I dare to dream.',h:'मैं सपने देखने की हिम्मत करता हूँ।'},{e:'She dares to speak.',h:'वह बोलने की हिम्मत करती है।'},{e:'They dared to fight.',h:'उन्होंने लड़ने की हिम्मत की।'}],
+              n:[{e:'I do not dare to dream.',h:'मैं सपने देखने की हिम्मत नहीं करता।'},{e:'She does not dare to speak.',h:'वह बोलने की हिम्मत नहीं करती।'},{e:'They did not dare to fight.',h:'उन्होंने लड़ने की हिम्मत नहीं की।'}],
+              w:[{e:'Do you dare to try?',h:'क्या तुम कोशिश करने की हिम्मत करते हो?'},{e:'Why dare she to speak?',h:'वह क्यों बोलने की हिम्मत करती है?'},{e:'How dare he to come?',h:'उसकी हिम्मत कैसे हुई आने की?'}]}},
+        { name:'used to', meaning:'पहले करता था (आदत)', usage:'Past habit या repeated action के लिए।',
+          structure:{s:'S + used to + V1', n:'S + did not + use to + V1', w:'Wh-word + did + S + use to + V1?'},
+          ex:{s:[{e:'I used to play.',h:'मैं खेलता था।'},{e:'He used to smoke.',h:'वह धूम्रपान करता था।'},{e:'They used to live here.',h:'वे यहाँ रहते थे।'}],
+              n:[{e:'I did not use to play.',h:'मैं नहीं खेलता था।'},{e:'He did not use to smoke.',h:'वह धूम्रपान नहीं करता था।'},{e:'They did not use to live here.',h:'वे यहाँ नहीं रहते थे।'}],
+              w:[{e:'Did you use to play?',h:'क्या तुम खेलते थे?'},{e:'Where did he use to live?',h:'वह कहाँ रहता था?'},{e:'What did you use to eat?',h:'तुम क्या खाते थे?'}]}},
+        { name:'ought to', meaning:'चाहिए (कर्तव्य)', usage:'Moral obligation या duty।',
+          structure:{s:'S + ought to + V1', n:'S + ought not to + V1', w:'Wh-word + ought + S + to + V1?'},
+          ex:{s:[{e:'We ought to help.',h:'हमें मदद करनी चाहिए।'},{e:'He ought to study.',h:'उसे पढ़ना चाहिए।'},{e:'You ought to rest.',h:'तुम्हें आराम करना चाहिए।'}],
+              n:[{e:'We ought not to fight.',h:'हमें लड़ना नहीं चाहिए।'},{e:'He ought not to lie.',h:'उसे झूठ नहीं बोलना चाहिए।'},{e:'You ought not to smoke.',h:'तुम्हें धूम्रपान नहीं करना चाहिए।'}],
+              w:[{e:'Ought I to go?',h:'क्या मुझे जाना चाहिए?'},{e:'What ought we to do?',h:'हमें क्या करना चाहिए?'},{e:'Why ought he to stay?',h:'उसे क्यों रुकना चाहिए?'}]}}
+      ]
     }
   ]
 };
