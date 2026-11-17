@@ -3,2824 +3,411 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>LEXORA — Learn English by Playing</title>
+<title>English Mastery | Premium Learning</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800;900&family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
 <style>
-/* ==========================================================
-   LEXORA LEARNING APP — STYLES
-   ========================================================== */
+/* ================= PREMIUM LEXORA-STYLE DESIGN ================= */
 :root {
-  --bg: #08060e;
-  --bg-2: #0f0c18;
-  --bg-card: #171322;
-  --bg-hover: #1f1a2e;
-  --gold: #d4af37;
-  --gold-l: #f4e4a6;
-  --gold-b: #ffe88a;
-  --gold-d: #a67c52;
-  --gold-soft: rgba(212, 175, 55, 0.1);
-  --cream: #f5f0e6;
-  --cream-s: #e8dfc9;
-  --cream-m: #b5aa93;
-  --cream-d: #756c5b;
-  --border: rgba(212, 175, 55, 0.22);
-  --border-soft: rgba(245, 240, 230, 0.08);
-  --grad: linear-gradient(135deg, #f4e4a6 0%, #d4af37 50%, #a67c52 100%);
-  --grad-txt: linear-gradient(135deg, #ffe88a 0%, #f4e4a6 30%, #d4af37 65%, #a67c52 100%);
-  --green: #4ade80;
-  --green-d: #166534;
-  --red: #f87171;
-  --red-d: #991b1b;
-  --blue: #60a5fa;
-  --shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  --bg-main: #070913; --bg-card: #101425; --bg-hover: #181e36; --bg-inner: #0a0d1a;
+  --purple: #8b5cf6; --purple-light: #a78bfa; --blue: #3b82f6;
+  --green: #10b981; --green-bg: rgba(16, 185, 129, 0.1);
+  --red: #ef4444; --red-bg: rgba(239, 68, 68, 0.1);
+  --yellow: #f59e0b; --text-main: #f8fafc; --text-muted: #94a3b8;
+  --border: rgba(255, 255, 255, 0.08); --border-glow: rgba(139, 92, 246, 0.3);
+  --font-main: "Outfit", sans-serif; --font-code: "Space Grotesk", monospace;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
-  --font-d: "Playfair Display", Georgia, serif;
-  --font-b: "Outfit", sans-serif;
-  --font-a: "Space Grotesk", monospace;
 }
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
 body {
-  font-family: var(--font-b);
-  background: var(--bg);
-  color: var(--cream);
-  min-height: 100vh;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-  line-height: 1.6;
+  font-family: var(--font-main); background-color: var(--bg-main); color: var(--text-main);
+  min-height: 100vh; overflow-x: hidden; line-height: 1.6;
+  background-image: radial-gradient(circle at 15% 50%, rgba(139, 92, 246, 0.05), transparent 25%), radial-gradient(circle at 85% 30%, rgba(59, 130, 246, 0.05), transparent 25%);
 }
-
-img, svg, video, canvas { display: block; max-width: 100%; }
-a { color: inherit; text-decoration: none; }
-button, input, textarea { font-family: inherit; font-size: inherit; color: inherit; background: none; border: none; outline: none; }
-button { cursor: pointer; }
-ul, ol { list-style: none; }
-::selection { background: var(--gold); color: var(--bg); }
+button { font-family: inherit; cursor: pointer; border: none; outline: none; background: none; color: inherit; }
+a { text-decoration: none; color: inherit; }
 ::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: linear-gradient(180deg, var(--gold), var(--gold-d)); border-radius: 8px; }
+::-webkit-scrollbar-track { background: var(--bg-main); }
+::-webkit-scrollbar-thumb { background: var(--bg-hover); border-radius: 8px; }
+::-webkit-scrollbar-thumb:hover { background: var(--purple); }
 
-/* Background orbs */
-.bg-glow {
-  position: fixed;
-  border-radius: 50%;
-  filter: blur(100px);
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.25;
-}
-.bg-glow.g1 { width: 500px; height: 500px; background: #d4af37; top: -150px; left: -150px; animation: drift 20s ease-in-out infinite; }
-.bg-glow.g2 { width: 600px; height: 600px; background: #4a1d6e; bottom: -200px; right: -200px; animation: drift 25s ease-in-out infinite reverse; }
-@keyframes drift { 0%, 100% { transform: translate(0,0) } 50% { transform: translate(60px,-40px) } }
+/* Screens */
+.screen { display: none; min-height: 100vh; }
+.screen.active { display: block; animation: fadeUp 0.5s var(--ease) forwards; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-/* ==========================================================
-   SCREENS SYSTEM
-   ========================================================== */
-.screen {
-  display: none;
-  min-height: 100vh;
-  position: relative;
-  z-index: 1;
-}
-.screen.active { display: block; }
+/* Headers */
+.nav-header { padding: 20px 24px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; background: rgba(7, 9, 19, 0.9); backdrop-filter: blur(10px); }
+.nav-brand { font-family: var(--font-code); font-size: 20px; font-weight: 800; background: linear-gradient(135deg, #a78bfa, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.stat-pill { padding: 6px 12px; border-radius: 20px; background: var(--bg-card); border: 1px solid var(--border); font-family: var(--font-code); font-size: 13px; }
 
-/* ==========================================================
-   ONBOARDING
-   ========================================================== */
-#onboard {
-  display: none;
-  min-height: 100vh;
-  padding: 60px 24px;
-  align-items: center;
-  justify-content: center;
-}
-#onboard.active { display: flex; }
+/* Home */
+.hero { text-align: center; padding: 60px 20px 40px; }
+.hero h1 { font-size: 42px; font-weight: 800; margin-bottom: 12px; }
+.hero h1 span { color: var(--purple-light); }
+.modules-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; max-width: 1000px; margin: 0 auto; padding: 20px 24px 80px; }
+.module-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; padding: 30px; cursor: pointer; transition: all 0.3s var(--ease); }
+.module-card:hover { transform: translateY(-5px); border-color: var(--border-glow); box-shadow: 0 10px 30px rgba(139, 92, 246, 0.1); }
+.mc-icon { width: 60px; height: 60px; border-radius: 16px; background: rgba(139, 92, 246, 0.1); display: grid; place-items: center; font-size: 28px; margin-bottom: 20px; }
+.mc-title { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+.mc-desc { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; }
 
-.onboard-card {
-  width: 100%;
-  max-width: 520px;
-  background: rgba(23, 19, 34, 0.85);
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--border);
-  border-radius: 24px;
-  padding: 50px 40px;
-  box-shadow: var(--shadow);
-  animation: popIn 0.6s var(--ease);
-}
-@keyframes popIn {
-  from { opacity: 0; transform: scale(0.94) translateY(20px); }
-  to { opacity: 1; transform: scale(1) translateY(0); }
-}
+/* Page Header */
+.page-header { max-width: 900px; margin: 0 auto; padding: 30px 24px 20px; display: flex; align-items: center; gap: 20px; }
+.btn-back { padding: 10px 20px; border-radius: 12px; background: var(--bg-card); border: 1px solid var(--border); font-weight: 600; }
+.btn-back:hover { background: var(--bg-hover); border-color: var(--purple); }
 
-.onboard-step { display: none; }
-.onboard-step.active { display: block; animation: fadeIn 0.4s var(--ease); }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(10px) } to { opacity: 1; transform: translateY(0) } }
+/* Cards List */
+.cards-container { max-width: 900px; margin: 0 auto; padding: 0 24px 80px; display: flex; flex-direction: column; gap: 16px; }
+.lesson-card-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 24px; display: flex; align-items: center; gap: 20px; cursor: pointer; transition: all 0.2s; }
+.lesson-card-item:hover { background: var(--bg-hover); border-color: var(--purple-light); transform: translateX(5px); }
+.lci-num { width: 40px; height: 40px; border-radius: 12px; background: rgba(59, 130, 246, 0.15); color: var(--blue); display: grid; place-items: center; font-weight: 700; }
+.lci-title { font-size: 18px; font-weight: 600; }
+.lci-sub { font-size: 13px; color: var(--text-muted); }
 
-.brand-mark-lg {
-  width: 72px;
-  height: 72px;
-  border-radius: 50%;
-  border: 2px solid var(--gold);
-  display: grid;
-  place-items: center;
-  font-family: var(--font-d);
-  font-size: 26px;
-  font-weight: 900;
-  color: var(--gold);
-  margin: 0 auto 26px;
-  box-shadow: 0 0 40px rgba(212, 175, 55, 0.3);
-}
+/* Lesson Content */
+.lesson-content { max-width: 900px; margin: 0 auto; padding: 0 24px 100px; }
+.lesson-h1 { font-size: 32px; font-weight: 800; margin-bottom: 8px; }
+.content-section { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 24px; margin-bottom: 20px; }
+.cs-header { font-size: 18px; font-weight: 700; color: var(--blue); margin-bottom: 16px; display: flex; align-items: center; gap: 10px;}
+.cs-text { font-size: 15px; color: #cbd5e1; }
+.formula-box { background: var(--bg-inner); border-left: 4px solid var(--purple); border-radius: 8px; padding: 16px; font-family: var(--font-code); font-size: 16px; margin: 16px 0; }
 
-.onboard-title {
-  font-family: var(--font-d);
-  font-size: 32px;
-  font-weight: 700;
-  text-align: center;
-  margin-bottom: 12px;
-  line-height: 1.2;
-}
-.onboard-title .grad {
-  background: var(--grad-txt);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
+/* Notebook Style Clickable Buttons */
+.clickable-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 10px; margin-top: 16px; }
+.click-btn { padding: 12px; background: var(--bg-inner); border: 1px solid var(--border); border-radius: 10px; font-size: 16px; font-weight: 600; color: var(--yellow); text-align: center; transition: all 0.2s; }
+.click-btn:hover { background: var(--bg-hover); border-color: var(--yellow); transform: translateY(-2px); }
+.click-btn.active { background: var(--purple); color: white; border-color: var(--purple); }
 
-.onboard-sub {
-  text-align: center;
-  color: var(--cream-m);
-  font-size: 15px;
-  margin-bottom: 34px;
-  line-height: 1.7;
-}
+/* Detail View (When clicked on 'was') */
+.detail-view { display: none; background: var(--bg-inner); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-top: 20px; animation: fadeUp 0.3s; }
+.detail-view.active { display: block; }
+.dv-header { font-size: 22px; font-weight: 800; color: var(--purple-light); margin-bottom: 16px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+.dv-row { margin-bottom: 16px; background: var(--bg-card); padding: 16px; border-radius: 8px; border-left: 3px solid var(--blue); }
+.dv-title { font-size: 12px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; letter-spacing: 1px; font-weight: 700; }
+.dv-en { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+.dv-hi { font-size: 14px; color: var(--yellow); }
 
-.onboard-input {
-  width: 100%;
-  padding: 16px 20px;
-  background: rgba(245, 240, 230, 0.04);
-  border: 1.5px solid var(--border-soft);
-  border-radius: 12px;
-  color: var(--cream);
-  font-size: 16px;
-  margin-bottom: 20px;
-  transition: border-color 0.3s, background 0.3s;
-}
-.onboard-input:focus {
-  border-color: var(--gold);
-  background: rgba(212, 175, 55, 0.05);
-}
-.onboard-input::placeholder { color: var(--cream-d); }
+/* Structure Grid */
+.structure-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 16px; }
+.struct-card { background: var(--bg-inner); border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
+.struct-title { font-size: 12px; color: var(--purple-light); font-weight: 700; }
+.struct-formula { font-family: var(--font-code); color: var(--yellow); font-size: 14px; margin: 8px 0; }
+.example-item { background: var(--bg-inner); border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 12px; }
+.ex-en { font-weight: 600; font-size: 16px; }
+.ex-hi { color: var(--text-muted); font-size: 14px; }
 
-.onboard-btn {
-  width: 100%;
-  padding: 16px;
-  background: var(--grad);
-  color: var(--bg);
-  border-radius: 12px;
-  font-weight: 700;
-  font-size: 15px;
-  letter-spacing: 1px;
-  transition: transform 0.3s var(--ease), box-shadow 0.3s;
-  box-shadow: 0 8px 24px rgba(212, 175, 55, 0.3);
-}
-.onboard-btn:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 32px rgba(212, 175, 55, 0.5);
-}
-.onboard-btn:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-}
+/* Verbs Table */
+.verb-filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+.filter-btn { padding: 6px 14px; border-radius: 8px; background: var(--bg-card); border: 1px solid var(--border); font-size: 14px; font-weight: 600; transition: all 0.2s; }
+.filter-btn:hover, .filter-btn.active { background: var(--purple); color: white; border-color: var(--purple); }
+.verb-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+.verb-table th, .verb-table td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--border); font-size: 15px; }
+.verb-table th { color: var(--text-muted); font-size: 13px; text-transform: uppercase; letter-spacing: 1px; }
+.verb-table tr:hover { background: var(--bg-hover); }
+.v1 { font-weight: 700; color: var(--text-main); }
+.v2 { color: var(--blue); } 
+.v3 { color: var(--purple-light); } 
+.vm { color: var(--green); font-family: var(--font-code); }
 
-.onboard-choice {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-.choice-btn {
-  padding: 18px 22px;
-  background: rgba(245, 240, 230, 0.03);
-  border: 1.5px solid var(--border-soft);
-  border-radius: 12px;
-  text-align: left;
-  transition: all 0.3s var(--ease);
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-.choice-btn:hover {
-  border-color: var(--gold);
-  background: rgba(212, 175, 55, 0.06);
-  transform: translateX(4px);
-}
-.choice-icon {
-  font-size: 28px;
-  flex-shrink: 0;
-}
-.choice-text strong {
-  display: block;
-  font-size: 15px;
-  color: var(--cream);
-  margin-bottom: 2px;
-}
-.choice-text small {
-  font-size: 12.5px;
-  color: var(--cream-m);
-}
-
-/* ==========================================================
-   APP SHELL (Hub)
-   ========================================================== */
-.app-header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: rgba(8, 6, 14, 0.85);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border-soft);
-  padding: 14px 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-}
-
-.hdr-brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-family: var(--font-d);
-  font-size: 18px;
-  font-weight: 800;
-  letter-spacing: 3px;
-  background: var(--grad-txt);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.hdr-stats {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-
-.stat-pill {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 12px;
-  background: rgba(245, 240, 230, 0.04);
-  border: 1px solid var(--border-soft);
-  border-radius: 999px;
-  font-size: 12.5px;
-  font-weight: 600;
-  font-family: var(--font-a);
-  white-space: nowrap;
-}
-.stat-pill .icon { font-size: 14px; }
-.stat-pill.gold { border-color: var(--border); color: var(--gold); background: rgba(212, 175, 55, 0.06); }
-.stat-pill.fire { color: #ff8c42; }
-.stat-pill.star { color: var(--gold-b); }
-
-.main-content {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 24px 24px 100px;
-}
-
-/* Hero welcome card */
-.welcome-card {
-  padding: 28px;
-  background: linear-gradient(145deg, rgba(212, 175, 55, 0.1), rgba(23, 19, 34, 0.6));
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  margin-bottom: 24px;
-  position: relative;
-  overflow: hidden;
-}
-.welcome-card::before {
-  content: "";
-  position: absolute;
-  top: -60px; right: -60px;
-  width: 200px; height: 200px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(212, 175, 55, 0.3), transparent 70%);
-  filter: blur(30px);
-  pointer-events: none;
-}
-.welcome-emoji {
-  font-size: 42px;
-  margin-bottom: 8px;
-}
-.welcome-hi {
-  font-family: var(--font-d);
-  font-size: 24px;
-  font-weight: 700;
-  margin-bottom: 4px;
-}
-.welcome-hi span {
-  background: var(--grad-txt);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.welcome-msg {
-  color: var(--cream-m);
-  font-size: 14px;
-  margin-bottom: 18px;
-}
-
-.level-progress-wrap {
-  margin-top: 8px;
-}
-.level-progress-info {
-  display: flex;
-  justify-content: space-between;
-  font-size: 11.5px;
-  font-family: var(--font-a);
-  letter-spacing: 1px;
-  color: var(--cream-m);
-  margin-bottom: 8px;
-}
-.level-progress-info .lv-badge {
-  color: var(--gold);
-  font-weight: 700;
-}
-.level-bar {
-  height: 8px;
-  background: rgba(245, 240, 230, 0.06);
-  border-radius: 8px;
-  overflow: hidden;
-}
-.level-bar-fill {
-  height: 100%;
-  background: var(--grad);
-  border-radius: 8px;
-  box-shadow: 0 0 12px var(--gold);
-  transition: width 1s var(--ease);
-}
-
-/* Continue lesson CTA */
-.continue-card {
-  padding: 22px 24px;
-  background: rgba(23, 19, 34, 0.85);
-  border: 1px solid var(--border);
-  border-radius: 18px;
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  cursor: pointer;
-  transition: transform 0.3s var(--ease), box-shadow 0.3s, border-color 0.3s;
-  margin-bottom: 28px;
-}
-.continue-card:hover {
-  transform: translateY(-3px);
-  border-color: var(--gold);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4), 0 0 24px rgba(212, 175, 55, 0.15);
-}
-.continue-icon {
-  width: 54px;
-  height: 54px;
-  border-radius: 14px;
-  background: var(--grad);
-  display: grid;
-  place-items: center;
-  font-size: 26px;
-  flex-shrink: 0;
-  box-shadow: 0 8px 24px rgba(212, 175, 55, 0.3);
-}
-.continue-info { flex: 1; }
-.continue-label {
-  font-size: 10.5px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--gold);
-  font-family: var(--font-a);
-  margin-bottom: 3px;
-}
-.continue-title {
-  font-family: var(--font-d);
-  font-size: 18px;
-  font-weight: 700;
-  margin-bottom: 2px;
-}
-.continue-unit {
-  font-size: 12.5px;
-  color: var(--cream-m);
-}
-.continue-btn {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  border: 1.5px solid var(--border);
-  color: var(--gold);
-  display: grid;
-  place-items: center;
-  font-size: 20px;
-  flex-shrink: 0;
-  transition: background 0.3s, color 0.3s;
-}
-.continue-card:hover .continue-btn {
-  background: var(--grad);
-  color: var(--bg);
-  border-color: transparent;
-}
-
-/* Section label */
-.section-label {
-  font-family: var(--font-d);
-  font-size: 20px;
-  font-weight: 700;
-  margin-bottom: 16px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.section-label::before {
-  content: "";
-  width: 4px;
-  height: 20px;
-  background: var(--grad);
-  border-radius: 4px;
-}
-
-/* Unit list */
-.unit-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.unit-block {
-  background: rgba(23, 19, 34, 0.6);
-  border: 1px solid var(--border-soft);
-  border-radius: 18px;
-  overflow: hidden;
-  transition: border-color 0.3s;
-}
-.unit-block.unlocked { border-color: var(--border); }
-.unit-block.locked { opacity: 0.55; }
-
-.unit-header {
-  padding: 18px 22px;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  cursor: pointer;
-  user-select: none;
-}
-.unit-block.locked .unit-header { cursor: not-allowed; }
-
-.unit-icon-box {
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
-  display: grid;
-  place-items: center;
-  font-size: 24px;
-  flex-shrink: 0;
-  background: rgba(212, 175, 55, 0.1);
-  border: 1px solid var(--border);
-}
-.unit-block.locked .unit-icon-box {
-  background: rgba(245, 240, 230, 0.03);
-  border-color: var(--border-soft);
-  filter: grayscale(1);
-}
-
-.unit-info { flex: 1; min-width: 0; }
-.unit-title {
-  font-family: var(--font-d);
-  font-size: 17px;
-  font-weight: 700;
-  margin-bottom: 2px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.unit-sub {
-  font-size: 12.5px;
-  color: var(--cream-m);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.unit-progress {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
-}
-.unit-dots {
-  display: flex;
-  gap: 4px;
-}
-.unit-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: rgba(245, 240, 230, 0.12);
-}
-.unit-dot.done { background: var(--gold); box-shadow: 0 0 8px var(--gold); }
-.unit-dot.current { background: var(--gold-b); box-shadow: 0 0 10px var(--gold-b); animation: dotPulse 1.5s infinite; }
-@keyframes dotPulse { 0%,100%{ transform:scale(1) } 50%{ transform:scale(1.3) } }
-
-.unit-chevron {
-  font-size: 16px;
-  color: var(--cream-m);
-  transition: transform 0.35s var(--ease);
-}
-.unit-block.open .unit-chevron { transform: rotate(180deg); }
-
-.unit-lessons {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.5s var(--ease);
-}
-.unit-block.open .unit-lessons { max-height: 1000px; }
-
-.lesson-row {
-  padding: 14px 22px 14px 86px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  border-top: 1px solid var(--border-soft);
-  cursor: pointer;
-  transition: background 0.25s;
-}
-.lesson-row:hover { background: rgba(212, 175, 55, 0.04); }
-.lesson-row.completed .lesson-check {
-  background: var(--green-d);
-  color: var(--green);
-  border-color: var(--green);
-}
-.lesson-row.locked {
-  opacity: 0.4;
-  cursor: not-allowed;
-  pointer-events: none;
-}
-
-.lesson-left {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex: 1;
-  min-width: 0;
-}
-.lesson-check {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: 1.5px solid var(--border-soft);
-  display: grid;
-  place-items: center;
-  font-size: 14px;
-  flex-shrink: 0;
-  color: var(--cream-m);
-  background: rgba(245, 240, 230, 0.03);
-}
-.lesson-name {
-  font-size: 14px;
-  font-weight: 500;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.lesson-type-tag {
-  font-size: 10px;
-  font-family: var(--font-a);
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-left: 6px;
-}
-.lesson-type-tag.teach { color: var(--blue); }
-
-.lesson-arrow { color: var(--cream-m); font-size: 14px; }
-
-/* ==========================================================
-   LESSON VIEW
-   ========================================================== */
-#lesson-view {
-  background: var(--bg);
-  min-height: 100vh;
-}
-.lesson-header {
-  padding: 16px 24px;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  border-bottom: 1px solid var(--border-soft);
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  background: rgba(8, 6, 14, 0.9);
-  backdrop-filter: blur(20px);
-}
-.lesson-close {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 1px solid var(--border-soft);
-  display: grid;
-  place-items: center;
-  font-size: 18px;
-  color: var(--cream-m);
-  transition: all 0.3s;
-  flex-shrink: 0;
-}
-.lesson-close:hover {
-  border-color: var(--red);
-  color: var(--red);
-  background: rgba(248, 113, 113, 0.08);
-}
-
-.lesson-progress-bar {
-  flex: 1;
-  height: 12px;
-  background: rgba(245, 240, 230, 0.06);
-  border-radius: 12px;
-  overflow: hidden;
-  position: relative;
-}
-.lesson-progress-fill {
-  height: 100%;
-  background: var(--grad);
-  border-radius: 12px;
-  box-shadow: 0 0 12px var(--gold);
-  transition: width 0.5s var(--ease);
-  width: 0%;
-}
-
-.lesson-hp {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-family: var(--font-a);
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--red);
-  flex-shrink: 0;
-}
-
-.lesson-body {
-  max-width: 720px;
-  margin: 0 auto;
-  padding: 40px 24px 140px;
-}
-
-/* Teach view */
-.teach-card {
-  background: rgba(23, 19, 34, 0.7);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 32px 28px;
-  animation: popIn 0.5s var(--ease);
-}
-.teach-intro {
-  font-size: 17px;
-  color: var(--cream-s);
-  line-height: 1.7;
-  margin-bottom: 28px;
-  font-weight: 500;
-}
-.teach-section {
-  margin-bottom: 24px;
-  padding-bottom: 24px;
-  border-bottom: 1px dashed var(--border-soft);
-}
-.teach-section:last-child { border: none; padding-bottom: 0; }
-.teach-section h4 {
-  font-family: var(--font-d);
-  font-size: 18px;
-  font-weight: 700;
-  margin-bottom: 8px;
-  color: var(--gold-l);
-}
-.teach-section p {
-  font-size: 14.5px;
-  color: var(--cream-s);
-  line-height: 1.75;
-  margin-bottom: 10px;
-}
-.teach-example {
-  padding: 12px 16px;
-  background: rgba(212, 175, 55, 0.06);
-  border-left: 3px solid var(--gold);
-  border-radius: 0 10px 10px 0;
-  font-family: var(--font-a);
-  font-size: 13.5px;
-  color: var(--gold-l);
-  letter-spacing: 0.3px;
-}
-.teach-tip {
-  margin-top: 26px;
-  padding: 16px 20px;
-  background: rgba(96, 165, 250, 0.06);
-  border: 1px solid rgba(96, 165, 250, 0.25);
-  border-radius: 12px;
-  font-size: 13.5px;
-  color: #93c5fd;
-  line-height: 1.7;
-  display: flex;
-  gap: 10px;
-}
-.teach-tip::before {
-  content: "💡";
-  flex-shrink: 0;
-}
-
-/* Exercise view */
-.exercise-wrap {
-  animation: popIn 0.4s var(--ease);
-}
-.exercise-prompt {
-  font-family: var(--font-a);
-  font-size: 11px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 14px;
-}
-.exercise-title {
-  font-family: var(--font-d);
-  font-size: clamp(22px, 3.5vw, 30px);
-  font-weight: 700;
-  line-height: 1.3;
-  margin-bottom: 28px;
-  color: var(--cream);
-}
-.exercise-title em { color: var(--gold); font-style: italic; }
-
-.options-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-bottom: 24px;
-}
-.option-btn {
-  padding: 18px 22px;
-  background: rgba(245, 240, 230, 0.03);
-  border: 1.5px solid var(--border-soft);
-  border-radius: 14px;
-  text-align: left;
-  font-size: 15px;
-  font-weight: 500;
-  color: var(--cream-s);
-  transition: all 0.3s var(--ease);
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  cursor: pointer;
-}
-.option-btn:hover:not(:disabled) {
-  border-color: var(--gold);
-  background: rgba(212, 175, 55, 0.06);
-  transform: translateX(4px);
-}
-.option-btn .opt-key {
-  width: 28px;
-  height: 28px;
-  border-radius: 8px;
-  background: rgba(212, 175, 55, 0.1);
-  border: 1px solid var(--border);
-  display: grid;
-  place-items: center;
-  font-family: var(--font-a);
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--gold);
-  flex-shrink: 0;
-  transition: all 0.3s;
-}
-.option-btn.correct {
-  background: rgba(74, 222, 128, 0.14);
-  border-color: var(--green);
-  color: var(--green);
-}
-.option-btn.correct .opt-key {
-  background: rgba(74, 222, 128, 0.25);
-  border-color: var(--green);
-  color: var(--green);
-}
-.option-btn.wrong {
-  background: rgba(248, 113, 113, 0.14);
-  border-color: var(--red);
-  color: var(--red);
-}
-.option-btn.wrong .opt-key {
-  background: rgba(248, 113, 113, 0.25);
-  border-color: var(--red);
-  color: var(--red);
-}
-.option-btn:disabled { cursor: default; }
-
-/* Type input */
-.type-input-wrap {
-  margin-bottom: 20px;
-}
-.type-input {
-  width: 100%;
-  padding: 18px 22px;
-  background: rgba(245, 240, 230, 0.04);
-  border: 1.5px solid var(--border-soft);
-  border-radius: 14px;
-  color: var(--cream);
-  font-family: var(--font-d);
-  font-size: 20px;
-  font-weight: 600;
-  letter-spacing: 2px;
-  text-align: center;
-  text-transform: uppercase;
-  transition: all 0.3s;
-}
-.type-input:focus {
-  border-color: var(--gold);
-  background: rgba(212, 175, 55, 0.05);
-  box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1);
-}
-.type-input::placeholder {
-  color: var(--cream-d);
-  text-transform: none;
-  letter-spacing: 0.5px;
-  font-weight: 400;
-  font-size: 14px;
-  font-family: var(--font-b);
-}
-
-/* Build words */
-.build-words {
-  min-height: 76px;
-  padding: 16px;
-  background: rgba(245, 240, 230, 0.03);
-  border: 1.5px dashed var(--border-soft);
-  border-radius: 14px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 16px;
-  align-items: flex-start;
-}
-.build-word {
-  padding: 10px 16px;
-  background: rgba(212, 175, 55, 0.1);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--gold-l);
-  cursor: pointer;
-  transition: all 0.25s var(--ease);
-}
-.build-word:hover {
-  background: rgba(212, 175, 55, 0.18);
-  transform: translateY(-2px);
-}
-.build-pool {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 20px;
-}
-.build-pool .build-word {
-  background: rgba(245, 240, 230, 0.05);
-  border-color: var(--border-soft);
-  color: var(--cream-s);
-}
-
-/* Fill blank inline */
-.fill-sentence {
-  font-family: var(--font-d);
-  font-size: clamp(20px, 3vw, 26px);
-  font-weight: 600;
-  line-height: 1.5;
-  text-align: center;
-  margin-bottom: 28px;
-  color: var(--cream);
-}
-.fill-blank {
-  display: inline-block;
-  min-width: 90px;
-  padding: 2px 14px;
-  border-bottom: 2.5px solid var(--gold);
-  color: var(--gold);
-  font-style: italic;
-}
-
-/* Feedback bar */
-.feedback-bar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 20px 24px;
-  z-index: 60;
-  transform: translateY(100%);
-  transition: transform 0.4s var(--ease);
-  border-top: 2px solid;
-}
-.feedback-bar.show { transform: translateY(0); }
-.feedback-bar.correct {
-  background: linear-gradient(180deg, rgba(22, 101, 52, 0.95), rgba(22, 101, 52, 0.85));
-  border-color: var(--green);
-}
-.feedback-bar.wrong {
-  background: linear-gradient(180deg, rgba(153, 27, 27, 0.95), rgba(153, 27, 27, 0.85));
-  border-color: var(--red);
-}
-.feedback-inner {
-  max-width: 720px;
-  margin: 0 auto;
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-}
-.feedback-icon {
-  font-size: 30px;
-  flex-shrink: 0;
-  line-height: 1;
-}
-.feedback-content { flex: 1; }
-.feedback-head {
-  font-family: var(--font-d);
-  font-size: 18px;
-  font-weight: 700;
-  margin-bottom: 4px;
-}
-.feedback-explanation {
-  font-size: 13.5px;
-  opacity: 0.9;
-  line-height: 1.6;
-}
-.feedback-continue {
-  padding: 12px 24px;
-  background: var(--cream);
-  color: var(--bg);
-  border-radius: 999px;
-  font-weight: 700;
-  font-size: 13px;
-  letter-spacing: 1px;
-  flex-shrink: 0;
-  align-self: center;
-  transition: transform 0.25s;
-}
-.feedback-continue:hover { transform: scale(1.05); }
-
-/* Static bottom bar with check button */
-.lesson-bottom-bar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 16px 24px;
-  background: rgba(8, 6, 14, 0.95);
-  backdrop-filter: blur(20px);
-  border-top: 1px solid var(--border-soft);
-  z-index: 40;
-  transition: transform 0.3s var(--ease);
-}
-.lesson-bottom-bar.hidden {
-  transform: translateY(100%);
-}
-.lesson-bottom-inner {
-  max-width: 720px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: flex-end;
-}
-.check-btn {
-  padding: 14px 36px;
-  background: var(--grad);
-  color: var(--bg);
-  border-radius: 999px;
-  font-weight: 700;
-  font-size: 14px;
-  letter-spacing: 1px;
-  transition: transform 0.25s, box-shadow 0.25s, opacity 0.25s;
-  box-shadow: 0 8px 24px rgba(212, 175, 55, 0.3);
-}
-.check-btn:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 32px rgba(212, 175, 55, 0.5);
-}
-.check-btn:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-}
-
-/* Result screen */
-.result-wrap {
-  text-align: center;
-  padding: 40px 20px;
-  animation: popIn 0.6s var(--ease);
-}
-.result-emoji {
-  font-size: 90px;
-  margin-bottom: 16px;
-  animation: resultBounce 1s var(--ease);
-}
-@keyframes resultBounce {
-  0% { transform: scale(0.3) rotate(-20deg); opacity: 0 }
-  100% { transform: scale(1) rotate(0deg); opacity: 1 }
-}
-.result-title {
-  font-family: var(--font-d);
-  font-size: 36px;
-  font-weight: 800;
-  margin-bottom: 10px;
-  background: var(--grad-txt);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.result-sub {
-  font-size: 15px;
-  color: var(--cream-m);
-  margin-bottom: 32px;
-}
-.result-stats {
-  display: flex;
-  justify-content: center;
-  gap: 24px;
-  margin-bottom: 32px;
-  flex-wrap: wrap;
-}
-.result-stat {
-  padding: 16px 24px;
-  background: rgba(245, 240, 230, 0.04);
-  border: 1px solid var(--border-soft);
-  border-radius: 14px;
-  min-width: 100px;
-}
-.result-stat .rs-val {
-  font-family: var(--font-d);
-  font-size: 28px;
-  font-weight: 800;
-  color: var(--gold);
-  line-height: 1;
-  margin-bottom: 4px;
-}
-.result-stat .rs-label {
-  font-size: 11px;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--cream-m);
-}
-.result-actions {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-.result-btn {
-  padding: 14px 32px;
-  border-radius: 999px;
-  font-weight: 700;
-  font-size: 14px;
-  letter-spacing: 1px;
-  transition: transform 0.25s, box-shadow 0.25s;
-}
-.result-btn.primary {
-  background: var(--grad);
-  color: var(--bg);
-  box-shadow: 0 8px 24px rgba(212, 175, 55, 0.3);
-}
-.result-btn.primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 32px rgba(212, 175, 55, 0.5);
-}
-.result-btn.secondary {
-  background: transparent;
-  border: 1.5px solid var(--border);
-  color: var(--gold);
-}
-.result-btn.secondary:hover {
-  background: rgba(212, 175, 55, 0.08);
-}
-
-/* ==========================================================
-   BOTTOM NAVIGATION
-   ========================================================== */
-.bottom-nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(8, 6, 14, 0.95);
-  backdrop-filter: blur(20px);
-  border-top: 1px solid var(--border-soft);
-  z-index: 90;
-  padding: 8px 12px;
-  padding-bottom: max(8px, env(safe-area-inset-bottom));
-}
-.nav-inner {
-  max-width: 480px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 4px;
-}
-.nav-item {
-  padding: 10px 8px;
-  border-radius: 12px;
-  text-align: center;
-  transition: background 0.25s;
-  cursor: pointer;
-  border: none;
-  background: transparent;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-}
-.nav-item .nav-icon {
-  font-size: 22px;
-  filter: grayscale(0.5);
-  transition: filter 0.25s, transform 0.25s;
-}
-.nav-item .nav-label {
-  font-size: 10.5px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  color: var(--cream-m);
-  transition: color 0.25s;
-}
-.nav-item.active {
-  background: rgba(212, 175, 55, 0.08);
-}
-.nav-item.active .nav-icon { filter: grayscale(0); transform: scale(1.1); }
-.nav-item.active .nav-label { color: var(--gold); }
-
-/* ==========================================================
-   REVIEW & PROFILE SCREENS
-   ========================================================== */
-.page-title {
-  font-family: var(--font-d);
-  font-size: 28px;
-  font-weight: 800;
-  margin-bottom: 6px;
-}
-.page-sub {
-  font-size: 14px;
-  color: var(--cream-m);
-  margin-bottom: 26px;
-}
-
-.empty-state {
-  text-align: center;
-  padding: 60px 20px;
-  color: var(--cream-m);
-}
-.empty-state .empty-emoji {
-  font-size: 64px;
-  margin-bottom: 16px;
-  opacity: 0.6;
-}
-.empty-state h3 {
-  font-family: var(--font-d);
-  font-size: 20px;
-  color: var(--cream);
-  margin-bottom: 8px;
-}
-.empty-state p {
-  font-size: 13.5px;
-  line-height: 1.7;
-  max-width: 300px;
-  margin: 0 auto;
-}
-
-.review-card {
-  padding: 20px 22px;
-  background: rgba(23, 19, 34, 0.7);
-  border: 1px solid var(--border-soft);
-  border-radius: 16px;
-  margin-bottom: 12px;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  cursor: pointer;
-  transition: all 0.3s var(--ease);
-}
-.review-card:hover {
-  border-color: var(--gold);
-  transform: translateX(4px);
-}
-.review-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  background: rgba(248, 113, 113, 0.12);
-  border: 1px solid rgba(248, 113, 113, 0.3);
-  display: grid;
-  place-items: center;
-  font-size: 20px;
-  flex-shrink: 0;
-}
-.review-info { flex: 1; min-width: 0; }
-.review-title {
-  font-size: 14px;
-  font-weight: 600;
-  margin-bottom: 2px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.review-meta {
-  font-size: 12px;
-  color: var(--cream-m);
-}
-.review-count {
-  padding: 6px 12px;
-  background: rgba(248, 113, 113, 0.12);
-  border: 1px solid rgba(248, 113, 113, 0.3);
-  border-radius: 999px;
-  font-size: 11.5px;
-  font-weight: 700;
-  color: #fca5a5;
-  flex-shrink: 0;
-}
-
-/* Profile */
-.profile-header {
-  text-align: center;
-  padding: 30px 20px;
-  background: linear-gradient(160deg, rgba(212, 175, 55, 0.1), rgba(23, 19, 34, 0.6));
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  margin-bottom: 24px;
-}
-.profile-avatar {
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  margin: 0 auto 16px;
-  background: var(--grad);
-  color: var(--bg);
-  display: grid;
-  place-items: center;
-  font-family: var(--font-d);
-  font-size: 42px;
-  font-weight: 900;
-  box-shadow: 0 12px 32px rgba(212, 175, 55, 0.35);
-}
-.profile-name {
-  font-family: var(--font-d);
-  font-size: 24px;
-  font-weight: 700;
-  margin-bottom: 4px;
-}
-.profile-level {
-  font-family: var(--font-a);
-  font-size: 12px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--gold);
-}
-
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-  margin-bottom: 24px;
-}
-.stat-box {
-  padding: 18px;
-  background: rgba(23, 19, 34, 0.7);
-  border: 1px solid var(--border-soft);
-  border-radius: 14px;
-  text-align: center;
-}
-.stat-box .sb-val {
-  font-family: var(--font-d);
-  font-size: 26px;
-  font-weight: 800;
-  background: var(--grad-txt);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  line-height: 1;
-  margin-bottom: 4px;
-}
-.stat-box .sb-label {
-  font-size: 11px;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--cream-m);
-}
-
-.badge-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-  margin-bottom: 24px;
-}
-.badge-item {
-  padding: 14px 8px;
-  background: rgba(23, 19, 34, 0.7);
-  border: 1px solid var(--border-soft);
-  border-radius: 12px;
-  text-align: center;
-  position: relative;
-  transition: all 0.3s;
-}
-.badge-item.locked {
-  opacity: 0.3;
-  filter: grayscale(1);
-}
-.badge-item.unlocked {
-  border-color: var(--border);
-  background: rgba(212, 175, 55, 0.06);
-}
-.badge-item .badge-icon {
-  font-size: 26px;
-  margin-bottom: 4px;
-}
-.badge-item .badge-name {
-  font-size: 10px;
-  font-weight: 600;
-  color: var(--cream-m);
-  line-height: 1.2;
-}
-.badge-item.unlocked .badge-name { color: var(--gold-l); }
-
-.settings-section {
-  margin-top: 30px;
-}
-.settings-btn {
-  width: 100%;
-  padding: 16px 20px;
-  background: rgba(248, 113, 113, 0.06);
-  border: 1px solid rgba(248, 113, 113, 0.25);
-  border-radius: 12px;
-  color: var(--red);
-  font-weight: 600;
-  font-size: 13.5px;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-.settings-btn:hover {
-  background: rgba(248, 113, 113, 0.14);
-}
-
-/* Modals */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(10px);
-  z-index: 200;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-.modal-overlay.show { display: flex; animation: fadeIn 0.3s var(--ease); }
-
-.modal-box {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 32px 28px;
-  max-width: 400px;
-  width: 100%;
-  text-align: center;
-  animation: popIn 0.4s var(--ease);
-}
-.modal-box h3 {
-  font-family: var(--font-d);
-  font-size: 24px;
-  font-weight: 700;
-  margin-bottom: 10px;
-}
-.modal-box p {
-  font-size: 14px;
-  color: var(--cream-m);
-  margin-bottom: 24px;
-  line-height: 1.7;
-}
-.modal-actions {
-  display: flex;
-  gap: 10px;
-}
-.modal-actions button {
-  flex: 1;
-  padding: 12px;
-  border-radius: 10px;
-  font-weight: 600;
-  font-size: 13.5px;
-  transition: all 0.25s;
-}
-.modal-actions .confirm {
-  background: var(--red);
-  color: white;
-}
-.modal-actions .confirm:hover { background: #dc2626; }
-.modal-actions .cancel {
-  background: rgba(245, 240, 230, 0.06);
-  border: 1px solid var(--border-soft);
-  color: var(--cream);
-}
-.modal-actions .cancel:hover { background: rgba(245, 240, 230, 0.1); }
-
-/* Toast */
-.toast {
-  position: fixed;
-  top: 80px;
-  left: 50%;
-  transform: translateX(-50%) translateY(-100px);
-  padding: 14px 24px;
-  background: var(--grad);
-  color: var(--bg);
-  border-radius: 999px;
-  font-weight: 700;
-  font-size: 13.5px;
-  letter-spacing: 0.5px;
-  box-shadow: 0 12px 32px rgba(212, 175, 55, 0.4);
-  z-index: 300;
-  opacity: 0;
-  pointer-events: none;
-  transition: all 0.4s var(--ease);
-}
-.toast.show {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
-
-/* Confetti */
-.confetti-piece {
-  position: fixed;
-  width: 10px;
-  height: 10px;
-  z-index: 500;
-  pointer-events: none;
-  border-radius: 2px;
-  animation: confettiFall 2.5s linear forwards;
-}
-@keyframes confettiFall {
-  0% { transform: translateY(0) rotate(0); opacity: 1; }
-  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
-}
-
-/* Responsive */
-@media (max-width: 640px) {
-  .main-content { padding: 16px 16px 100px; }
-  .app-header { padding: 12px 16px; }
-  .hdr-brand { font-size: 15px; letter-spacing: 2px; }
-  .stat-pill { padding: 5px 10px; font-size: 11.5px; }
-  .welcome-card { padding: 22px 20px; }
-  .onboard-card { padding: 36px 24px; }
-  .onboard-title { font-size: 26px; }
-  .lesson-body { padding: 30px 16px 140px; }
-  .teach-card { padding: 24px 20px; }
-  .feedback-inner { flex-direction: column; gap: 12px; }
-  .feedback-continue { align-self: stretch; text-align: center; }
-  .result-title { font-size: 28px; }
-  .result-emoji { font-size: 70px; }
-  .badge-grid { grid-template-columns: repeat(3, 1fr); }
-  .unit-lessons .lesson-row { padding-left: 70px; }
-}
+/* Practice & Games */
+.practice-container { max-width: 800px; margin: 0 auto; padding: 20px 24px 100px; }
+.mcq-question { font-size: 20px; font-weight: 600; margin-bottom: 24px; }
+.mcq-options { display: flex; flex-direction: column; gap: 12px; }
+.mcq-btn { padding: 16px; background: var(--bg-card); border: 1.5px solid var(--border); border-radius: 12px; font-size: 16px; text-align: left; transition: all 0.2s; }
+.mcq-btn:hover:not(:disabled) { border-color: var(--purple-light); background: var(--bg-hover); }
+.mcq-btn.correct { background: var(--green-bg); border-color: var(--green); color: var(--green); }
+.mcq-btn.wrong { background: var(--red-bg); border-color: var(--red); color: var(--red); }
+.arrange-sentence-area { min-height: 80px; padding: 16px; background: var(--bg-inner); border: 1.5px dashed var(--border); border-radius: 12px; display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+.arrange-pool { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+.word-chip { padding: 10px 16px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; cursor: pointer; transition: all 0.2s; }
+.word-chip:hover { border-color: var(--purple); transform: translateY(-2px); }
+.bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(7, 9, 19, 0.9); border-top: 1px solid var(--border); padding: 16px; display: none; justify-content: center; backdrop-filter: blur(10px); z-index: 100; }
+.btn-primary { padding: 14px 40px; background: linear-gradient(135deg, var(--purple), var(--blue)); color: white; font-weight: 700; border-radius: 30px; box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3); transition: all 0.2s; }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(139, 92, 246, 0.5); }
+.toast-feedback { position: fixed; top: 80px; left: 50%; transform: translate(-50%, -100px); padding: 16px 24px; border-radius: 16px; font-weight: 600; opacity: 0; transition: all 0.3s; z-index: 200; }
+.toast-feedback.show { transform: translate(-50%, 0); opacity: 1; }
+.toast-feedback.success { background: var(--green-bg); border: 1px solid var(--green); color: var(--green); }
+.toast-feedback.error { background: var(--red-bg); border: 1px solid var(--red); color: var(--red); }
 </style>
 </head>
-
 <body>
 
-<!-- Background glows -->
-<div class="bg-glow g1"></div>
-<div class="bg-glow g2"></div>
+<div class="screen active" id="screen-home">
+  <header class="nav-header">
+    <div class="nav-brand">ENGLISH MASTERY</div>
+    <div class="stat-pill">⭐ <span id="userXP">0</span> XP</div>
+  </header>
+  <div class="hero"><h1>Choose Your <span>Module</span></h1></div>
+  <div class="modules-grid" id="homeModules"></div>
+</div>
 
-<!-- ============================================================
-     ONBOARDING
-     ============================================================ -->
-<div class="screen active" id="onboard">
-  <div class="onboard-card">
+<div class="screen" id="screen-module">
+  <div class="page-header"><button class="btn-back" onclick="goHome()">← Back</button></div>
+  <div style="max-width: 900px; margin: 0 auto; padding: 0 24px 20px;">
+    <h2 id="modTitle" style="font-size: 28px; font-weight: 800;"></h2>
+    <p id="modDesc" style="color: var(--text-muted);"></p>
+  </div>
+  <div class="cards-container" id="moduleCards"></div>
+</div>
 
-    <!-- Step 1: Welcome -->
-    <div class="onboard-step active" id="ob1">
-      <div class="brand-mark-lg">LX</div>
-      <h1 class="onboard-title">Welcome to <span class="grad">LEXORA</span></h1>
-      <p class="onboard-sub">
-        Learn English from zero to confident — one game at a time. No experience needed.
-      </p>
-      <button class="onboard-btn" id="btnStartJourney">Begin Your Journey →</button>
-    </div>
-
-    <!-- Step 2: Name -->
-    <div class="onboard-step" id="ob2">
-      <h1 class="onboard-title">What's your <span class="grad">name?</span></h1>
-      <p class="onboard-sub">We'll personalize your experience.</p>
-      <input type="text" class="onboard-input" id="obName" placeholder="Your name" maxlength="20" autocomplete="off" />
-      <button class="onboard-btn" id="obNameBtn" disabled>Continue →</button>
-    </div>
-
-    <!-- Step 3: Level -->
-    <div class="onboard-step" id="ob3">
-      <h1 class="onboard-title">How much English do you <span class="grad">know?</span></h1>
-      <p class="onboard-sub">Be honest — we'll start from the right place.</p>
-      <div class="onboard-choice">
-        <button class="choice-btn" data-start="0">
-          <span class="choice-icon">🌱</span>
-          <span class="choice-text">
-            <strong>Complete Beginner</strong>
-            <small>I know nothing yet — start me from the very beginning</small>
-          </span>
-        </button>
-        <button class="choice-btn" data-start="1">
-          <span class="choice-icon">📖</span>
-          <span class="choice-text">
-            <strong>I Know Some Basics</strong>
-            <small>I know alphabet &amp; some words — start from greetings</small>
-          </span>
-        </button>
-        <button class="choice-btn" data-start="9">
-          <span class="choice-icon">🚀</span>
-          <span class="choice-text">
-            <strong>I'm Intermediate</strong>
-            <small>I can read &amp; write — jump to grammar section</small>
-          </span>
-        </button>
-      </div>
-    </div>
-
+<div class="screen" id="screen-lesson">
+  <div class="page-header"><button class="btn-back" onclick="goBackToModule()">← Back</button></div>
+  <div class="lesson-content" id="lessonBody"></div>
+  <div class="bottom-bar" id="lessonBottomBar">
+    <button class="btn-primary" onclick="startPractice()">Start Practice 🎮</button>
   </div>
 </div>
 
-<!-- ============================================================
-     HOME / HUB
-     ============================================================ -->
-<div class="screen" id="home">
-  <div class="app-header">
-    <div class="hdr-brand">LEXORA</div>
-    <div class="hdr-stats">
-      <div class="stat-pill fire"><span class="icon">🔥</span><span id="hdrStreak">0</span></div>
-      <div class="stat-pill star"><span class="icon">⭐</span><span id="hdrLevel">1</span></div>
-      <div class="stat-pill gold"><span class="icon">⚡</span><span id="hdrXP">0</span></div>
-    </div>
-  </div>
-
-  <div class="main-content">
-    <div class="welcome-card">
-      <div class="welcome-emoji">👋</div>
-      <h2 class="welcome-hi">Hi, <span id="welcomeName">Friend</span>!</h2>
-      <p class="welcome-msg" id="welcomeMsg">Ready to learn something new today?</p>
-      <div class="level-progress-wrap">
-        <div class="level-progress-info">
-          <span class="lv-badge" id="lvBadge">Level 1 · Beginner</span>
-          <span id="lvXPInfo">0 / 300 XP</span>
-        </div>
-        <div class="level-bar"><div class="level-bar-fill" id="lvBar" style="width:0%"></div></div>
-      </div>
-    </div>
-
-    <div class="continue-card" id="continueCard">
-      <div class="continue-icon">▶</div>
-      <div class="continue-info">
-        <div class="continue-label">Continue Learning</div>
-        <div class="continue-title" id="contTitle">Lesson 1</div>
-        <div class="continue-unit" id="contUnit">Unit 1 · First Words</div>
-      </div>
-      <div class="continue-btn">→</div>
-    </div>
-
-    <h3 class="section-label">Your Learning Path</h3>
-    <div class="unit-list" id="unitList"></div>
-  </div>
-
-  <nav class="bottom-nav">
-    <div class="nav-inner">
-      <button class="nav-item active" data-tab="home">
-        <span class="nav-icon">🏠</span>
-        <span class="nav-label">Learn</span>
-      </button>
-      <button class="nav-item" data-tab="review">
-        <span class="nav-icon">🔄</span>
-        <span class="nav-label">Review</span>
-      </button>
-      <button class="nav-item" data-tab="profile">
-        <span class="nav-icon">👤</span>
-        <span class="nav-label">Profile</span>
-      </button>
-    </div>
-  </nav>
+<div class="screen" id="screen-practice">
+  <div class="page-header"><button class="btn-back" onclick="goBackToLesson()">← Back</button></div>
+  <div class="practice-container" id="practiceBody"></div>
 </div>
 
-<!-- ============================================================
-     REVIEW SCREEN
-     ============================================================ -->
-<div class="screen" id="review">
-  <div class="app-header">
-    <div class="hdr-brand">LEXORA</div>
-    <div class="hdr-stats">
-      <div class="stat-pill gold"><span class="icon">⚡</span><span id="revXP">0</span></div>
-    </div>
-  </div>
-  <div class="main-content">
-    <h1 class="page-title">Review Mistakes</h1>
-    <p class="page-sub">Practice what you got wrong — smart review makes you stronger.</p>
-    <div id="reviewList"></div>
-  </div>
-  <nav class="bottom-nav">
-    <div class="nav-inner">
-      <button class="nav-item" data-tab="home">
-        <span class="nav-icon">🏠</span><span class="nav-label">Learn</span>
-      </button>
-      <button class="nav-item active" data-tab="review">
-        <span class="nav-icon">🔄</span><span class="nav-label">Review</span>
-      </button>
-      <button class="nav-item" data-tab="profile">
-        <span class="nav-icon">👤</span><span class="nav-label">Profile</span>
-      </button>
-    </div>
-  </nav>
+<div class="toast-feedback" id="toastFeedback">
+  <span id="toastIcon">✓</span> <span id="toastMsg">Correct!</span>
 </div>
 
-<!-- ============================================================
-     PROFILE SCREEN
-     ============================================================ -->
-<div class="screen" id="profile">
-  <div class="app-header">
-    <div class="hdr-brand">LEXORA</div>
-    <div class="hdr-stats">
-      <div class="stat-pill fire"><span class="icon">🔥</span><span id="profStreak">0</span></div>
-      <div class="stat-pill gold"><span class="icon">⚡</span><span id="profXP">0</span></div>
-    </div>
-  </div>
-  <div class="main-content">
-    <div class="profile-header">
-      <div class="profile-avatar" id="profAvatar">A</div>
-      <div class="profile-name" id="profName">Learner</div>
-      <div class="profile-level" id="profLevel">Level 1 · Beginner</div>
-    </div>
+<!-- Yahan aapki files load hoti hain -->
+<script src="module1.js"></script>
+<script src="module2.js"></script>
 
-    <div class="stats-grid">
-      <div class="stat-box">
-        <div class="sb-val" id="statLessons">0</div>
-        <div class="sb-label">Lessons Done</div>
-      </div>
-      <div class="stat-box">
-        <div class="sb-val" id="statXP">0</div>
-        <div class="sb-label">Total XP</div>
-      </div>
-      <div class="stat-box">
-        <div class="sb-val" id="statAcc">0%</div>
-        <div class="sb-label">Accuracy</div>
-      </div>
-      <div class="stat-box">
-        <div class="sb-val" id="statStreak">0</div>
-        <div class="sb-label">Best Streak</div>
-      </div>
-    </div>
-
-    <h3 class="section-label">Badges</h3>
-    <div class="badge-grid" id="badgeGrid"></div>
-
-    <div class="settings-section">
-      <button class="settings-btn" id="btnResetProgress">Reset All Progress</button>
-    </div>
-  </div>
-  <nav class="bottom-nav">
-    <div class="nav-inner">
-      <button class="nav-item" data-tab="home">
-        <span class="nav-icon">🏠</span><span class="nav-label">Learn</span>
-      </button>
-      <button class="nav-item" data-tab="review">
-        <span class="nav-icon">🔄</span><span class="nav-label">Review</span>
-      </button>
-      <button class="nav-item active" data-tab="profile">
-        <span class="nav-icon">👤</span><span class="nav-label">Profile</span>
-      </button>
-    </div>
-  </nav>
-</div>
-
-<!-- ============================================================
-     LESSON VIEW
-     ============================================================ -->
-<div class="screen" id="lesson-view">
-  <div class="lesson-header">
-    <button class="lesson-close" id="btnExitLesson">✕</button>
-    <div class="lesson-progress-bar"><div class="lesson-progress-fill" id="lessonFill"></div></div>
-    <div class="lesson-hp">❤️ <span id="hpCount">3</span></div>
-  </div>
-  <div class="lesson-body" id="lessonBody"></div>
-
-  <div class="lesson-bottom-bar" id="lessonBottom">
-    <div class="lesson-bottom-inner">
-      <button class="check-btn" id="checkBtn" disabled>Check</button>
-    </div>
-  </div>
-
-  <div class="feedback-bar" id="feedbackBar">
-    <div class="feedback-inner">
-      <div class="feedback-icon" id="fbIcon">✓</div>
-      <div class="feedback-content">
-        <div class="feedback-head" id="fbHead">Correct!</div>
-        <div class="feedback-explanation" id="fbExp"></div>
-      </div>
-      <button class="feedback-continue" id="fbContinueBtn">Continue →</button>
-    </div>
-  </div>
-</div>
-
-<!-- ============================================================
-     MODALS & TOASTS
-     ============================================================ -->
-<div class="modal-overlay" id="resetModal">
-  <div class="modal-box">
-    <h3>Reset Progress?</h3>
-    <p>This will erase all your progress, XP, streak, and badges. This cannot be undone.</p>
-    <div class="modal-actions">
-      <button class="cancel" id="btnCancelReset">Cancel</button>
-      <button class="confirm" id="btnConfirmReset">Reset</button>
-    </div>
-  </div>
-</div>
-
-<div class="toast" id="toast"></div>
-
-<!-- ============================================================
-     JAVASCRIPT
-     ============================================================ -->
-<script src="data.js"></script>
 <script>
-/* ============================================================
-   1. INITIAL SAFETY CHECK
-   ============================================================ */
-if (typeof LEXORA === 'undefined') {
-  alert("ERROR: data.js not found!\n\nPlease make sure you have BOTH files in the SAME folder:\n1. index.html\n2. data.js\n\nIf you renamed data.js, please change the script tag to match.");
-}
-
-/* ============================================================
-   2. STATE MANAGEMENT
-   ============================================================ */
-const STORAGE_KEY = "lexora_state_v2";
-
-const defaultState = {
-  name: "",
-  started: false,
-  xp: 0,
-  level: 1,
-  streak: 0,
-  lastPlayed: null,
-  bestStreak: 0,
-  completedLessons: [],
-  currentLessonId: "u1l1",
-  mistakes: [],
-  badges: [],
-  totalCorrect: 0,
-  totalWrong: 0,
-  perfectLessons: 0,
-};
-
-let state = loadState();
-let lessonSession = null;
-
-function loadState() {
+/* ================= 1. FIREBASE SETUP ================= */
+const FIREBASE_URL = "https://learnenglishspok-default-rtdb.asia-southeast1.firebasedatabase.app/";
+let deviceId = localStorage.getItem("em_device_id") || "user_" + Math.random().toString(36).substr(2, 9);
+localStorage.setItem("em_device_id", deviceId);
+let userData = { xp: 0 };
+async function fetchUserData() {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return { ...defaultState };
-    return { ...defaultState, ...JSON.parse(raw) };
-  } catch {
-    return { ...defaultState };
-  }
+    const res = await fetch(`${FIREBASE_URL}users/${deviceId}.json`);
+    const data = await res.json();
+    if (data) { userData = data; document.getElementById("userXP").innerText = userData.xp || 0; }
+  } catch (e) {}
+}
+async function saveUserData(addXP = 0) {
+  userData.xp = (userData.xp || 0) + addXP;
+  document.getElementById("userXP").innerText = userData.xp;
+  try { await fetch(`${FIREBASE_URL}users/${deviceId}.json`, { method: "PUT", body: JSON.stringify(userData) }); } catch (e) {}
+}
+fetchUserData();
+
+/* ================= 2. SOUND EFFECTS ================= */
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+function playSound(type) {
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  const osc = audioCtx.createOscillator(); const gain = audioCtx.createGain();
+  osc.connect(gain); gain.connect(audioCtx.destination);
+  if (type === 'click') { osc.frequency.setValueAtTime(400, audioCtx.currentTime); gain.gain.setValueAtTime(0.1, audioCtx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1); osc.start(); osc.stop(audioCtx.currentTime + 0.1); }
+  else if (type === 'correct') { osc.frequency.setValueAtTime(500, audioCtx.currentTime); osc.frequency.setValueAtTime(1000, audioCtx.currentTime + 0.1); gain.gain.setValueAtTime(0.1, audioCtx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4); osc.start(); osc.stop(audioCtx.currentTime + 0.4); }
+  else if (type === 'wrong') { osc.frequency.setValueAtTime(300, audioCtx.currentTime); osc.frequency.exponentialRampToValueAtTime(150, audioCtx.currentTime + 0.3); gain.gain.setValueAtTime(0.1, audioCtx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3); osc.start(); osc.stop(audioCtx.currentTime + 0.3); }
 }
 
-function saveState() {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-  } catch (e) {
-    console.warn("Save failed:", e);
-  }
-}
+/* ================= 3. ENGINE LOGIC ================= */
+let currentModule = null, currentCard = null, currentPracticeIndex = 0, selectedWords = [];
 
-/* ============================================================
-   3. HELPERS
-   ============================================================ */
-function $(id) { return document.getElementById(id); }
-function qsa(s) { return document.querySelectorAll(s); }
+const allModules = [];
+if (typeof module1Data !== 'undefined') allModules.push(module1Data);
+if (typeof module2Data !== 'undefined') allModules.push(module2Data);
 
-function showScreen(id) {
-  qsa(".screen").forEach((s) => s.classList.remove("active"));
-  $(id).classList.add("active");
-  window.scrollTo(0, 0);
-}
+function showScreen(id) { document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); document.getElementById(id).classList.add('active'); window.scrollTo(0,0); }
+function goHome() { playSound('click'); showScreen("screen-home"); }
+function goBackToModule() { playSound('click'); document.getElementById("lessonBottomBar").style.display = "none"; showScreen("screen-module"); }
+function goBackToLesson() { playSound('click'); openLesson(currentCard.id); }
 
-function shuffle(arr) {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
-
-function getLevel(xp) {
-  if (typeof LEXORA === 'undefined') return { n: 1, xp: 0, title: "Beginner", icon: "🌱" };
-  const levels = LEXORA.levels;
-  let current = levels[0];
-  for (const lvl of levels) {
-    if (xp >= lvl.xp) current = lvl;
-  }
-  return current;
-}
-
-function getNextLevel(xp) {
-  if (typeof LEXORA === 'undefined') return null;
-  const levels = LEXORA.levels;
-  for (const lvl of levels) {
-    if (xp < lvl.xp) return lvl;
-  }
-  return null;
-}
-
-function getCurrentLesson() {
-  if (typeof LEXORA === 'undefined') return null;
-  for (const unit of LEXORA.units) {
-    for (const lesson of unit.lessons) {
-      if (!state.completedLessons.includes(lesson.id)) {
-        return { unit, lesson };
-      }
-    }
-  }
-  return null;
-}
-
-function isLessonUnlocked(lessonId) {
-  if (typeof LEXORA === 'undefined') return false;
-  for (const unit of LEXORA.units) {
-    for (let i = 0; i < unit.lessons.length; i++) {
-      const lesson = unit.lessons[i];
-      if (lesson.id === lessonId) {
-        if (unit.id === "u1" && i === 0) return true;
-        if (i > 0) return state.completedLessons.includes(unit.lessons[i - 1].id);
-        const unitIndex = LEXORA.units.indexOf(unit);
-        if (unitIndex > 0) {
-          const prevUnit = LEXORA.units[unitIndex - 1];
-          const lastLesson = prevUnit.lessons[prevUnit.lessons.length - 1];
-          return state.completedLessons.includes(lastLesson.id);
-        }
-        return true;
-      }
-    }
-  }
-  return false;
-}
-
-function isUnitUnlocked(unitId) {
-  if (typeof LEXORA === 'undefined') return false;
-  const unit = LEXORA.units.find(u => u.id === unitId);
-  if (!unit || !unit.lessons[0]) return false;
-  return isLessonUnlocked(unit.lessons[0].id);
-}
-
-function findLesson(lessonId) {
-  if (typeof LEXORA === 'undefined') return null;
-  for (const unit of LEXORA.units) {
-    for (const lesson of unit.lessons) {
-      if (lesson.id === lessonId) return { unit, lesson };
-    }
-  }
-  return null;
-}
-
-/* ============================================================
-   4. TOAST & CONFETTI
-   ============================================================ */
-let toastTimer;
-function showToast(msg) {
-  const t = $("toast");
-  if (!t) return;
-  t.textContent = msg;
-  t.classList.add("show");
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove("show"), 2600);
-}
-
-function fireConfetti(count = 30) {
-  const colors = ["#d4af37", "#f4e4a6", "#a67c52", "#ffe88a", "#e8c5a0"];
-  for (let i = 0; i < count; i++) {
-    setTimeout(() => {
-      const piece = document.createElement("div");
-      piece.className = "confetti-piece";
-      piece.style.left = Math.random() * 100 + "%";
-      piece.style.top = "-20px";
-      piece.style.background = colors[Math.floor(Math.random() * colors.length)];
-      piece.style.transform = `rotate(${Math.random() * 360}deg)`;
-      piece.style.width = (6 + Math.random() * 8) + "px";
-      piece.style.height = (6 + Math.random() * 8) + "px";
-      document.body.appendChild(piece);
-      setTimeout(() => piece.remove(), 2600);
-    }, i * 40);
-  }
-}
-
-/* ============================================================
-   5. BADGES & STREAK
-   ============================================================ */
-function awardBadge(id) {
-  if (typeof LEXORA === 'undefined') return;
-  if (state.badges.includes(id)) return;
-  const badge = LEXORA.badges.find((b) => b.id === id);
-  if (!badge) return;
-  state.badges.push(id);
-  saveState();
-  showToast(`${badge.icon} Badge unlocked: ${badge.name}!`);
-  fireConfetti(8);
-}
-
-function checkBadges() {
-  if (typeof LEXORA === 'undefined') return;
-  const done = state.completedLessons.length;
-  if (done >= 1) awardBadge("first-lesson");
-  if (done >= 5) awardBadge("five-lessons");
-  if (done >= 10) awardBadge("ten-lessons");
-  if (done >= 20) awardBadge("twenty-lessons");
-  if (state.perfectLessons >= 1) awardBadge("first-perfect");
-  if (state.perfectLessons >= 5) awardBadge("five-perfect");
-  if (state.streak >= 3) awardBadge("streak-3");
-  if (state.streak >= 7) awardBadge("streak-7");
-  if (state.streak >= 30) awardBadge("streak-30");
-  if (state.xp >= 500) awardBadge("xp-500");
-  if (state.xp >= 2000) awardBadge("xp-2000");
-
-  let completedUnits = 0;
-  for (const unit of LEXORA.units) {
-    if (unit.lessons.every((l) => state.completedLessons.includes(l.id))) {
-      completedUnits++;
-    }
-  }
-  if (completedUnits >= 1) awardBadge("first-unit");
-  if (completedUnits >= 7) awardBadge("half-course");
-  if (completedUnits >= LEXORA.units.length) awardBadge("course-master");
-}
-
-function updateStreak() {
-  const today = new Date().toDateString();
-  if (state.lastPlayed === today) return;
-  const yesterday = new Date();
-  yesterday.setDate(yesterday.getDate() - 1);
-  const wasYesterday = state.lastPlayed === yesterday.toDateString();
-  if (wasYesterday) {
-    state.streak++;
-  } else if (state.lastPlayed !== today) {
-    state.streak = 1;
-  }
-  if (state.streak > state.bestStreak) state.bestStreak = state.streak;
-  state.lastPlayed = today;
-  checkBadges();
-}
-
-/* ============================================================
-   6. ONBOARDING LOGIC
-   ============================================================ */
-function obNext(step) {
-  qsa(".onboard-step").forEach((s) => s.classList.remove("active"));
-  const el = $("ob" + step);
-  if (el) el.classList.add("active");
-}
-
-function obSaveName() {
-  const name = $("obName").value.trim();
-  if (!name) return;
-  state.name = name;
-  saveState();
-  obNext(3);
-}
-
-function obStart(startIndex) {
-  try {
-    if (typeof LEXORA === 'undefined') {
-      alert("Data not loaded. Please ensure data.js is in the same folder.");
-      return;
-    }
-    state.started = true;
-    const units = LEXORA.units;
-    if (startIndex >= units.length) startIndex = 0;
-    const unit = units[startIndex];
-    state.currentLessonId = unit.lessons[0].id;
-    for (let i = 0; i < startIndex; i++) {
-      for (const lesson of units[i].lessons) {
-        if (!state.completedLessons.includes(lesson.id)) {
-          state.completedLessons.push(lesson.id);
-        }
-      }
-    }
-    updateStreak();
-    saveState();
-    showScreen("home");
-    renderHome();
-  } catch (err) {
-    alert("Error starting course: " + err.message);
-    console.error(err);
-  }
-}
-
-/* Onboarding Event Listeners */
-const btnStartJourney = $("btnStartJourney");
-if (btnStartJourney) btnStartJourney.addEventListener("click", () => obNext(2));
-
-const obNameInput = $("obName");
-if (obNameInput) {
-  obNameInput.addEventListener("input", (e) => {
-    const btn = $("obNameBtn");
-    if (btn) btn.disabled = e.target.value.trim().length < 1;
-  });
-  obNameInput.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" && e.target.value.trim().length >= 1) obSaveName();
-  });
-}
-
-const obNameBtn = $("obNameBtn");
-if (obNameBtn) obNameBtn.addEventListener("click", obSaveName);
-
-document.querySelectorAll('.choice-btn').forEach(btn => {
-  btn.addEventListener('click', function() {
-    const startIndex = parseInt(this.getAttribute('data-start'), 10);
-    obStart(startIndex);
-  });
-});
-
-/* ============================================================
-   7. HOME HUB
-   ============================================================ */
 function renderHome() {
-  if (typeof LEXORA === 'undefined') return;
-
-  $("hdrStreak").textContent = state.streak;
-  $("hdrLevel").textContent = state.level;
-  $("hdrXP").textContent = state.xp;
-
-  $("welcomeName").textContent = state.name || "Friend";
-  const level = getLevel(state.xp);
-  const nextLvl = getNextLevel(state.xp);
-  $("lvBadge").textContent = `Level ${level.n} · ${level.title}`;
-  
-  if (nextLvl) {
-    const pct = Math.max(0, Math.min(100, ((state.xp - level.xp) / (nextLvl.xp - level.xp)) * 100));
-    $("lvBar").style.width = pct + "%";
-    $("lvXPInfo").textContent = `${state.xp} / ${nextLvl.xp} XP`;
-  } else {
-    $("lvBar").style.width = "100%";
-    $("lvXPInfo").textContent = `${state.xp} XP (Max)`;
-  }
-
-  const current = getCurrentLesson();
-  if (current) {
-    $("contTitle").textContent = current.lesson.title;
-    $("contUnit").textContent = `${current.unit.title} · ${current.unit.subtitle}`;
-  } else {
-    $("contTitle").textContent = "🎉 Course Complete!";
-    $("contUnit").textContent = "Review your badges or practice mistakes";
-  }
-
-  renderUnits();
-
-  const done = state.completedLessons.length;
-  if (done === 0) $("welcomeMsg").textContent = "Ready to begin your English journey?";
-  else if (done < 5) $("welcomeMsg").textContent = "Great start! Keep the momentum going.";
-  else if (done < 15) $("welcomeMsg").textContent = "You're making real progress. Proud of you!";
-  else if (done < 30) $("welcomeMsg").textContent = "You're on fire! Halfway there.";
-  else if (done < 50) $("welcomeMsg").textContent = "Almost there. You've come so far!";
-  else $("welcomeMsg").textContent = "You did it! Now keep practicing.";
-}
-
-function renderUnits() {
-  if (typeof LEXORA === 'undefined') return;
-  const list = $("unitList");
-  
-  list.innerHTML = LEXORA.units.map((unit) => {
-    const unlocked = isUnitUnlocked(unit.id);
-    const doneLessons = unit.lessons.filter((l) => state.completedLessons.includes(l.id));
-    const allDone = doneLessons.length === unit.lessons.length;
-    const current = getCurrentLesson();
-    
-    const dots = unit.lessons.map((l) => {
-      if (state.completedLessons.includes(l.id)) return `<span class="unit-dot done"></span>`;
-      if (current && l.id === current.lesson.id) return `<span class="unit-dot current"></span>`;
-      return `<span class="unit-dot"></span>`;
-    }).join("");
-
-    return `
-      <div class="unit-block ${unlocked ? "unlocked" : "locked"} ${allDone ? "open" : ""}" data-unit="${unit.id}">
-        <div class="unit-header">
-          <div class="unit-icon-box">${unlocked ? unit.icon : "🔒"}</div>
-          <div class="unit-info">
-            <div class="unit-title">${unit.title}</div>
-            <div class="unit-sub">${unit.subtitle} · ${doneLessons.length}/${unit.lessons.length} lessons</div>
-          </div>
-          <div class="unit-progress">
-            <div class="unit-dots">${dots}</div>
-            <div class="unit-chevron">▼</div>
-          </div>
-        </div>
-        <div class="unit-lessons">
-          ${unit.lessons.map((lesson) => {
-            const isDone = state.completedLessons.includes(lesson.id);
-            const isUnlocked = isLessonUnlocked(lesson.id);
-            return `
-              <div class="lesson-row ${isDone ? "completed" : ""} ${!isUnlocked ? "locked" : ""}" data-lesson-id="${lesson.id}">
-                <div class="lesson-left">
-                  <div class="lesson-check">${isDone ? "✓" : "○"}</div>
-                  <div class="lesson-name">
-                    ${lesson.title}
-                    <span class="lesson-type-tag ${lesson.type}">${lesson.type === "teach" ? "📖 Learn" : "🎮 Practice"}</span>
-                  </div>
-                </div>
-                <div class="lesson-arrow">›</div>
-              </div>
-            `;
-          }).join("")}
-        </div>
-      </div>
-    `;
-  }).join("");
-}
-
-/* Event delegation for unit list */
-$("unitList").addEventListener('click', (e) => {
-  const header = e.target.closest('.unit-header');
-  if (header) {
-    const unitBlock = header.closest('.unit-block');
-    if (unitBlock && unitBlock.classList.contains('unlocked')) {
-      unitBlock.classList.toggle('open');
-    }
-    return;
-  }
-  
-  const lessonRow = e.target.closest('.lesson-row');
-  if (lessonRow) {
-    if (lessonRow.classList.contains('locked')) return;
-    const lessonId = lessonRow.dataset.lessonId;
-    if (lessonId) startLesson(lessonId);
-  }
-});
-
-$("continueCard").addEventListener("click", () => {
-  const current = getCurrentLesson();
-  if (current) startLesson(current.lesson.id);
-  else showScreen("profile");
-});
-
-/* ============================================================
-   8. LESSON ENGINE
-   ============================================================ */
-function startLesson(lessonId) {
-  const found = findLesson(lessonId);
-  if (!found) return;
-  const { unit, lesson } = found;
-
-  if (lesson.type === "teach") {
-    lessonSession = {
-      lessonId,
-      unit,
-      lesson,
-      mode: "teach",
-      page: 0,
-      totalPages: lesson.teach.sections.length + 1,
-    };
-    showScreen("lesson-view");
-    renderTeachPage();
-  } else {
-    lessonSession = {
-      lessonId,
-      unit,
-      lesson,
-      mode: "practice",
-      exercises: shuffle(lesson.exercises),
-      index: 0,
-      correct: 0,
-      wrong: 0,
-      hp: 3,
-      mistakes: [],
-      answerState: null,
-      total: lesson.exercises.length,
-    };
-    showScreen("lesson-view");
-    renderExercise();
-  }
-  updateLessonProgress();
-}
-
-function exitLesson() {
-  if (!confirm("Quit this lesson? Progress won't be saved.")) return;
-  lessonSession = null;
-  showScreen("home");
-  renderHome();
-}
-
-function updateLessonProgress() {
-  if (!lessonSession) return;
-  let pct;
-  if (lessonSession.mode === "teach") {
-    pct = ((lessonSession.page + 1) / lessonSession.totalPages) * 100;
-  } else {
-    pct = (lessonSession.index / lessonSession.total) * 100;
-  }
-  $("lessonFill").style.width = pct + "%";
-}
-
-/* ---------- TEACH MODE ---------- */
-function renderTeachPage() {
-  const { lesson, page } = lessonSession;
-  const sections = lesson.teach.sections;
-  const body = $("lessonBody");
-
-  if (page < sections.length) {
-    const sec = sections[page];
-    body.innerHTML = `
-      <div class="teach-card">
-        <div class="teach-intro">${page === 0 ? lesson.teach.intro : ""}</div>
-        <div class="teach-section">
-          <h4>${sec.title}</h4>
-          <p>${sec.body}</p>
-          <div class="teach-example">${sec.example}</div>
-        </div>
-        ${page === sections.length - 1 ? `<div class="teach-tip">${lesson.teach.tip}</div>` : ""}
-      </div>
-    `;
-    $("checkBtn").disabled = false;
-    $("checkBtn").textContent = "Continue →";
-    $("lessonBottom").classList.remove("hidden");
-  }
-  updateLessonProgress();
-}
-
-/* ---------- PRACTICE MODE ---------- */
-function renderExercise() {
-  const { exercises, index } = lessonSession;
-
-  if (index >= exercises.length || lessonSession.hp <= 0) {
-    showResult();
-    return;
-  }
-
-  $("hpCount").textContent = lessonSession.hp;
-  const ex = exercises[index];
-  const body = $("lessonBody");
-  lessonSession.answerState = null;
-
-  if (ex.type === "mcq") renderMCQ(ex, body);
-  else if (ex.type === "fill") renderFill(ex, body);
-  else if (ex.type === "spell") renderSpell(ex, body);
-  else if (ex.type === "build") renderBuild(ex, body);
-  else renderMCQ(ex, body);
-
-  updateLessonProgress();
-  hideFeedback();
-  $("lessonBottom").classList.remove("hidden");
-  $("checkBtn").disabled = true;
-  $("checkBtn").textContent = "Check";
-}
-
-function renderMCQ(ex, body) {
-  const opts = ex.options || [];
-  body.innerHTML = `
-    <div class="exercise-wrap">
-      <div class="exercise-prompt">Question ${lessonSession.index + 1} of ${lessonSession.total}</div>
-      <div class="exercise-title">${ex.prompt}</div>
-      <div class="options-grid" id="optGrid">
-        ${opts.map((o, i) => `
-          <button class="option-btn" data-idx="${i}">
-            <span class="opt-key">${String.fromCharCode(65 + i)}</span>
-            <span>${o}</span>
-          </button>
-        `).join("")}
-      </div>
+  document.getElementById("homeModules").innerHTML = allModules.map(mod => `
+    <div class="module-card" onclick="openModule('${mod.id}')">
+      <div class="mc-icon">${mod.icon}</div>
+      <div class="mc-title">${mod.title}</div>
+      <div class="mc-desc">${mod.desc}</div>
     </div>
-  `;
-  document.querySelectorAll('#optGrid .option-btn').forEach(btn => {
-    btn.addEventListener('click', () => selectMCQ(parseInt(btn.dataset.idx, 10)));
-  });
-  lessonSession.answerState = { type: "mcq", selected: null, correct: ex.correct, explanation: ex.explanation };
-}
-
-function selectMCQ(i) {
-  if (!lessonSession.answerState || lessonSession.answerState.checked) return;
-  lessonSession.answerState.selected = i;
-  qsa("#optGrid .option-btn").forEach((b, idx) => {
-    b.style.borderColor = idx === i ? "var(--gold)" : "";
-    b.style.background = idx === i ? "rgba(212,175,55,0.08)" : "";
-  });
-  $("checkBtn").disabled = false;
-}
-
-function renderFill(ex, body) {
-  const parts = ex.sentence.split("___");
-  const opts = ex.options || [];
-  body.innerHTML = `
-    <div class="exercise-wrap">
-      <div class="exercise-prompt">Question ${lessonSession.index + 1} of ${lessonSession.total}</div>
-      <div class="exercise-title">Complete the sentence:</div>
-      <div class="fill-sentence">
-        ${parts[0]}<span class="fill-blank" id="fillBlank">?</span>${parts[1] || ""}
-      </div>
-      <div class="options-grid" id="optGrid">
-        ${opts.map((o, i) => `
-          <button class="option-btn" data-idx="${i}" data-val="${o}">
-            <span class="opt-key">${String.fromCharCode(65 + i)}</span>
-            <span>${o}</span>
-          </button>
-        `).join("")}
-      </div>
-    </div>
-  `;
-  document.querySelectorAll('#optGrid .option-btn').forEach(btn => {
-    btn.addEventListener('click', () => selectFill(parseInt(btn.dataset.idx, 10), btn.dataset.val));
-  });
-  lessonSession.answerState = { type: "fill", selected: null, correct: ex.correct, options: opts, explanation: ex.explanation };
-}
-
-function selectFill(i, val) {
-  if (!lessonSession.answerState || lessonSession.answerState.checked) return;
-  lessonSession.answerState.selected = i;
-  $("fillBlank").textContent = val;
-  qsa("#optGrid .option-btn").forEach((b, idx) => {
-    b.style.borderColor = idx === i ? "var(--gold)" : "";
-    b.style.background = idx === i ? "rgba(212,175,55,0.08)" : "";
-  });
-  $("checkBtn").disabled = false;
-}
-
-function renderSpell(ex, body) {
-  body.innerHTML = `
-    <div class="exercise-wrap">
-      <div class="exercise-prompt">Question ${lessonSession.index + 1} of ${lessonSession.total}</div>
-      <div class="exercise-title">${ex.prompt}</div>
-      <div class="type-input-wrap">
-        <input type="text" class="type-input" id="spellInput" placeholder="Type the word..." autocomplete="off" spellcheck="false" maxlength="30" />
-      </div>
-      <div style="text-align:center; color:var(--cream-m); font-size:13px; margin-top:8px;">💡 Hint: ${ex.hint || "—"}</div>
-    </div>
-  `;
-  const input = $("spellInput");
-  input.focus();
-  input.addEventListener("input", () => {
-    input.value = input.value.toUpperCase();
-    $("checkBtn").disabled = input.value.trim().length === 0;
-  });
-  input.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" && !$("checkBtn").disabled) checkAnswer();
-  });
-  lessonSession.answerState = { type: "spell", correct: ex.word.toUpperCase(), explanation: `The correct spelling is "${ex.word}".` };
-}
-
-function renderBuild(ex, body) {
-  const allWords = shuffle(ex.words.map((w, i) => ({ w, id: i })));
-  lessonSession.buildState = { pool: allWords, chosen: [], answer: ex.answer };
-
-  body.innerHTML = `
-    <div class="exercise-wrap">
-      <div class="exercise-prompt">Question ${lessonSession.index + 1} of ${lessonSession.total}</div>
-      <div class="exercise-title">${ex.prompt}</div>
-      <div class="build-words" id="buildArea"></div>
-      <div class="build-pool" id="buildPool"></div>
-    </div>
-  `;
-  renderBuildAreas();
-  lessonSession.answerState = { type: "build", explanation: `Correct sentence: "${ex.answer}".` };
-}
-
-function renderBuildAreas() {
-  const bs = lessonSession.buildState;
-  const area = $("buildArea");
-  const pool = $("buildPool");
-  if (!area || !pool) return;
-
-  area.innerHTML = bs.chosen.map((item) => `
-    <button class="build-word" data-id="${item.id}">${item.w}</button>
   `).join("");
+}
+renderHome();
 
-  pool.innerHTML = bs.pool.filter((item) => !bs.chosen.find((c) => c.id === item.id))
-    .map((item) => `
-      <button class="build-word" data-id="${item.id}">${item.w}</button>
-    `).join("");
-
-  area.querySelectorAll('.build-word').forEach(btn => {
-    btn.addEventListener('click', () => removeBuildWord(parseInt(btn.dataset.id, 10)));
-  });
-  pool.querySelectorAll('.build-word').forEach(btn => {
-    btn.addEventListener('click', () => addBuildWord(parseInt(btn.dataset.id, 10)));
-  });
-
-  $("checkBtn").disabled = bs.chosen.length === 0;
+function openModule(modId) {
+  playSound('click');
+  currentModule = allModules.find(m => m.id === modId);
+  document.getElementById("modTitle").innerText = currentModule.title;
+  document.getElementById("modDesc").innerText = currentModule.desc;
+  document.getElementById("moduleCards").innerHTML = currentModule.cards.map((card, idx) => `
+    <div class="lesson-card-item" onclick="openLesson('${card.id}')">
+      <div class="lci-num">${idx + 1}</div>
+      <div class="lci-info"><div class="lci-title">${card.title}</div><div class="lci-sub">${card.subtitle}</div></div>
+      <div class="lci-arrow">›</div>
+    </div>
+  `).join("");
+  showScreen("screen-module");
 }
 
-function addBuildWord(id) {
-  const bs = lessonSession.buildState;
-  const item = bs.pool.find((i) => i.id === id);
-  if (item) bs.chosen.push(item);
-  renderBuildAreas();
-}
+function openLesson(cardId) {
+  playSound('click');
+  currentCard = currentModule.cards.find(c => c.id === cardId);
+  let html = `<h1 class="lesson-h1">${currentCard.title}</h1><p style="color:var(--text-muted); margin-bottom:20px;">${currentCard.subtitle}</p>`;
 
-function removeBuildWord(id) {
-  const bs = lessonSession.buildState;
-  bs.chosen = bs.chosen.filter((i) => i.id !== id);
-  renderBuildAreas();
-}
-
-/* ---------- ANSWER CHECKING ---------- */
-function checkAnswer() {
-  const ex = lessonSession.exercises[lessonSession.index];
-  const as = lessonSession.answerState;
-  if (!as || as.checked) return;
-  as.checked = true;
-
-  let isCorrect = false;
-  let userAnswer = "";
-
-  if (ex.type === "mcq" || ex.type === "fill") {
-    if (as.selected === null) return;
-    isCorrect = as.selected === as.correct;
-    const opts = ex.options;
-    qsa("#optGrid .option-btn").forEach((b, idx) => {
-      b.disabled = true;
-      if (idx === as.correct) b.classList.add("correct");
-      else if (idx === as.selected && !isCorrect) b.classList.add("wrong");
+  // 1. INTERACTIVE (Verb Tobe)
+  if (currentCard.type === "interactive") {
+    html += `<div class="content-section"><div class="cs-header">📌 Click on any word to see its Structure & Translation:</div>
+      <div class="clickable-grid">`;
+    currentCard.interactiveData.forEach((item, i) => {
+      html += `<button class="click-btn" onclick="showDetail(${i}, this)">${item.word}</button>`;
     });
-    userAnswer = opts[as.selected];
-  } else if (ex.type === "spell") {
-    const input = $("spellInput");
-    userAnswer = input.value.trim().toUpperCase();
-    isCorrect = userAnswer === as.correct;
-    input.disabled = true;
-    input.style.borderColor = isCorrect ? "var(--green)" : "var(--red)";
-  } else if (ex.type === "build") {
-    userAnswer = lessonSession.buildState.chosen.map((c) => c.w).join(" ");
-    const norm = (s) => s.replace(/[.,!?;:'"]/g, "").toLowerCase().replace(/\s+/g, " ").trim();
-    isCorrect = norm(userAnswer) === norm(lessonSession.buildState.answer);
-    qsa("#buildArea .build-word").forEach((b) => b.disabled = true);
-    qsa("#buildPool .build-word").forEach((b) => b.disabled = true);
+    html += `</div><div id="detailContainer"></div></div>`;
+    document.getElementById("lessonBottomBar").style.display = "none";
   }
 
-  if (isCorrect) {
-    lessonSession.correct++;
-    state.totalCorrect++;
-    state.xp += 10;
-    const newLevel = getLevel(state.xp);
-    if (newLevel.n > state.level) {
-      state.level = newLevel.n;
-      showToast(`${newLevel.icon} Level up! You're now Level ${newLevel.n}`);
+  // 2. TEACH MODE (Modals & Semi Modals)
+  if (currentCard.type === "teach") {
+    currentCard.content.forEach((sec, i) => {
+      html += `<div class="content-section"><div class="cs-header">${i+1}. ${sec.title}</div>${sec.text ? `<div class="cs-text">${sec.text}</div>` : ""}${sec.formula ? `<div class="formula-box">${sec.formula}</div>` : ""}</div>`;
+    });
+    if (currentCard.structure) {
+      html += `<div class="content-section"><div class="cs-header">Structure with Examples</div><div class="structure-grid">`;
+      currentCard.structure.forEach(st => { html += `<div class="struct-card"><div class="struct-title">${st.type}</div><div class="struct-formula">${st.formula}</div><div class="ex-en">${st.ex}</div><div class="ex-hint">💡 ${st.hint}</div></div>`; });
+      html += `</div></div>`;
     }
-    showFeedback(true, "Correct!", ex.explanation || as.explanation || "");
-  } else {
-    lessonSession.wrong++;
-    state.totalWrong++;
-    lessonSession.hp--;
-    $("hpCount").textContent = lessonSession.hp;
-    if (ex.type === "mcq" || ex.type === "fill") {
-      state.mistakes.push({
-        prompt: ex.prompt,
-        correctAnswer: ex.options[ex.correct],
-        unit: lessonSession.unit.title,
-        timestamp: Date.now(),
-      });
-    } else if (ex.type === "spell") {
-      state.mistakes.push({
-        prompt: ex.prompt,
-        correctAnswer: ex.word,
-        unit: lessonSession.unit.title,
-        timestamp: Date.now(),
-      });
-    } else if (ex.type === "build") {
-      state.mistakes.push({
-        prompt: ex.prompt,
-        correctAnswer: lessonSession.buildState.answer,
-        unit: lessonSession.unit.title,
-        timestamp: Date.now(),
-      });
-    }
-    showFeedback(false, "Not quite...", ex.explanation || as.explanation || "");
+    document.getElementById("lessonBottomBar").style.display = "flex";
   }
 
-  if (state.mistakes.length > 50) state.mistakes = state.mistakes.slice(-50);
-  saveState();
-  $("lessonBottom").classList.add("hidden");
-}
-
-function showFeedback(isCorrect, head, exp) {
-  const bar = $("feedbackBar");
-  bar.className = "feedback-bar show " + (isCorrect ? "correct" : "wrong");
-  $("fbIcon").textContent = isCorrect ? "✓" : "✗";
-  $("fbHead").textContent = head;
-  $("fbExp").textContent = exp || "";
-}
-
-function hideFeedback() {
-  $("feedbackBar").classList.remove("show");
-}
-
-function continueLessonStep() {
-  hideFeedback();
-  if (lessonSession.mode === "teach") {
-    lessonSession.page++;
-    if (lessonSession.page >= lessonSession.totalPages - 1) {
-      completeLesson();
-      return;
-    }
-    renderTeachPage();
-    return;
+  // 3. VERBS A-Z
+  if (currentCard.type === "verbs") {
+    html += `<div class="content-section"><div class="cs-header">A-Z Verb Forms (V1, V2, V3)</div><div class="verb-filters" id="verbFilters"></div><div style="overflow-x:auto;"><div id="verbTableContainer"></div></div></div>`;
+    document.getElementById("lessonBottomBar").style.display = "none";
   }
 
-  if (lessonSession.hp <= 0) {
-    showResult();
-    return;
+  // 4. SPOKEN MODE
+  if (currentCard.type === "spoken") {
+    html += `<div class="content-section"><div class="cs-header">Daily Use Sentences</div>`;
+    currentCard.spokenList.forEach(cat => {
+      html += `<h3 style="margin: 20px 0 10px; color: var(--purple-light); font-size: 18px;">${cat.category}</h3>`;
+      cat.sentences.forEach(s => { html += `<div class="example-item"><div class="ex-en">${s.en}</div><div class="ex-hi">${s.hi}</div></div>`; });
+    });
+    html += `</div>`;
+    document.getElementById("lessonBottomBar").style.display = "none";
   }
 
-  lessonSession.index++;
-  if (lessonSession.index >= lessonSession.total) {
-    showResult();
-  } else {
-    renderExercise();
+  document.getElementById("lessonBody").innerHTML = html;
+  showScreen("screen-lesson");
+
+  if (currentCard.type === "verbs") {
+    let letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+    let filters = `<button class="filter-btn active" onclick="filterVerbs('ALL', this)">ALL</button>`;
+    letters.forEach(l => { filters += `<button class="filter-btn" onclick="filterVerbs('${l}', this)">${l}</button>`; });
+    document.getElementById("verbFilters").innerHTML = filters;
+    renderVerbTable(currentCard.verbList, 'ALL');
   }
 }
 
-/* Event listeners for lesson UI */
-$("checkBtn").addEventListener("click", () => {
-  if (!lessonSession) return;
-  if (lessonSession.mode === "teach") continueLessonStep();
-  else checkAnswer();
-});
+/* === LOGIC FOR INTERACTIVE (was, is, etc) === */
+function showDetail(index, btn) {
+  playSound('click');
+  document.querySelectorAll('.click-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  
+  const data = currentCard.interactiveData[index];
+  const container = document.getElementById("detailContainer");
+  
+  let html = `<div class="detail-view active">
+    <div class="dv-header">${data.word} = ${data.meaning} <span style="font-size:14px; color:var(--text-muted); font-weight:normal;">(${data.tense})</span></div>
+    <div class="dv-row"><div class="dv-title">Simple Sentence</div><div class="dv-en">${data.simple.en}</div><div class="dv-hi">${data.simple.hi}</div></div>
+    <div class="dv-row"><div class="dv-title">Negative</div><div class="dv-en">${data.negative.en}</div><div class="dv-hi">${data.negative.hi}</div></div>
+    <div class="dv-row"><div class="dv-title">WH Question</div><div class="dv-en">${data.wh.en}</div><div class="dv-hi">${data.wh.hi}</div></div>
+  </div>`;
+  
+  container.innerHTML = html;
+}
 
-$("fbContinueBtn").addEventListener("click", continueLessonStep);
-$("btnExitLesson").addEventListener("click", exitLesson);
-
-function showResult() {
-  const ls = lessonSession;
-  const total = ls.total;
-  const correct = ls.correct;
-  const pct = Math.round((correct / total) * 100);
-
-  let emoji = "🎉", title = "Lesson Complete!";
-  if (pct === 100) { emoji = "⭐"; title = "Perfect!"; }
-  else if (pct >= 80) { emoji = "🔥"; title = "Excellent!"; }
-  else if (pct >= 60) { emoji = "👍"; title = "Well Done!"; }
-  else { emoji = "💪"; title = "Keep Practicing!"; }
-
-  if (pct === 100) {
-    state.xp += 20;
-    state.perfectLessons++;
-  }
-
-  if (!state.completedLessons.includes(ls.lessonId)) {
-    state.completedLessons.push(ls.lessonId);
-  }
-
-  const next = getCurrentLesson();
-  if (next) state.currentLessonId = next.lesson.id;
-
-  checkBadges();
-  saveState();
-
-  $("lessonBody").innerHTML = `
-    <div class="result-wrap">
-      <div class="result-emoji">${emoji}</div>
-      <div class="result-title">${title}</div>
-      <div class="result-sub">Lesson complete! Here's how you did.</div>
-      <div class="result-stats">
-        <div class="result-stat">
-          <div class="rs-val">${correct}/${total}</div>
-          <div class="rs-label">Correct</div>
-        </div>
-        <div class="result-stat">
-          <div class="rs-val">${pct}%</div>
-          <div class="rs-label">Accuracy</div>
-        </div>
-        <div class="result-stat">
-          <div class="rs-val">+${correct * 10 + (pct === 100 ? 20 : 0)}</div>
-          <div class="rs-label">XP</div>
-        </div>
-      </div>
-      <div class="result-actions">
-        <button class="result-btn primary" id="btnResHome">Back to Home</button>
-        <button class="result-btn secondary" id="btnResPractice">Practice Again</button>
-      </div>
-    </div>
+/* === LOGIC FOR VERBS A-Z === */
+function renderVerbTable(list, filterLetter) {
+  let filtered = filterLetter === 'ALL' ? list : list.filter(v => v.v1[0].toUpperCase() === filterLetter);
+  document.getElementById("verbTableContainer").innerHTML = `
+    <table class="verb-table">
+      <thead><tr><th>V1 (Base)</th><th>V2 (Past)</th><th>V3 (Past Participle)</th><th>Hindi Meaning</th></tr></thead>
+      <tbody>
+        ${filtered.map(v => `<tr><td class="v1">${v.v1}</td><td class="v2">${v.v2}</td><td class="v3">${v.v3}</td><td class="vm">${v.hi}</td></tr>`).join("")}
+      </tbody>
+    </table>
   `;
-
-  $("btnResHome").addEventListener("click", exitToHome);
-  $("btnResPractice").addEventListener("click", practiceAgain);
-
-  if (pct >= 80) fireConfetti(40);
-  $("lessonFill").style.width = "100%";
-  $("lessonBottom").classList.add("hidden");
+}
+function filterVerbs(letter, btn) {
+  playSound('click');
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderVerbTable(currentCard.verbList, letter);
 }
 
-function completeLesson() {
-  if (!state.completedLessons.includes(lessonSession.lessonId)) {
-    state.completedLessons.push(lessonSession.lessonId);
-  }
-  state.xp += 15;
-  const next = getCurrentLesson();
-  if (next) state.currentLessonId = next.lesson.id;
-  checkBadges();
-  saveState();
-
-  $("lessonBody").innerHTML = `
-    <div class="result-wrap">
-      <div class="result-emoji">📖</div>
-      <div class="result-title">Lesson Complete!</div>
-      <div class="result-sub">You learned something new today. +15 XP!</div>
-      <div class="result-actions">
-        <button class="result-btn primary" id="btnResHome2">Back to Home</button>
-      </div>
-    </div>
-  `;
-  $("btnResHome2").addEventListener("click", exitToHome);
-  fireConfetti(20);
-  $("lessonFill").style.width = "100%";
-  $("lessonBottom").classList.add("hidden");
+/* ================= 4. PRACTICE GAMES ================= */
+function startPractice() {
+  playSound('click'); currentPracticeIndex = 0; showScreen("screen-practice"); renderPracticeQuestion();
 }
 
-function exitToHome() {
-  lessonSession = null;
-  showScreen("home");
-  renderHome();
-}
-
-function practiceAgain() {
-  const id = lessonSession.lessonId;
-  lessonSession = null;
-  startLesson(id);
-}
-
-/* ============================================================
-   9. TAB SWITCHING
-   ============================================================ */
-function switchTab(tab) {
-  if (tab === "home") { showScreen("home"); renderHome(); }
-  else if (tab === "review") { showScreen("review"); renderReview(); }
-  else if (tab === "profile") { showScreen("profile"); renderProfile(); }
-}
-
-document.querySelectorAll('.nav-item').forEach(btn => {
-  btn.addEventListener('click', function() {
-    const tab = this.getAttribute('data-tab');
-    if (tab) switchTab(tab);
-  });
-});
-
-/* ============================================================
-   10. REVIEW
-   ============================================================ */
-function renderReview() {
-  $("revXP").textContent = state.xp;
-  const list = $("reviewList");
-
-  if (state.mistakes.length === 0) {
-    list.innerHTML = `
-      <div class="empty-state">
-        <div class="empty-emoji">✨</div>
-        <h3>No Mistakes Yet!</h3>
-        <p>Keep learning. When you make a mistake, it'll appear here for smart review.</p>
-      </div>
-    `;
-    return;
+function renderPracticeQuestion() {
+  const container = document.getElementById("practiceBody");
+  if (!currentCard.practice || currentPracticeIndex >= currentCard.practice.length) {
+    container.innerHTML = `<div style="text-align:center; padding: 50px 0;"><div style="font-size: 60px;">🎉</div><h2>Practice Complete!</h2><p style="color: var(--text-muted); margin-bottom: 20px;">+10 XP Earned</p><button class="btn-primary" onclick="goBackToModule()">Back to Module</button></div>`;
+    saveUserData(10); playSound('correct'); return;
   }
 
-  const groups = {};
-  state.mistakes.forEach((m) => {
-    if (!groups[m.unit]) groups[m.unit] = [];
-    groups[m.unit].push(m);
-  });
-
-  list.innerHTML = Object.entries(groups).map(([unit, items]) => `
-    <div class="review-card" data-unit="${unit.replace(/"/g, '&quot;')}">
-      <div class="review-icon">📝</div>
-      <div class="review-info">
-        <div class="review-title">${unit}</div>
-        <div class="review-meta">Practice your mistakes</div>
-      </div>
-      <div class="review-count">${items.length}</div>
-    </div>
-  `).join("");
-}
-
-$("reviewList").addEventListener('click', (e) => {
-  const card = e.target.closest('.review-card');
-  if (card) startReviewFromMistakes(card.dataset.unit);
-});
-
-function startReviewFromMistakes(unit) {
-  const items = state.mistakes.filter((m) => m.unit === unit);
-  if (items.length === 0) return;
-
-  const exercises = items.map((m) => ({
-    type: "mcq",
-    prompt: m.prompt,
-    options: shuffle([m.correctAnswer, ...generateWrongOptions(m.correctAnswer)]),
-    correct: -1,
-    explanation: `The correct answer is "${m.correctAnswer}".`,
-  }));
-
-  exercises.forEach((ex, i) => {
-    ex.correct = ex.options.indexOf(items[i].correctAnswer);
-  });
-
-  lessonSession = {
-    lessonId: "review-" + unit,
-    unit: { title: unit, subtitle: "Review" },
-    lesson: { title: "Review: " + unit, type: "practice" },
-    mode: "practice",
-    exercises,
-    index: 0,
-    correct: 0,
-    wrong: 0,
-    hp: 3,
-    mistakes: [],
-    answerState: null,
-    total: exercises.length,
-  };
-
-  showScreen("lesson-view");
-  renderExercise();
-}
-
-function generateWrongOptions(correct) {
-  const pool = state.mistakes.map((m) => m.correctAnswer).filter((a) => a !== correct);
-  const shuffled = shuffle(pool).slice(0, 3);
-  while (shuffled.length < 3) shuffled.push("—");
-  return shuffled;
-}
-
-/* ============================================================
-   11. PROFILE
-   ============================================================ */
-function renderProfile() {
-  $("profStreak").textContent = state.streak;
-  $("profXP").textContent = state.xp;
-
-  $("profAvatar").textContent = (state.name || "A").charAt(0).toUpperCase();
-  $("profName").textContent = state.name || "Learner";
-  const lvl = getLevel(state.xp);
-  $("profLevel").textContent = `Level ${lvl.n} · ${lvl.title} ${lvl.icon}`;
-
-  $("statLessons").textContent = state.completedLessons.length;
-  $("statXP").textContent = state.xp;
-  const total = state.totalCorrect + state.totalWrong;
-  const acc = total > 0 ? Math.round((state.totalCorrect / total) * 100) : 0;
-  $("statAcc").textContent = acc + "%";
-  $("statStreak").textContent = state.bestStreak;
-
-  const grid = $("badgeGrid");
-  if (typeof LEXORA !== 'undefined') {
-    grid.innerHTML = LEXORA.badges.map((b) => {
-      const unlocked = state.badges.includes(b.id);
-      return `
-        <div class="badge-item ${unlocked ? "unlocked" : "locked"}" title="${b.desc}">
-          <div class="badge-icon">${b.icon}</div>
-          <div class="badge-name">${b.name}</div>
-        </div>
-      `;
-    }).join("");
+  const q = currentCard.practice[currentPracticeIndex];
+  if (q.type === "mcq") {
+    container.innerHTML = `<div class="mcq-question">${q.q}</div><div class="mcq-options" id="mcqOptions">${q.options.map((opt, i) => `<button class="mcq-btn" onclick="checkMCQ(${i}, ${q.ans})">${opt}</button>`).join("")}</div>`;
+  } 
+  else if (q.type === "arrange") {
+    selectedWords = [];
+    const shuffled = [...q.words].sort(() => Math.random() - 0.5);
+    container.innerHTML = `<div class="mcq-question">${q.q}</div><div class="arrange-sentence-area" id="arrangeArea"></div><div class="arrange-pool" id="arrangePool">${shuffled.map((w, i) => `<div class="word-chip" id="word-${i}" onclick="selectWord('${w}', ${i})">${w}</div>`).join("")}</div><div style="text-align: center;"><button class="btn-primary" id="btnCheckArrange" onclick="checkArrange('${q.ans}')" disabled>Check Answer</button></div>`;
   }
 }
 
-/* ============================================================
-   12. RESET MODAL
-   ============================================================ */
-const resetModal = $("resetModal");
-$("btnResetProgress").addEventListener("click", () => resetModal.classList.add("show"));
-$("btnCancelReset").addEventListener("click", () => resetModal.classList.remove("show"));
-$("btnConfirmReset").addEventListener("click", () => {
-  if (confirm("Are you absolutely sure? This cannot be undone.")) {
-    localStorage.removeItem(STORAGE_KEY);
-    state = { ...defaultState };
-    saveState();
-    resetModal.classList.remove("show");
-    showScreen("onboard");
-    obNext(1);
-  }
-});
-
-/* ============================================================
-   13. INIT APP
-   ============================================================ */
-function init() {
-  if (typeof LEXORA === 'undefined') {
-    // App won't work without data.js. Error alert is shown at top.
-    return;
-  }
-  if (state.started && state.name) {
-    updateStreak();
-    saveState();
-    showScreen("home");
-    renderHome();
+function checkMCQ(selected, correct) {
+  const btns = document.querySelectorAll("#mcqOptions .mcq-btn");
+  btns.forEach(b => b.disabled = true);
+  if (selected === correct) {
+    btns[selected].classList.add("correct"); playSound('correct'); showToast("Correct!", true);
+    setTimeout(() => { currentPracticeIndex++; renderPracticeQuestion(); }, 1500);
   } else {
-    showScreen("onboard");
-    if (state.name) obNext(2);
+    btns[selected].classList.add("wrong"); btns[correct].classList.add("correct"); playSound('wrong'); showToast("Wrong!", false);
+    setTimeout(() => { currentPracticeIndex++; renderPracticeQuestion(); }, 2500);
   }
 }
 
-// Run after slight delay to ensure DOM and data.js are fully loaded
-setTimeout(init, 100);
+function selectWord(word, id) {
+  playSound('click'); selectedWords.push({ word, id });
+  document.getElementById(`word-${id}`).style.display = 'none';
+  document.getElementById("arrangeArea").innerHTML = selectedWords.map((item, i) => `<div class="word-chip" onclick="removeWord(${i})">${item.word}</div>`).join("");
+  document.getElementById("btnCheckArrange").disabled = selectedWords.length === 0;
+}
+
+function removeWord(index) {
+  playSound('click'); const removed = selectedWords.splice(index, 1)[0];
+  document.getElementById(`word-${removed.id}`).style.display = '';
+  document.getElementById("arrangeArea").innerHTML = selectedWords.map((item, i) => `<div class="word-chip" onclick="removeWord(${i})">${item.word}</div>`).join("");
+  document.getElementById("btnCheckArrange").disabled = selectedWords.length === 0;
+}
+
+function checkArrange(correctAns) {
+  const userAns = selectedWords.map(w => w.word).join(" ");
+  if (userAns.trim().toLowerCase() === correctAns.trim().toLowerCase()) {
+    playSound('correct'); showToast("Correct!", true);
+    setTimeout(() => { currentPracticeIndex++; renderPracticeQuestion(); }, 1500);
+  } else {
+    playSound('wrong'); showToast("Try again", false);
+    setTimeout(() => { selectedWords = []; document.querySelectorAll('#arrangePool .word-chip').forEach(el => el.style.display = ''); document.getElementById("arrangeArea").innerHTML = ""; document.getElementById("btnCheckArrange").disabled = true; }, 1000);
+  }
+}
+
+let toastTimer;
+function showToast(msg, isSuccess) {
+  const toast = document.getElementById("toastFeedback");
+  toast.className = `toast-feedback show ${isSuccess ? 'success' : 'error'}`;
+  document.getElementById("toastIcon").innerText = isSuccess ? "✓" : "✗";
+  document.getElementById("toastMsg").innerText = msg;
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => toast.classList.remove('show'), 2500);
+}
 </script>
-
 </body>
 </html>
