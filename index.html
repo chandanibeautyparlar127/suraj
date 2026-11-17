@@ -195,15 +195,6 @@ ul, ol { list-style: none; }
   opacity: 0.4;
   cursor: not-allowed;
 }
-.onboard-btn.outline {
-  background: transparent;
-  border: 1.5px solid var(--border);
-  color: var(--gold);
-  box-shadow: none;
-}
-.onboard-btn.outline:hover {
-  background: rgba(212, 175, 55, 0.08);
-}
 
 .onboard-choice {
   display: flex;
@@ -1518,7 +1509,7 @@ ul, ol { list-style: none; }
       <p class="onboard-sub">
         Learn English from zero to confident — one game at a time. No experience needed.
       </p>
-      <button class="onboard-btn" onclick="obNext(2)">Begin Your Journey →</button>
+      <button class="onboard-btn" id="btnStartJourney">Begin Your Journey →</button>
     </div>
 
     <!-- Step 2: Name -->
@@ -1526,7 +1517,7 @@ ul, ol { list-style: none; }
       <h1 class="onboard-title">What's your <span class="grad">name?</span></h1>
       <p class="onboard-sub">We'll personalize your experience.</p>
       <input type="text" class="onboard-input" id="obName" placeholder="Your name" maxlength="20" autocomplete="off" />
-      <button class="onboard-btn" id="obNameBtn" onclick="obSaveName()" disabled>Continue →</button>
+      <button class="onboard-btn" id="obNameBtn" disabled>Continue →</button>
     </div>
 
     <!-- Step 3: Level -->
@@ -1534,21 +1525,21 @@ ul, ol { list-style: none; }
       <h1 class="onboard-title">How much English do you <span class="grad">know?</span></h1>
       <p class="onboard-sub">Be honest — we'll start from the right place.</p>
       <div class="onboard-choice">
-        <button class="choice-btn" onclick="obStart(0)">
+        <button class="choice-btn" data-start="0">
           <span class="choice-icon">🌱</span>
           <span class="choice-text">
             <strong>Complete Beginner</strong>
             <small>I know nothing yet — start me from the very beginning</small>
           </span>
         </button>
-        <button class="choice-btn" onclick="obStart(4)">
+        <button class="choice-btn" data-start="1">
           <span class="choice-icon">📖</span>
           <span class="choice-text">
             <strong>I Know Some Basics</strong>
             <small>I know alphabet &amp; some words — start from greetings</small>
           </span>
         </button>
-        <button class="choice-btn" onclick="obStart(9)">
+        <button class="choice-btn" data-start="9">
           <span class="choice-icon">🚀</span>
           <span class="choice-text">
             <strong>I'm Intermediate</strong>
@@ -1588,7 +1579,7 @@ ul, ol { list-style: none; }
       </div>
     </div>
 
-    <div class="continue-card" id="continueCard" onclick="continueLesson()">
+    <div class="continue-card" id="continueCard">
       <div class="continue-icon">▶</div>
       <div class="continue-info">
         <div class="continue-label">Continue Learning</div>
@@ -1604,15 +1595,15 @@ ul, ol { list-style: none; }
 
   <nav class="bottom-nav">
     <div class="nav-inner">
-      <button class="nav-item active" onclick="switchTab('home')">
+      <button class="nav-item active" data-tab="home">
         <span class="nav-icon">🏠</span>
         <span class="nav-label">Learn</span>
       </button>
-      <button class="nav-item" onclick="switchTab('review')">
+      <button class="nav-item" data-tab="review">
         <span class="nav-icon">🔄</span>
         <span class="nav-label">Review</span>
       </button>
-      <button class="nav-item" onclick="switchTab('profile')">
+      <button class="nav-item" data-tab="profile">
         <span class="nav-icon">👤</span>
         <span class="nav-label">Profile</span>
       </button>
@@ -1637,13 +1628,13 @@ ul, ol { list-style: none; }
   </div>
   <nav class="bottom-nav">
     <div class="nav-inner">
-      <button class="nav-item" onclick="switchTab('home')">
+      <button class="nav-item" data-tab="home">
         <span class="nav-icon">🏠</span><span class="nav-label">Learn</span>
       </button>
-      <button class="nav-item active" onclick="switchTab('review')">
+      <button class="nav-item active" data-tab="review">
         <span class="nav-icon">🔄</span><span class="nav-label">Review</span>
       </button>
-      <button class="nav-item" onclick="switchTab('profile')">
+      <button class="nav-item" data-tab="profile">
         <span class="nav-icon">👤</span><span class="nav-label">Profile</span>
       </button>
     </div>
@@ -1691,18 +1682,18 @@ ul, ol { list-style: none; }
     <div class="badge-grid" id="badgeGrid"></div>
 
     <div class="settings-section">
-      <button class="settings-btn" onclick="showResetModal()">Reset All Progress</button>
+      <button class="settings-btn" id="btnResetProgress">Reset All Progress</button>
     </div>
   </div>
   <nav class="bottom-nav">
     <div class="nav-inner">
-      <button class="nav-item" onclick="switchTab('home')">
+      <button class="nav-item" data-tab="home">
         <span class="nav-icon">🏠</span><span class="nav-label">Learn</span>
       </button>
-      <button class="nav-item" onclick="switchTab('review')">
+      <button class="nav-item" data-tab="review">
         <span class="nav-icon">🔄</span><span class="nav-label">Review</span>
       </button>
-      <button class="nav-item active" onclick="switchTab('profile')">
+      <button class="nav-item active" data-tab="profile">
         <span class="nav-icon">👤</span><span class="nav-label">Profile</span>
       </button>
     </div>
@@ -1714,7 +1705,7 @@ ul, ol { list-style: none; }
      ============================================================ -->
 <div class="screen" id="lesson-view">
   <div class="lesson-header">
-    <button class="lesson-close" onclick="exitLesson()">✕</button>
+    <button class="lesson-close" id="btnExitLesson">✕</button>
     <div class="lesson-progress-bar"><div class="lesson-progress-fill" id="lessonFill"></div></div>
     <div class="lesson-hp">❤️ <span id="hpCount">3</span></div>
   </div>
@@ -1722,7 +1713,7 @@ ul, ol { list-style: none; }
 
   <div class="lesson-bottom-bar" id="lessonBottom">
     <div class="lesson-bottom-inner">
-      <button class="check-btn" id="checkBtn" disabled onclick="checkAnswer()">Check</button>
+      <button class="check-btn" id="checkBtn" disabled>Check</button>
     </div>
   </div>
 
@@ -1733,7 +1724,7 @@ ul, ol { list-style: none; }
         <div class="feedback-head" id="fbHead">Correct!</div>
         <div class="feedback-explanation" id="fbExp"></div>
       </div>
-      <button class="feedback-continue" onclick="continueLessonStep()">Continue →</button>
+      <button class="feedback-continue" id="fbContinueBtn">Continue →</button>
     </div>
   </div>
 </div>
@@ -1746,8 +1737,8 @@ ul, ol { list-style: none; }
     <h3>Reset Progress?</h3>
     <p>This will erase all your progress, XP, streak, and badges. This cannot be undone.</p>
     <div class="modal-actions">
-      <button class="cancel" onclick="hideResetModal()">Cancel</button>
-      <button class="confirm" onclick="resetAllProgress()">Reset</button>
+      <button class="cancel" id="btnCancelReset">Cancel</button>
+      <button class="confirm" id="btnConfirmReset">Reset</button>
     </div>
   </div>
 </div>
@@ -1760,7 +1751,14 @@ ul, ol { list-style: none; }
 <script src="data.js"></script>
 <script>
 /* ============================================================
-   STATE MANAGEMENT
+   1. INITIAL SAFETY CHECK
+   ============================================================ */
+if (typeof LEXORA === 'undefined') {
+  alert("ERROR: data.js not found!\n\nPlease make sure you have BOTH files in the SAME folder:\n1. index.html\n2. data.js\n\nIf you renamed data.js, please change the script tag to match.");
+}
+
+/* ============================================================
+   2. STATE MANAGEMENT
    ============================================================ */
 const STORAGE_KEY = "lexora_state_v2";
 
@@ -1774,7 +1772,7 @@ const defaultState = {
   bestStreak: 0,
   completedLessons: [],
   currentLessonId: "u1l1",
-  mistakes: [],  // [{type, prompt, correctAnswer, timestamp}]
+  mistakes: [],
   badges: [],
   totalCorrect: 0,
   totalWrong: 0,
@@ -1803,10 +1801,9 @@ function saveState() {
 }
 
 /* ============================================================
-   HELPERS
+   3. HELPERS
    ============================================================ */
 function $(id) { return document.getElementById(id); }
-function qs(s) { return document.querySelector(s); }
 function qsa(s) { return document.querySelectorAll(s); }
 
 function showScreen(id) {
@@ -1825,6 +1822,7 @@ function shuffle(arr) {
 }
 
 function getLevel(xp) {
+  if (typeof LEXORA === 'undefined') return { n: 1, xp: 0, title: "Beginner", icon: "🌱" };
   const levels = LEXORA.levels;
   let current = levels[0];
   for (const lvl of levels) {
@@ -1834,6 +1832,7 @@ function getLevel(xp) {
 }
 
 function getNextLevel(xp) {
+  if (typeof LEXORA === 'undefined') return null;
   const levels = LEXORA.levels;
   for (const lvl of levels) {
     if (xp < lvl.xp) return lvl;
@@ -1842,6 +1841,7 @@ function getNextLevel(xp) {
 }
 
 function getCurrentLesson() {
+  if (typeof LEXORA === 'undefined') return null;
   for (const unit of LEXORA.units) {
     for (const lesson of unit.lessons) {
       if (!state.completedLessons.includes(lesson.id)) {
@@ -1853,17 +1853,13 @@ function getCurrentLesson() {
 }
 
 function isLessonUnlocked(lessonId) {
+  if (typeof LEXORA === 'undefined') return false;
   for (const unit of LEXORA.units) {
     for (let i = 0; i < unit.lessons.length; i++) {
       const lesson = unit.lessons[i];
       if (lesson.id === lessonId) {
-        // First lesson of first unit is always unlocked
         if (unit.id === "u1" && i === 0) return true;
-        // Check previous lesson in same unit
-        if (i > 0) {
-          return state.completedLessons.includes(unit.lessons[i - 1].id);
-        }
-        // First lesson of a unit — check last lesson of previous unit
+        if (i > 0) return state.completedLessons.includes(unit.lessons[i - 1].id);
         const unitIndex = LEXORA.units.indexOf(unit);
         if (unitIndex > 0) {
           const prevUnit = LEXORA.units[unitIndex - 1];
@@ -1878,11 +1874,14 @@ function isLessonUnlocked(lessonId) {
 }
 
 function isUnitUnlocked(unitId) {
-  const firstLesson = LEXORA.units.find(u => u.id === unitId)?.lessons[0];
-  return firstLesson ? isLessonUnlocked(firstLesson.id) : false;
+  if (typeof LEXORA === 'undefined') return false;
+  const unit = LEXORA.units.find(u => u.id === unitId);
+  if (!unit || !unit.lessons[0]) return false;
+  return isLessonUnlocked(unit.lessons[0].id);
 }
 
 function findLesson(lessonId) {
+  if (typeof LEXORA === 'undefined') return null;
   for (const unit of LEXORA.units) {
     for (const lesson of unit.lessons) {
       if (lesson.id === lessonId) return { unit, lesson };
@@ -1892,124 +1891,18 @@ function findLesson(lessonId) {
 }
 
 /* ============================================================
-   TOAST
+   4. TOAST & CONFETTI
    ============================================================ */
 let toastTimer;
 function showToast(msg) {
   const t = $("toast");
+  if (!t) return;
   t.textContent = msg;
   t.classList.add("show");
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => t.classList.remove("show"), 2600);
 }
 
-/* ============================================================
-   ONBOARDING
-   ============================================================ */
-function obNext(step) {
-  qsa(".onboard-step").forEach((s) => s.classList.remove("active"));
-  $("ob" + step).classList.add("active");
-}
-
-$("obName")?.addEventListener("input", (e) => {
-  $("obNameBtn").disabled = e.target.value.trim().length < 1;
-});
-$("obName")?.addEventListener("keydown", (e) => {
-  if (e.key === "Enter" && e.target.value.trim().length >= 1) obSaveName();
-});
-
-function obSaveName() {
-  const name = $("obName").value.trim();
-  if (!name) return;
-  state.name = name;
-  saveState();
-  obNext(3);
-}
-
-function obStart(startIndex) {
-  state.started = true;
-  const units = LEXORA.units;
-  if (startIndex >= units.length) startIndex = 0;
-  const unit = units[startIndex];
-  state.currentLessonId = unit.lessons[0].id;
-  // Mark all previous lessons as completed
-  for (let i = 0; i < startIndex; i++) {
-    for (const lesson of units[i].lessons) {
-      if (!state.completedLessons.includes(lesson.id)) {
-        state.completedLessons.push(lesson.id);
-      }
-    }
-  }
-  updateStreak();
-  saveState();
-  showScreen("home");
-  renderHome();
-}
-
-function updateStreak() {
-  const today = new Date().toDateString();
-  if (state.lastPlayed === today) return;
-  const yesterday = new Date();
-  yesterday.setDate(yesterday.getDate() - 1);
-  const wasYesterday = state.lastPlayed === yesterday.toDateString();
-  if (wasYesterday) {
-    state.streak++;
-  } else if (state.lastPlayed !== today) {
-    state.streak = 1;
-  }
-  if (state.streak > state.bestStreak) state.bestStreak = state.streak;
-  state.lastPlayed = today;
-  checkStreakBadges();
-}
-
-/* ============================================================
-   BADGES
-   ============================================================ */
-function awardBadge(id) {
-  if (state.badges.includes(id)) return;
-  const badge = LEXORA.badges.find((b) => b.id === id);
-  if (!badge) return;
-  state.badges.push(id);
-  saveState();
-  showToast(`${badge.icon} Badge unlocked: ${badge.name}!`);
-  fireConfetti(8);
-}
-
-function checkBadges() {
-  const done = state.completedLessons.length;
-  if (done >= 1) awardBadge("first-lesson");
-  if (done >= 5) awardBadge("five-lessons");
-  if (done >= 10) awardBadge("ten-lessons");
-  if (done >= 20) awardBadge("twenty-lessons");
-  if (state.perfectLessons >= 1) awardBadge("first-perfect");
-  if (state.perfectLessons >= 5) awardBadge("five-perfect");
-  if (state.streak >= 3) awardBadge("streak-3");
-  if (state.streak >= 7) awardBadge("streak-7");
-  if (state.streak >= 30) awardBadge("streak-30");
-  if (state.xp >= 500) awardBadge("xp-500");
-  if (state.xp >= 2000) awardBadge("xp-2000");
-
-  // Units
-  let completedUnits = 0;
-  for (const unit of LEXORA.units) {
-    if (unit.lessons.every((l) => state.completedLessons.includes(l.id))) {
-      completedUnits++;
-    }
-  }
-  if (completedUnits >= 1) awardBadge("first-unit");
-  if (completedUnits >= 7) awardBadge("half-course");
-  if (completedUnits >= LEXORA.units.length) awardBadge("course-master");
-}
-
-function checkStreakBadges() {
-  if (state.streak >= 3) awardBadge("streak-3");
-  if (state.streak >= 7) awardBadge("streak-7");
-  if (state.streak >= 30) awardBadge("streak-30");
-}
-
-/* ============================================================
-   CONFETTI
-   ============================================================ */
 function fireConfetti(count = 30) {
   const colors = ["#d4af37", "#f4e4a6", "#a67c52", "#ffe88a", "#e8c5a0"];
   for (let i = 0; i < count; i++) {
@@ -2029,21 +1922,148 @@ function fireConfetti(count = 30) {
 }
 
 /* ============================================================
-   HOME / HUB
+   5. BADGES & STREAK
+   ============================================================ */
+function awardBadge(id) {
+  if (typeof LEXORA === 'undefined') return;
+  if (state.badges.includes(id)) return;
+  const badge = LEXORA.badges.find((b) => b.id === id);
+  if (!badge) return;
+  state.badges.push(id);
+  saveState();
+  showToast(`${badge.icon} Badge unlocked: ${badge.name}!`);
+  fireConfetti(8);
+}
+
+function checkBadges() {
+  if (typeof LEXORA === 'undefined') return;
+  const done = state.completedLessons.length;
+  if (done >= 1) awardBadge("first-lesson");
+  if (done >= 5) awardBadge("five-lessons");
+  if (done >= 10) awardBadge("ten-lessons");
+  if (done >= 20) awardBadge("twenty-lessons");
+  if (state.perfectLessons >= 1) awardBadge("first-perfect");
+  if (state.perfectLessons >= 5) awardBadge("five-perfect");
+  if (state.streak >= 3) awardBadge("streak-3");
+  if (state.streak >= 7) awardBadge("streak-7");
+  if (state.streak >= 30) awardBadge("streak-30");
+  if (state.xp >= 500) awardBadge("xp-500");
+  if (state.xp >= 2000) awardBadge("xp-2000");
+
+  let completedUnits = 0;
+  for (const unit of LEXORA.units) {
+    if (unit.lessons.every((l) => state.completedLessons.includes(l.id))) {
+      completedUnits++;
+    }
+  }
+  if (completedUnits >= 1) awardBadge("first-unit");
+  if (completedUnits >= 7) awardBadge("half-course");
+  if (completedUnits >= LEXORA.units.length) awardBadge("course-master");
+}
+
+function updateStreak() {
+  const today = new Date().toDateString();
+  if (state.lastPlayed === today) return;
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  const wasYesterday = state.lastPlayed === yesterday.toDateString();
+  if (wasYesterday) {
+    state.streak++;
+  } else if (state.lastPlayed !== today) {
+    state.streak = 1;
+  }
+  if (state.streak > state.bestStreak) state.bestStreak = state.streak;
+  state.lastPlayed = today;
+  checkBadges();
+}
+
+/* ============================================================
+   6. ONBOARDING LOGIC
+   ============================================================ */
+function obNext(step) {
+  qsa(".onboard-step").forEach((s) => s.classList.remove("active"));
+  const el = $("ob" + step);
+  if (el) el.classList.add("active");
+}
+
+function obSaveName() {
+  const name = $("obName").value.trim();
+  if (!name) return;
+  state.name = name;
+  saveState();
+  obNext(3);
+}
+
+function obStart(startIndex) {
+  try {
+    if (typeof LEXORA === 'undefined') {
+      alert("Data not loaded. Please ensure data.js is in the same folder.");
+      return;
+    }
+    state.started = true;
+    const units = LEXORA.units;
+    if (startIndex >= units.length) startIndex = 0;
+    const unit = units[startIndex];
+    state.currentLessonId = unit.lessons[0].id;
+    for (let i = 0; i < startIndex; i++) {
+      for (const lesson of units[i].lessons) {
+        if (!state.completedLessons.includes(lesson.id)) {
+          state.completedLessons.push(lesson.id);
+        }
+      }
+    }
+    updateStreak();
+    saveState();
+    showScreen("home");
+    renderHome();
+  } catch (err) {
+    alert("Error starting course: " + err.message);
+    console.error(err);
+  }
+}
+
+/* Onboarding Event Listeners */
+const btnStartJourney = $("btnStartJourney");
+if (btnStartJourney) btnStartJourney.addEventListener("click", () => obNext(2));
+
+const obNameInput = $("obName");
+if (obNameInput) {
+  obNameInput.addEventListener("input", (e) => {
+    const btn = $("obNameBtn");
+    if (btn) btn.disabled = e.target.value.trim().length < 1;
+  });
+  obNameInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && e.target.value.trim().length >= 1) obSaveName();
+  });
+}
+
+const obNameBtn = $("obNameBtn");
+if (obNameBtn) obNameBtn.addEventListener("click", obSaveName);
+
+document.querySelectorAll('.choice-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    const startIndex = parseInt(this.getAttribute('data-start'), 10);
+    obStart(startIndex);
+  });
+});
+
+/* ============================================================
+   7. HOME HUB
    ============================================================ */
 function renderHome() {
-  // Header
+  if (typeof LEXORA === 'undefined') return;
+
   $("hdrStreak").textContent = state.streak;
   $("hdrLevel").textContent = state.level;
   $("hdrXP").textContent = state.xp;
 
-  // Welcome
   $("welcomeName").textContent = state.name || "Friend";
   const level = getLevel(state.xp);
   const nextLvl = getNextLevel(state.xp);
   $("lvBadge").textContent = `Level ${level.n} · ${level.title}`;
+  
   if (nextLvl) {
-    const pct = ((state.xp - level.xp) / (nextLvl.xp - level.xp)) * 100;
+    const pct = Math.max(0, Math.min(100, ((state.xp - level.xp) / (nextLvl.xp - level.xp)) * 100));
     $("lvBar").style.width = pct + "%";
     $("lvXPInfo").textContent = `${state.xp} / ${nextLvl.xp} XP`;
   } else {
@@ -2051,7 +2071,6 @@ function renderHome() {
     $("lvXPInfo").textContent = `${state.xp} XP (Max)`;
   }
 
-  // Continue
   const current = getCurrentLesson();
   if (current) {
     $("contTitle").textContent = current.lesson.title;
@@ -2061,10 +2080,8 @@ function renderHome() {
     $("contUnit").textContent = "Review your badges or practice mistakes";
   }
 
-  // Unit list
   renderUnits();
 
-  // Welcome message based on progress
   const done = state.completedLessons.length;
   if (done === 0) $("welcomeMsg").textContent = "Ready to begin your English journey?";
   else if (done < 5) $("welcomeMsg").textContent = "Great start! Keep the momentum going.";
@@ -2075,20 +2092,24 @@ function renderHome() {
 }
 
 function renderUnits() {
+  if (typeof LEXORA === 'undefined') return;
   const list = $("unitList");
+  
   list.innerHTML = LEXORA.units.map((unit) => {
     const unlocked = isUnitUnlocked(unit.id);
     const doneLessons = unit.lessons.filter((l) => state.completedLessons.includes(l.id));
     const allDone = doneLessons.length === unit.lessons.length;
+    const current = getCurrentLesson();
+    
     const dots = unit.lessons.map((l) => {
       if (state.completedLessons.includes(l.id)) return `<span class="unit-dot done"></span>`;
-      if (l.id === getCurrentLesson()?.lesson.id) return `<span class="unit-dot current"></span>`;
+      if (current && l.id === current.lesson.id) return `<span class="unit-dot current"></span>`;
       return `<span class="unit-dot"></span>`;
     }).join("");
 
     return `
       <div class="unit-block ${unlocked ? "unlocked" : "locked"} ${allDone ? "open" : ""}" data-unit="${unit.id}">
-        <div class="unit-header" onclick="${unlocked ? `toggleUnit('${unit.id}')` : ""}">
+        <div class="unit-header">
           <div class="unit-icon-box">${unlocked ? unit.icon : "🔒"}</div>
           <div class="unit-info">
             <div class="unit-title">${unit.title}</div>
@@ -2101,13 +2122,12 @@ function renderUnits() {
         </div>
         <div class="unit-lessons">
           ${unit.lessons.map((lesson) => {
-            const done = state.completedLessons.includes(lesson.id);
-            const unlockedL = isLessonUnlocked(lesson.id);
+            const isDone = state.completedLessons.includes(lesson.id);
+            const isUnlocked = isLessonUnlocked(lesson.id);
             return `
-              <div class="lesson-row ${done ? "completed" : ""} ${!unlockedL ? "locked" : ""}"
-                   onclick="${unlockedL ? `startLesson('${lesson.id}')` : ""}">
+              <div class="lesson-row ${isDone ? "completed" : ""} ${!isUnlocked ? "locked" : ""}" data-lesson-id="${lesson.id}">
                 <div class="lesson-left">
-                  <div class="lesson-check">${done ? "✓" : "○"}</div>
+                  <div class="lesson-check">${isDone ? "✓" : "○"}</div>
                   <div class="lesson-name">
                     ${lesson.title}
                     <span class="lesson-type-tag ${lesson.type}">${lesson.type === "teach" ? "📖 Learn" : "🎮 Practice"}</span>
@@ -2123,19 +2143,33 @@ function renderUnits() {
   }).join("");
 }
 
-function toggleUnit(unitId) {
-  const block = qs(`[data-unit="${unitId}"]`);
-  if (block) block.classList.toggle("open");
-}
+/* Event delegation for unit list */
+$("unitList").addEventListener('click', (e) => {
+  const header = e.target.closest('.unit-header');
+  if (header) {
+    const unitBlock = header.closest('.unit-block');
+    if (unitBlock && unitBlock.classList.contains('unlocked')) {
+      unitBlock.classList.toggle('open');
+    }
+    return;
+  }
+  
+  const lessonRow = e.target.closest('.lesson-row');
+  if (lessonRow) {
+    if (lessonRow.classList.contains('locked')) return;
+    const lessonId = lessonRow.dataset.lessonId;
+    if (lessonId) startLesson(lessonId);
+  }
+});
 
-function continueLesson() {
+$("continueCard").addEventListener("click", () => {
   const current = getCurrentLesson();
   if (current) startLesson(current.lesson.id);
   else showScreen("profile");
-}
+});
 
 /* ============================================================
-   LESSON ENGINE
+   8. LESSON ENGINE
    ============================================================ */
 function startLesson(lessonId) {
   const found = findLesson(lessonId);
@@ -2236,7 +2270,7 @@ function renderExercise() {
   else if (ex.type === "fill") renderFill(ex, body);
   else if (ex.type === "spell") renderSpell(ex, body);
   else if (ex.type === "build") renderBuild(ex, body);
-  else renderMCQ(ex, body); // fallback
+  else renderMCQ(ex, body);
 
   updateLessonProgress();
   hideFeedback();
@@ -2253,7 +2287,7 @@ function renderMCQ(ex, body) {
       <div class="exercise-title">${ex.prompt}</div>
       <div class="options-grid" id="optGrid">
         ${opts.map((o, i) => `
-          <button class="option-btn" data-idx="${i}" onclick="selectMCQ(${i})">
+          <button class="option-btn" data-idx="${i}">
             <span class="opt-key">${String.fromCharCode(65 + i)}</span>
             <span>${o}</span>
           </button>
@@ -2261,6 +2295,9 @@ function renderMCQ(ex, body) {
       </div>
     </div>
   `;
+  document.querySelectorAll('#optGrid .option-btn').forEach(btn => {
+    btn.addEventListener('click', () => selectMCQ(parseInt(btn.dataset.idx, 10)));
+  });
   lessonSession.answerState = { type: "mcq", selected: null, correct: ex.correct, explanation: ex.explanation };
 }
 
@@ -2286,7 +2323,7 @@ function renderFill(ex, body) {
       </div>
       <div class="options-grid" id="optGrid">
         ${opts.map((o, i) => `
-          <button class="option-btn" data-idx="${i}" onclick="selectFill(${i}, '${o.replace(/'/g, "\\'")}')">
+          <button class="option-btn" data-idx="${i}" data-val="${o}">
             <span class="opt-key">${String.fromCharCode(65 + i)}</span>
             <span>${o}</span>
           </button>
@@ -2294,6 +2331,9 @@ function renderFill(ex, body) {
       </div>
     </div>
   `;
+  document.querySelectorAll('#optGrid .option-btn').forEach(btn => {
+    btn.addEventListener('click', () => selectFill(parseInt(btn.dataset.idx, 10), btn.dataset.val));
+  });
   lessonSession.answerState = { type: "fill", selected: null, correct: ex.correct, options: opts, explanation: ex.explanation };
 }
 
@@ -2354,13 +2394,20 @@ function renderBuildAreas() {
   if (!area || !pool) return;
 
   area.innerHTML = bs.chosen.map((item) => `
-    <button class="build-word" onclick="removeBuildWord(${item.id})">${item.w}</button>
+    <button class="build-word" data-id="${item.id}">${item.w}</button>
   `).join("");
 
   pool.innerHTML = bs.pool.filter((item) => !bs.chosen.find((c) => c.id === item.id))
     .map((item) => `
-      <button class="build-word" onclick="addBuildWord(${item.id})">${item.w}</button>
+      <button class="build-word" data-id="${item.id}">${item.w}</button>
     `).join("");
+
+  area.querySelectorAll('.build-word').forEach(btn => {
+    btn.addEventListener('click', () => removeBuildWord(parseInt(btn.dataset.id, 10)));
+  });
+  pool.querySelectorAll('.build-word').forEach(btn => {
+    btn.addEventListener('click', () => addBuildWord(parseInt(btn.dataset.id, 10)));
+  });
 
   $("checkBtn").disabled = bs.chosen.length === 0;
 }
@@ -2392,7 +2439,6 @@ function checkAnswer() {
     if (as.selected === null) return;
     isCorrect = as.selected === as.correct;
     const opts = ex.options;
-    // Mark correct/wrong
     qsa("#optGrid .option-btn").forEach((b, idx) => {
       b.disabled = true;
       if (idx === as.correct) b.classList.add("correct");
@@ -2413,12 +2459,10 @@ function checkAnswer() {
     qsa("#buildPool .build-word").forEach((b) => b.disabled = true);
   }
 
-  // Update state
   if (isCorrect) {
     lessonSession.correct++;
     state.totalCorrect++;
     state.xp += 10;
-    // Level up check
     const newLevel = getLevel(state.xp);
     if (newLevel.n > state.level) {
       state.level = newLevel.n;
@@ -2430,7 +2474,6 @@ function checkAnswer() {
     state.totalWrong++;
     lessonSession.hp--;
     $("hpCount").textContent = lessonSession.hp;
-    // Save mistake for review
     if (ex.type === "mcq" || ex.type === "fill") {
       state.mistakes.push({
         prompt: ex.prompt,
@@ -2456,11 +2499,7 @@ function checkAnswer() {
     showFeedback(false, "Not quite...", ex.explanation || as.explanation || "");
   }
 
-  // Dedupe mistakes array
-  if (state.mistakes.length > 50) {
-    state.mistakes = state.mistakes.slice(-50);
-  }
-
+  if (state.mistakes.length > 50) state.mistakes = state.mistakes.slice(-50);
   saveState();
   $("lessonBottom").classList.add("hidden");
 }
@@ -2482,7 +2521,6 @@ function continueLessonStep() {
   if (lessonSession.mode === "teach") {
     lessonSession.page++;
     if (lessonSession.page >= lessonSession.totalPages - 1) {
-      // Finish teach
       completeLesson();
       return;
     }
@@ -2490,7 +2528,6 @@ function continueLessonStep() {
     return;
   }
 
-  // Practice mode
   if (lessonSession.hp <= 0) {
     showResult();
     return;
@@ -2504,18 +2541,20 @@ function continueLessonStep() {
   }
 }
 
-/* Handle teach mode check button */
-$("checkBtn")?.addEventListener("click", () => {
-  if (lessonSession?.mode === "teach") {
-    continueLessonStep();
-  }
+/* Event listeners for lesson UI */
+$("checkBtn").addEventListener("click", () => {
+  if (!lessonSession) return;
+  if (lessonSession.mode === "teach") continueLessonStep();
+  else checkAnswer();
 });
+
+$("fbContinueBtn").addEventListener("click", continueLessonStep);
+$("btnExitLesson").addEventListener("click", exitLesson);
 
 function showResult() {
   const ls = lessonSession;
   const total = ls.total;
   const correct = ls.correct;
-  const wrong = ls.wrong;
   const pct = Math.round((correct / total) * 100);
 
   let emoji = "🎉", title = "Lesson Complete!";
@@ -2524,18 +2563,15 @@ function showResult() {
   else if (pct >= 60) { emoji = "👍"; title = "Well Done!"; }
   else { emoji = "💪"; title = "Keep Practicing!"; }
 
-  // Bonus XP for perfect
   if (pct === 100) {
     state.xp += 20;
     state.perfectLessons++;
   }
 
-  // Mark lesson complete
   if (!state.completedLessons.includes(ls.lessonId)) {
     state.completedLessons.push(ls.lessonId);
   }
 
-  // Move to next lesson
   const next = getCurrentLesson();
   if (next) state.currentLessonId = next.lesson.id;
 
@@ -2562,11 +2598,14 @@ function showResult() {
         </div>
       </div>
       <div class="result-actions">
-        <button class="result-btn primary" onclick="exitToHome()">Back to Home</button>
-        <button class="result-btn secondary" onclick="practiceAgain()">Practice Again</button>
+        <button class="result-btn primary" id="btnResHome">Back to Home</button>
+        <button class="result-btn secondary" id="btnResPractice">Practice Again</button>
       </div>
     </div>
   `;
+
+  $("btnResHome").addEventListener("click", exitToHome);
+  $("btnResPractice").addEventListener("click", practiceAgain);
 
   if (pct >= 80) fireConfetti(40);
   $("lessonFill").style.width = "100%";
@@ -2589,10 +2628,11 @@ function completeLesson() {
       <div class="result-title">Lesson Complete!</div>
       <div class="result-sub">You learned something new today. +15 XP!</div>
       <div class="result-actions">
-        <button class="result-btn primary" onclick="exitToHome()">Back to Home</button>
+        <button class="result-btn primary" id="btnResHome2">Back to Home</button>
       </div>
     </div>
   `;
+  $("btnResHome2").addEventListener("click", exitToHome);
   fireConfetti(20);
   $("lessonFill").style.width = "100%";
   $("lessonBottom").classList.add("hidden");
@@ -2611,7 +2651,7 @@ function practiceAgain() {
 }
 
 /* ============================================================
-   TAB SWITCHING
+   9. TAB SWITCHING
    ============================================================ */
 function switchTab(tab) {
   if (tab === "home") { showScreen("home"); renderHome(); }
@@ -2619,8 +2659,15 @@ function switchTab(tab) {
   else if (tab === "profile") { showScreen("profile"); renderProfile(); }
 }
 
+document.querySelectorAll('.nav-item').forEach(btn => {
+  btn.addEventListener('click', function() {
+    const tab = this.getAttribute('data-tab');
+    if (tab) switchTab(tab);
+  });
+});
+
 /* ============================================================
-   REVIEW
+   10. REVIEW
    ============================================================ */
 function renderReview() {
   $("revXP").textContent = state.xp;
@@ -2637,7 +2684,6 @@ function renderReview() {
     return;
   }
 
-  // Group mistakes by unit
   const groups = {};
   state.mistakes.forEach((m) => {
     if (!groups[m.unit]) groups[m.unit] = [];
@@ -2645,7 +2691,7 @@ function renderReview() {
   });
 
   list.innerHTML = Object.entries(groups).map(([unit, items]) => `
-    <div class="review-card" onclick="startReviewFromMistakes('${unit.replace(/'/g, "\\'")}')">
+    <div class="review-card" data-unit="${unit.replace(/"/g, '&quot;')}">
       <div class="review-icon">📝</div>
       <div class="review-info">
         <div class="review-title">${unit}</div>
@@ -2656,20 +2702,23 @@ function renderReview() {
   `).join("");
 }
 
+$("reviewList").addEventListener('click', (e) => {
+  const card = e.target.closest('.review-card');
+  if (card) startReviewFromMistakes(card.dataset.unit);
+});
+
 function startReviewFromMistakes(unit) {
   const items = state.mistakes.filter((m) => m.unit === unit);
   if (items.length === 0) return;
 
-  // Build a fake lesson session
   const exercises = items.map((m) => ({
     type: "mcq",
     prompt: m.prompt,
     options: shuffle([m.correctAnswer, ...generateWrongOptions(m.correctAnswer)]),
-    correct: -1, // will be fixed below
+    correct: -1,
     explanation: `The correct answer is "${m.correctAnswer}".`,
   }));
 
-  // Fix correct index after shuffling
   exercises.forEach((ex, i) => {
     ex.correct = ex.options.indexOf(items[i].correctAnswer);
   });
@@ -2694,7 +2743,6 @@ function startReviewFromMistakes(unit) {
 }
 
 function generateWrongOptions(correct) {
-  // Simple: generate some plausible distractors from other mistakes
   const pool = state.mistakes.map((m) => m.correctAnswer).filter((a) => a !== correct);
   const shuffled = shuffle(pool).slice(0, 3);
   while (shuffled.length < 3) shuffled.push("—");
@@ -2702,7 +2750,7 @@ function generateWrongOptions(correct) {
 }
 
 /* ============================================================
-   PROFILE
+   11. PROFILE
    ============================================================ */
 function renderProfile() {
   $("profStreak").textContent = state.streak;
@@ -2720,40 +2768,45 @@ function renderProfile() {
   $("statAcc").textContent = acc + "%";
   $("statStreak").textContent = state.bestStreak;
 
-  // Badges
   const grid = $("badgeGrid");
-  grid.innerHTML = LEXORA.badges.map((b) => {
-    const unlocked = state.badges.includes(b.id);
-    return `
-      <div class="badge-item ${unlocked ? "unlocked" : "locked"}" title="${b.desc}">
-        <div class="badge-icon">${b.icon}</div>
-        <div class="badge-name">${b.name}</div>
-      </div>
-    `;
-  }).join("");
-}
-
-/* ============================================================
-   RESET MODAL
-   ============================================================ */
-function showResetModal() { $("resetModal").classList.add("show"); }
-function hideResetModal() { $("resetModal").classList.remove("show"); }
-
-function resetAllProgress() {
-  if (confirm("Are you absolutely sure? This cannot be undone.")) {
-    localStorage.removeItem(STORAGE_KEY);
-    state = { ...defaultState };
-    saveState();
-    hideResetModal();
-    showScreen("onboard");
-    obNext(1);
+  if (typeof LEXORA !== 'undefined') {
+    grid.innerHTML = LEXORA.badges.map((b) => {
+      const unlocked = state.badges.includes(b.id);
+      return `
+        <div class="badge-item ${unlocked ? "unlocked" : "locked"}" title="${b.desc}">
+          <div class="badge-icon">${b.icon}</div>
+          <div class="badge-name">${b.name}</div>
+        </div>
+      `;
+    }).join("");
   }
 }
 
 /* ============================================================
-   INIT
+   12. RESET MODAL
+   ============================================================ */
+const resetModal = $("resetModal");
+$("btnResetProgress").addEventListener("click", () => resetModal.classList.add("show"));
+$("btnCancelReset").addEventListener("click", () => resetModal.classList.remove("show"));
+$("btnConfirmReset").addEventListener("click", () => {
+  if (confirm("Are you absolutely sure? This cannot be undone.")) {
+    localStorage.removeItem(STORAGE_KEY);
+    state = { ...defaultState };
+    saveState();
+    resetModal.classList.remove("show");
+    showScreen("onboard");
+    obNext(1);
+  }
+});
+
+/* ============================================================
+   13. INIT APP
    ============================================================ */
 function init() {
+  if (typeof LEXORA === 'undefined') {
+    // App won't work without data.js. Error alert is shown at top.
+    return;
+  }
   if (state.started && state.name) {
     updateStreak();
     saveState();
@@ -2765,7 +2818,8 @@ function init() {
   }
 }
 
-init();
+// Run after slight delay to ensure DOM and data.js are fully loaded
+setTimeout(init, 100);
 </script>
 
 </body>
