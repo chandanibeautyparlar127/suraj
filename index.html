@@ -121,20 +121,6 @@ header{position:sticky;top:0;z-index:100;background:rgba(10,13,26,.55);backdrop-
 .score-chip{font-family:"Space Grotesk",monospace;font-size:.82rem;color:var(--text-muted)}
 .score-chip b{color:var(--purple-light)}
 
-/* Chat */
-.chat-wrap{max-width:720px;margin:0 auto}
-.chat-box{padding:24px;border-radius:var(--r);background:var(--surface);border:1px solid var(--border);min-height:400px;max-height:520px;overflow-y:auto;display:flex;flex-direction:column;gap:14px;margin-bottom:16px}
-.msg{max-width:80%;padding:12px 16px;border-radius:16px;font-size:.95rem;line-height:1.55}
-.msg.bot{background:var(--surface-2);border:1px solid var(--border);align-self:flex-start;border-bottom-left-radius:4px}
-.msg.user{background:var(--grad);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
-.msg .hi{display:block;margin-top:6px;font-size:.85em;opacity:.9;font-style:italic;white-space:pre-wrap}
-.chat-input{display:flex;gap:10px}
-.chat-input input{flex:1;padding:14px 18px;border-radius:999px;background:var(--surface);border:1px solid var(--border);color:var(--text);font-family:"Outfit",sans-serif;font-size:.95rem;outline:none}
-.chat-input input:focus{border-color:rgba(139,92,246,.6)}
-.quick-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
-.chip{padding:8px 14px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.03);color:var(--text-muted);font-size:.82rem;cursor:pointer;transition:all .2s}
-.chip:hover{color:var(--text);border-color:rgba(139,92,246,.5)}
-
 @media(max-width:640px){.nav{display:none}.modal-body,.modal-head{padding:20px}}
 </style>
 </head>
@@ -210,16 +196,14 @@ function render(){
   else if(S.view==='m2cat') html=viewM2Cat();
   else if(S.view==='m2sub') html=viewM2Sub();
   else if(S.view==='m2detail') html=viewM2Detail();
-  else if(S.view==='m2spoken') html=viewM2Spoken();
   else html=viewHome();
   app.innerHTML=html;
-  document.querySelectorAll('#nav a').forEach(a=>{a.classList.toggle('active', a.dataset.view===S.view || (S.view==='m2spoken'&&a.dataset.view==='m2'));});
+  document.querySelectorAll('#nav a').forEach(a=>{a.classList.toggle('active', a.dataset.view===S.view);});
   window.scrollTo({top:0,behavior:'smooth'});
-  if(S.view==='m2spoken') initChat();
 }
 
 // Home
-function viewHome(){ return `<div class="fade-up"><span class="eyebrow">Interactive Learning</span><h1 class="section-title" style="font-size:clamp(2rem,5vw,3.2rem)">Master English Grammar</h1><p class="section-sub">Choose a module. Deep rules, Hindi examples, and smart practice.</p></div><div class="grid"><div class="card" onclick="go('m1')"><div class="card-icon mono">01</div><h3>Module 1 — Grammar Basics</h3><p>Verb to Be, Modals, Semi Modals, A–Z Forms.</p></div><div class="card" onclick="go('m2')"><div class="card-icon mono">02</div><h3>Module 2 — Sentence Structure</h3><p>Sentence, Clause, Tense, Spoken AI Chat.</p></div><div class="card locked"><div class="card-icon mono">03</div><h3>Module 3</h3><p>Coming Soon</p></div><div class="card locked"><div class="card-icon mono">04</div><h3>Module 4</h3><p>Coming Soon</p></div></div>`; }
+function viewHome(){ return `<div class="fade-up"><span class="eyebrow">Interactive Learning</span><h1 class="section-title" style="font-size:clamp(2rem,5vw,3.2rem)">Master English Grammar</h1><p class="section-sub">Choose a module. Deep rules, Hindi examples, and smart practice.</p></div><div class="grid"><div class="card" onclick="go('m1')"><div class="card-icon mono">01</div><h3>Module 1 — Grammar Basics</h3><p>Verb to Be, Modals, Semi Modals, A–Z Forms.</p></div><div class="card" onclick="go('m2')"><div class="card-icon mono">02</div><h3>Module 2 — Sentence Structure</h3><p>Sentence, Clause, Tense.</p></div><div class="card locked"><div class="card-icon mono">03</div><h3>Module 3</h3><p>Coming Soon</p></div><div class="card locked"><div class="card-icon mono">04</div><h3>Module 4</h3><p>Coming Soon</p></div></div>`; }
 
 // Module 1
 function viewM1Home(){ return `<a class="back-link" onclick="go('home')">← Back</a><h1 class="section-title">Grammar Basics</h1><div class="grid">${['verbToBe','modal','semiModal'].map(k=>`<div class="card" onclick="goM1Cat('${k}')"><h3>${k}</h3></div>`).join('')}</div>`; }
@@ -239,7 +223,7 @@ function viewM1Detail(){
 }
 
 // Module 2 Home
-function viewM2Home(){ return `<a class="back-link" onclick="go('home')">← Back</a><h1 class="section-title">Sentence Structure</h1><div class="grid"><div class="card" onclick="goM2Cat('sentence')"><h3>Sentence</h3></div><div class="card" onclick="goM2Cat('clause')"><h3>Clause</h3></div><div class="card" onclick="goM2Cat('tense')"><h3>Tense</h3></div><div class="card" onclick="S.view='m2spoken';render()"><h3>Spoken AI Chat</h3></div></div>`; }
+function viewM2Home(){ return `<a class="back-link" onclick="go('home')">← Back</a><h1 class="section-title">Sentence Structure</h1><div class="grid"><div class="card" onclick="goM2Cat('sentence')"><h3>Sentence</h3></div><div class="card" onclick="goM2Cat('clause')"><h3>Clause</h3></div><div class="card" onclick="goM2Cat('tense')"><h3>Tense</h3></div></div>`; }
 
 // Module 2 Cat List
 function viewM2Cat(){
@@ -260,7 +244,7 @@ function viewM2Sub(){
   <div class="grid">${g.types.map((t,i)=>`<div class="card" onclick="goM2Detail(${i})"><h3>${esc(t.title)}</h3><p>${esc(t.hi)}</p></div>`).join('')}</div>`;
 }
 
-// ── RICH DETAIL VIEW (Image 2/3 style) ──
+// ── RICH DETAIL VIEW ──
 function viewM2Detail(){
   let d;
   if(S.m2cat==='sentence') d=(M2.sentences||[])[S.m2item];
@@ -273,37 +257,29 @@ function viewM2Detail(){
 
   return `
   <a class="back-link" onclick="goBack()">← Back</a>
-
-  <!-- Hero -->
   <div class="rich-hero">
     <div class="num">${S.m2item+1}</div>
     <h1>${esc(d.title)}</h1>
     <div class="meaning">${esc(d.hi)}</div>
   </div>
 
-  <!-- 1. Definition -->
   ${d.definition ? `<div class="rich-box"><div class="box-head"><div class="box-icon">📖</div><h4>Definition</h4><span class="num-badge">1</span></div><div class="box-body"><p>${esc(d.definition)}</p></div></div>` : ''}
 
-  <!-- 2. Kahan Use Hota Hai -->
   ${d.usage ? `<div class="rich-box"><div class="box-head"><div class="box-icon">💡</div><h4>Kahan Use Hota Hai</h4><span class="num-badge">2</span></div><div class="box-body"><p>${esc(d.usage)}</p></div></div>` : ''}
 
-  <!-- 3. Banane Ka Niyam -->
   ${d.rule ? `<div class="rich-box"><div class="box-head"><div class="box-icon">🔺</div><h4>Banane Ka Niyam</h4><span class="num-badge">3</span></div>
     <div class="formula-box">${esc(d.rule)}</div>
     ${d.ruleExplain ? `<div class="rule-explain-box"><b>RULE EXPLAIN</b>${esc(d.ruleExplain)}</div>` : ''}
   </div>` : ''}
 
-  <!-- 4. Pehchaan Ka Niyam -->
   ${d.recognition ? `<div class="rich-box"><div class="box-head"><div class="box-icon">🔍</div><h4>Pehchaan Ka Niyam</h4><span class="num-badge">4</span></div><div class="box-body"><p>${esc(d.recognition)}</p></div></div>` : ''}
 
-  <!-- 5. Structure with Examples -->
   ${d.structures && d.structures.length ? `<div class="rich-box"><div class="box-head"><div class="box-icon">🎯</div><h4>Structure with Examples</h4><span class="num-badge">5</span></div>
     <div class="struct-grid">
       ${d.structures.map(s=>`<div class="struct-card"><div class="s-type">${esc(s.type)}</div><div class="s-formula">${esc(s.formula)}</div><div class="s-example">${esc(s.example)}</div>${s.exampleExplain?`<div class="s-explain">💡 ${esc(s.exampleExplain)}</div>`:''}</div>`).join('')}
     </div>
   </div>` : ''}
 
-  <!-- 6. Examples -->
   ${d.examples ? `<div class="rich-box"><div class="box-head"><div class="box-icon">✅</div><h4>Examples</h4><span class="num-badge">6</span></div>
     ${exKeys.map(k=>{
       const arr = d.examples[k] || [];
@@ -316,7 +292,6 @@ function viewM2Detail(){
     }).join('')}
   </div>` : ''}
 
-  <!-- Practice buttons -->
   <div class="practice-group">
     <button class="btn btn-primary" onclick="openPractice('${S.m2cat}','${S.m2item}')">Practice ⚡</button>
     ${S.m2cat==='tense'?`<button class="btn btn-ghost" onclick="openAllPractice()">All Practice 🎯</button>`:''}
@@ -324,97 +299,9 @@ function viewM2Detail(){
   `;
 }
 
-// Spoken Chat View
-function viewM2Spoken(){
-  return `<a class="back-link" onclick="goBack()">← Back</a><h1 class="section-title">Spoken AI Chat</h1><p class="section-sub">Ask about any grammar topic, or just chat with me.</p>
-  <div class="chat-wrap"><div class="quick-chips">
-    <button class="chip" onclick="sendSpoken('What is present perfect tense?')">Present Perfect?</button>
-    <button class="chip" onclick="sendSpoken('What is your name?')">Your Name?</button>
-    <button class="chip" onclick="sendSpoken('What is your age?')">Your Age?</button>
-    <button class="chip" onclick="sendSpoken('Who made you?')">Who made you?</button>
-  </div>
-  <div class="chat-box" id="chat-box"></div>
-  <div class="chat-input"><input id="chat-in" placeholder="Type a question..." onkeydown="if(event.key==='Enter')sendSpoken()"><button class="btn btn-primary" onclick="sendSpoken()">Send</button></div></div>`;
-}
-
-let chatInit=false;
-function initChat(){ const b=document.getElementById('chat-box'); if(!b||chatInit) return; chatInit=true; addBotMsg('Hello! 👋 Main aapka AI Spoken Chat hoon. Mujhe grammar ke baare me kuch bhi pucho — ya mera naam, age, developer puch sakte ho!', 'नमस्ते! मैं आपका AI Spoken Chat हूँ।'); }
-function addBotMsg(en,hi){ const b=document.getElementById('chat-box'); if(!b) return; const d=document.createElement('div'); d.className='msg bot'; d.innerHTML=`${esc(en)}<span class="hi">${esc(hi)}</span>`; b.appendChild(d); b.scrollTop=b.scrollHeight; }
-function addUserMsg(t){ const b=document.getElementById('chat-box'); if(!b) return; const d=document.createElement('div'); d.className='msg user'; d.textContent=t; b.appendChild(d); b.scrollTop=b.scrollHeight; }
-
-// ── SMART AI CHAT ENGINE ──
-function sendSpoken(quick){
-  if(S.view!=='m2spoken') return;
-  const inp=document.getElementById('chat-in'); const txt=quick || (inp?inp.value.trim():'');
-  if(!txt) return;
-  if(!quick && inp) inp.value='';
-  addUserMsg(txt);
-  setTimeout(()=>{ const r=aiAnswer(txt); addBotMsg(r.en, r.hi); }, 300);
-}
-
-function aiAnswer(q){
-  const lower = q.toLowerCase();
-
-  // 1. Personal / Meta questions
-  if (lower.includes('name') && (lower.includes('your')||lower.includes('tumhara'))) {
-    return { en: "My name is AI Spoken Chat.", hi: "मेरा नाम AI Spoken Chat है।" };
-  }
-  if (lower.includes('age') || lower.includes('umar')) {
-    return { en: "I don't have a human age. I am an AI, developed by Suraj Prajapati.", hi: "मेरी उम्र नहीं है। मैं एक AI हूँ, जिसे सूरज प्रजापति ने बनाया है।" };
-  }
-  if (lower.includes('who made') || lower.includes('developer') || lower.includes('kisne banaya') || lower.includes('suraj')) {
-    return { en: "I was developed by Suraj Prajapati.", hi: "मुझे सूरज प्रजापति ने विकसित किया है।" };
-  }
-  if (lower.includes('how are you') || lower.includes('kaise ho')) {
-    return { en: "I am fine, thank you! How are you?", hi: "मैं ठीक हूँ, धन्यवाद! आप कैसे हैं?" };
-  }
-
-  // 2. Grammar Search (M2)
-  const findM2 = () => {
-    const all=[];
-    (M2.sentences||[]).forEach(s=>all.push({type:'sentence',d:s}));
-    (M2.clauses||[]).forEach(c=>all.push({type:'clause',d:c}));
-    Object.values(M2.tenseGroups||{}).forEach(g=>(g.types||[]).forEach(t=>all.push({type:'tense',d:t})));
-    return all.find(x => lower.includes(x.d.title.toLowerCase().split(' ')[0].toLowerCase()) || lower.includes(x.d.id));
-  };
-  const m2 = findM2();
-  if (m2) {
-    const d = m2.d;
-    const ex = d.examples?.simple?.[0] || {en:'',hi:''};
-    return {
-      en: `${d.title}\n\nDefinition: ${d.definition||''}\n\nUse: ${d.usage||''}\n\nRule: ${d.rule||''}\n\nExample: ${ex.en}`,
-      hi: `${d.hi}\n\n${d.ruleExplain||''}\n\n${ex.hi}`
-    };
-  }
-
-  // 3. Grammar Search (M1)
-  const findM1 = () => {
-    const all = [
-      ...(M1.verbToBe||[]).map(v=>({cat:'Verb to Be',d:v})),
-      ...(M1.modalVerbs||[]).map(v=>({cat:'Modal Verb',d:v})),
-      ...(M1.semiModals||[]).map(v=>({cat:'Semi Modal',d:v}))
-    ];
-    return all.find(x => lower.includes(x.d.v.toLowerCase()));
-  };
-  const m1 = findM1();
-  if (m1) {
-    return {
-      en: `${m1.d.v} (${m1.cat})\n\n${m1.d.s.simple}\n${m1.d.s.neg}\n${m1.d.s.wh}`,
-      hi: `Meaning: ${m1.d.hi}\n\nUsage: ${m1.d.use}`
-    };
-  }
-
-  // 4. Fallback
-  return {
-    en: "I can help with Sentences, Clauses, Tenses, Verbs, or just chat! Try asking: 'What is present perfect tense?' or 'Who made you?'",
-    hi: "मैं Sentence, Clause, Tense, Verbs के बारे में बता सकता हूँ, या सामान्य बातचीत कर सकता हूँ।"
-  };
-}
-
 // ── PRACTICE ENGINE ──
 let P=null;
 
-// Normal practice (sirf us topic ka basic)
 function openPractice(cat, idx){
   let d;
   if(cat==='sentence') d=(M2.sentences||[])[idx];
@@ -426,7 +313,6 @@ function openPractice(cat, idx){
   showModal();
 }
 
-// All practice (saare tenses mix)
 function openAllPractice(){
   let allQ = [];
   Object.values(M2.tenseGroups||{}).forEach(g=>{
