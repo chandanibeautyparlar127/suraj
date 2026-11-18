@@ -23,18 +23,20 @@ body{background:var(--bg);color:var(--text);font-family:"Outfit",system-ui,sans-
 .orb-b{width:560px;height:560px;background:#3b82f6;top:30%;right:-200px;opacity:.3;animation:float 22s ease-in-out infinite reverse}
 .orb-v{width:460px;height:460px;background:#a78bfa;bottom:-180px;left:35%;opacity:.22;animation:float 26s ease-in-out infinite}
 @keyframes float{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(40px,-50px,0) scale(1.12)}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes gradShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
-.fade-up{opacity:0;animation:fadeUp .8s cubic-bezier(.22,1,.36,1) forwards}
-.d1{animation-delay:.05s}.d2{animation-delay:.15s}.d3{animation-delay:.25s}.d4{animation-delay:.35s}.d5{animation-delay:.45s}
+@keyframes pop{0%{transform:scale(.94);opacity:0}100%{transform:scale(1);opacity:1}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.fade-up{opacity:0;animation:fadeUp .7s cubic-bezier(.22,1,.36,1) forwards}
+.d1{animation-delay:.05s}.d2{animation-delay:.13s}.d3{animation-delay:.21s}.d4{animation-delay:.29s}.d5{animation-delay:.37s}.d6{animation-delay:.45s}
 .container{width:100%;max-width:1180px;margin-inline:auto;padding-inline:24px;position:relative;z-index:1}
 header{position:sticky;top:0;z-index:100;background:rgba(10,13,26,.55);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border-bottom:1px solid var(--border);animation:fadeIn .9s ease both}
-.header-inner{display:flex;align-items:center;justify-content:space-between;gap:24px;height:76px}
+.header-inner{display:flex;align-items:center;justify-content:space-between;gap:24px;height:74px}
 .logo{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--text);font-weight:700;font-size:1.15rem}
 .logo-mark{width:36px;height:36px;border-radius:11px;background:var(--grad);display:grid;place-items:center;font-family:"Space Grotesk",monospace;font-size:.95rem;font-weight:700;color:#fff;box-shadow:0 8px 24px -8px rgba(139,92,246,.85)}
 .nav{display:flex;align-items:center;gap:6px}
-.nav a{padding:9px 16px;border-radius:999px;font-size:.92rem;font-weight:500;color:var(--text-muted);text-decoration:none;transition:all .25s}
+.nav a{padding:9px 16px;border-radius:999px;font-size:.92rem;font-weight:500;color:var(--text-muted);text-decoration:none;transition:all .25s;cursor:pointer}
 .nav a:hover{color:var(--text);background:rgba(255,255,255,.05)}
 .nav a.active{color:var(--text);background:rgba(139,92,246,.14);box-shadow:inset 0 0 0 1px rgba(139,92,246,.35)}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-family:"Outfit",sans-serif;font-size:.94rem;font-weight:600;padding:13px 26px;border-radius:999px;border:1px solid transparent;cursor:pointer;text-decoration:none;white-space:nowrap;transition:all .25s}
@@ -42,30 +44,104 @@ header{position:sticky;top:0;z-index:100;background:rgba(10,13,26,.55);backdrop-
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 18px 46px -14px rgba(139,92,246,1)}
 .btn-ghost{color:var(--text);background:rgba(255,255,255,.03);border-color:var(--border-strong);backdrop-filter:blur(10px)}
 .btn-ghost:hover{transform:translateY(-2px);border-color:rgba(139,92,246,.55);background:rgba(139,92,246,.1)}
-.hero{padding:110px 0 60px;text-align:center}
-.hero h1{font-size:clamp(2.5rem,6.4vw,4.6rem);font-weight:800;line-height:1.05;letter-spacing:-.035em;margin-bottom:26px}
-.grad-text{background:var(--grad);background-size:200% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:gradShift 7s ease infinite}
-.hero p{max-width:620px;margin:0 auto 42px;font-size:1.1rem;font-weight:300;color:var(--text-muted)}
-.hero-badge{display:inline-flex;align-items:center;gap:10px;padding:8px 18px 8px 14px;border-radius:999px;border:1px solid var(--border);background:rgba(16,20,37,.7);backdrop-filter:blur(14px);font-family:"Space Grotesk",monospace;font-size:.74rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:30px}
-.dot{width:7px;height:7px;border-radius:50%;background:var(--purple-light);box-shadow:0 0 12px 2px rgba(167,139,250,.85);animation:pulse 2s ease-in-out infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-.modules{padding:40px 0 100px}
+.btn-sm{padding:8px 16px;font-size:.82rem}
+.page{padding:40px 0 100px;min-height:70vh}
+.section-title{font-size:clamp(1.7rem,3.4vw,2.4rem);font-weight:700;letter-spacing:-.03em;line-height:1.15;margin-bottom:12px}
+.section-sub{color:var(--text-muted);font-weight:300;margin-bottom:36px;max-width:620px}
+.eyebrow{font-family:"Space Grotesk",monospace;font-size:.72rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--text-muted)}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:22px}
-.mod-card{position:relative;padding:32px;border-radius:var(--r);background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow);overflow:hidden;transition:all .35s cubic-bezier(.22,1,.36,1);cursor:pointer;text-decoration:none;color:var(--text);display:block}
-.mod-card::before{content:"";position:absolute;inset:0 0 auto 0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),transparent);opacity:.7;transition:opacity .35s}
-.mod-card::after{content:"";position:absolute;top:-60%;left:50%;width:340px;height:340px;transform:translateX(-50%);background:radial-gradient(circle,rgba(139,92,246,.22),transparent 68%);opacity:0;transition:opacity .45s;pointer-events:none}
-.mod-card:hover{transform:translateY(-5px);border-color:rgba(139,92,246,.6);background:var(--surface-2);box-shadow:var(--glow),var(--shadow)}
-.mod-card:hover::before{opacity:0}
-.mod-card:hover::after{opacity:1}
-.mod-card.locked{cursor:not-allowed;opacity:.55}
-.mod-card.locked:hover{transform:none;border-color:var(--border);box-shadow:var(--shadow)}
-.mod-icon{position:relative;z-index:1;width:54px;height:54px;border-radius:15px;display:grid;place-items:center;font-size:1.4rem;margin-bottom:22px;background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.28);color:var(--purple-light);transition:all .35s}
-.mod-card:hover .mod-icon{background:rgba(139,92,246,.2);border-color:rgba(167,139,250,.55);transform:translateY(-2px)}
-.mod-card h3{position:relative;z-index:1;font-size:1.2rem;font-weight:700;margin-bottom:8px;letter-spacing:-.02em}
-.mod-card p{position:relative;z-index:1;font-size:.9rem;font-weight:300;line-height:1.65;color:var(--text-muted);margin-bottom:16px}
-.mod-tag{position:relative;z-index:1;display:inline-block;padding:5px 12px;border-radius:999px;border:1px solid var(--border);font-family:"Space Grotesk",monospace;font-size:.66rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted)}
-.mod-card.soon .mod-tag{color:var(--purple-light);border-color:rgba(139,92,246,.3)}
-@media(max-width:640px){.nav{display:none}.hero{padding:70px 0 40px}}
+.card{position:relative;padding:28px;border-radius:var(--r);background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow);overflow:hidden;transition:all .35s cubic-bezier(.22,1,.36,1);cursor:pointer}
+.card::before{content:"";position:absolute;inset:0 0 auto 0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),transparent);opacity:.7;transition:opacity .35s}
+.card::after{content:"";position:absolute;top:-60%;left:50%;width:340px;height:340px;transform:translateX(-50%);background:radial-gradient(circle,rgba(139,92,246,.22),transparent 68%);opacity:0;transition:opacity .45s;pointer-events:none}
+.card:hover{transform:translateY(-5px);border-color:rgba(139,92,246,.6);background:var(--surface-2);box-shadow:var(--glow),var(--shadow)}
+.card:hover::before{opacity:0}
+.card:hover::after{opacity:1}
+.card.locked{cursor:not-allowed;opacity:.55}
+.card.locked:hover{transform:none;border-color:var(--border);box-shadow:var(--shadow)}
+.card-icon{position:relative;z-index:1;width:52px;height:52px;border-radius:14px;display:grid;place-items:center;font-size:1.3rem;margin-bottom:20px;background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.28);color:var(--purple-light);transition:all .35s}
+.card:hover .card-icon{background:rgba(139,92,246,.2);border-color:rgba(167,139,250,.55);transform:translateY(-2px)}
+.card h3{position:relative;z-index:1;font-size:1.12rem;font-weight:600;margin-bottom:8px;letter-spacing:-.01em}
+.card p{position:relative;z-index:1;font-size:.9rem;font-weight:300;line-height:1.65;color:var(--text-muted)}
+.card-tag{position:relative;z-index:1;display:inline-block;margin-top:16px;padding:5px 12px;border-radius:999px;border:1px solid var(--border);font-family:"Space Grotesk",monospace;font-size:.64rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted)}
+.verb-card{position:relative;padding:22px;border-radius:var(--r);background:var(--surface);border:1px solid var(--border);cursor:pointer;transition:all .3s;text-align:center}
+.verb-card:hover{transform:translateY(-5px);border-color:rgba(139,92,246,.6);background:var(--surface-2);box-shadow:var(--glow)}
+.verb-card .v-word{font-size:1.3rem;font-weight:700;color:var(--text);margin-bottom:4px;letter-spacing:-.02em}
+.verb-card .v-hi{font-size:.82rem;color:var(--text-muted);font-weight:300}
+.detail{display:grid;gap:20px}
+.hero-verb{padding:36px;border-radius:var(--r);background:linear-gradient(160deg,rgba(139,92,246,.14),rgba(59,130,246,.06)),var(--surface);border:1px solid rgba(139,92,246,.25);box-shadow:var(--shadow)}
+.hero-verb .v-big{font-size:clamp(1.9rem,4.5vw,2.8rem);font-weight:800;letter-spacing:-.03em;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px;line-height:1.1}
+.hero-verb .v-meaning{font-size:1.08rem;color:var(--text);font-weight:500;margin-bottom:14px}
+.hero-verb .v-use{font-size:.94rem;color:var(--text-muted);font-weight:300}
+.hero-verb .v-use b{color:var(--purple-light);font-weight:600}
+.rules-box{padding:24px;border-radius:var(--r);background:var(--surface);border:1px solid var(--border)}
+.rules-box h4{font-family:"Space Grotesk",monospace;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--purple-light);margin-bottom:12px}
+.rules-box pre{font-family:"Space Grotesk",monospace;font-size:.85rem;color:var(--text);line-height:1.85;white-space:pre-wrap;word-break:break-word;background:rgba(0,0,0,.25);padding:16px;border-radius:12px;border:1px solid var(--border)}
+.sent-card{padding:22px;border-radius:var(--r);background:var(--surface);border:1px solid var(--border);display:flex;flex-direction:column;gap:12px;transition:all .3s}
+.sent-card:hover{border-color:rgba(139,92,246,.4);box-shadow:0 12px 40px -18px rgba(139,92,246,.5)}
+.sent-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.sent-label{font-family:"Space Grotesk",monospace;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--text-muted)}
+.sent-text{font-size:1.05rem;font-weight:400;color:var(--text);line-height:1.5;padding:12px 16px;background:rgba(0,0,0,.25);border-radius:12px;border-left:3px solid var(--purple)}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--text-muted);text-decoration:none;font-size:.88rem;margin-bottom:22px;transition:color .2s;cursor:pointer}
+.back-link:hover{color:var(--purple-light)}
+.modal-overlay{position:fixed;inset:0;background:rgba(4,6,15,.85);backdrop-filter:blur(8px);z-index:200;display:none;align-items:center;justify-content:center;padding:20px;animation:fadeIn .3s}
+.modal-overlay.open{display:flex}
+.modal{width:100%;max-width:640px;max-height:92vh;overflow-y:auto;background:var(--surface);border:1px solid rgba(139,92,246,.35);border-radius:24px;box-shadow:0 30px 80px -20px rgba(0,0,0,.9);animation:pop .35s cubic-bezier(.22,1,.36,1)}
+.modal-head{padding:24px 28px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-start;gap:12px;position:sticky;top:0;background:var(--surface);z-index:2;border-radius:24px 24px 0 0}
+.modal-head h3{font-size:1.1rem;font-weight:700;letter-spacing:-.01em}
+.modal-head .sub{font-family:"Space Grotesk",monospace;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--purple-light);margin-top:4px}
+.close-btn{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--text);cursor:pointer;font-size:1.1rem;display:grid;place-items:center;transition:all .2s;flex-shrink:0}
+.close-btn:hover{background:rgba(139,92,246,.2);border-color:rgba(139,92,246,.5)}
+.modal-body{padding:24px 28px 28px}
+.tabs{display:flex;gap:6px;margin-bottom:22px;background:rgba(0,0,0,.25);padding:5px;border-radius:999px}
+.tab{flex:1;padding:9px;border-radius:999px;border:none;background:transparent;color:var(--text-muted);font-family:"Outfit",sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;transition:all .25s}
+.tab.active{background:var(--grad);color:#fff;box-shadow:0 8px 20px -8px rgba(139,92,246,.9)}
+.progress-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-family:"Space Grotesk",monospace;font-size:.78rem;color:var(--text-muted)}
+.progress-bar{height:6px;background:rgba(255,255,255,.06);border-radius:999px;overflow:hidden;margin-bottom:22px}
+.progress-fill{height:100%;background:var(--grad);border-radius:999px;transition:width .4s ease;width:0%}
+.q-text{font-size:1.12rem;font-weight:500;line-height:1.55;margin-bottom:20px;padding:20px;background:rgba(0,0,0,.25);border-radius:14px;border-left:3px solid var(--purple)}
+.q-text .blank{color:var(--purple-light);font-weight:700;letter-spacing:.1em}
+.q-hint{margin-top:12px;padding-top:10px;border-top:1px dashed rgba(255,255,255,.12);font-size:.82rem;color:var(--purple-light);font-weight:400;letter-spacing:.01em}
+.options{display:grid;gap:10px;margin-bottom:16px}
+.opt{padding:14px 18px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid var(--border);color:var(--text);font-family:"Outfit",sans-serif;font-size:.96rem;font-weight:500;cursor:pointer;text-align:left;transition:all .2s;display:flex;align-items:center;gap:10px}
+.opt:hover:not(.disabled){background:rgba(139,92,246,.12);border-color:rgba(139,92,246,.45);transform:translateX(3px)}
+.opt .key{font-family:"Space Grotesk",monospace;font-size:.72rem;width:24px;height:24px;border-radius:6px;background:rgba(255,255,255,.06);display:grid;place-items:center;color:var(--text-muted);flex-shrink:0}
+.opt.correct{background:rgba(34,197,94,.15);border-color:rgba(34,197,94,.6);color:#86efac}
+.opt.wrong{background:rgba(239,68,68,.15);border-color:rgba(239,68,68,.6);color:#fca5a5}
+.opt.disabled{cursor:not-allowed;opacity:.7}
+.feedback{margin-top:14px;padding:12px 16px;border-radius:12px;font-size:.9rem;font-weight:500;display:none}
+.feedback.show{display:block;animation:fadeIn .3s}
+.feedback.ok{background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.4);color:#86efac}
+.feedback.bad{background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.4);color:#fca5a5}
+.modal-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:16px;border-top:1px solid var(--border);margin-top:8px}
+.score-chip{font-family:"Space Grotesk",monospace;font-size:.82rem;color:var(--text-muted)}
+.score-chip b{color:var(--purple-light)}
+.letters-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(70px,1fr));gap:12px}
+.letter-btn{aspect-ratio:1;border-radius:16px;background:var(--surface);border:1px solid var(--border);color:var(--text);font-family:"Space Grotesk",monospace;font-size:1.4rem;font-weight:700;cursor:pointer;transition:all .25s;display:grid;place-items:center;position:relative}
+.letter-btn:hover{transform:translateY(-4px);border-color:rgba(139,92,246,.6);background:var(--surface-2);box-shadow:var(--glow)}
+.letter-btn .cnt{position:absolute;bottom:6px;right:8px;font-size:.6rem;font-weight:500;color:var(--text-muted)}
+.verb-row{display:grid;grid-template-columns:1.1fr .9fr .9fr 1.5fr;gap:12px;padding:14px 18px;border-radius:14px;background:var(--surface);border:1px solid var(--border);margin-bottom:8px;align-items:center;font-size:.9rem;transition:all .2s}
+.verb-row:hover{background:var(--surface-2);border-color:rgba(139,92,246,.35)}
+.verb-row .v1{font-weight:700;color:var(--text)}
+.verb-row .v2,.verb-row .v3{font-family:"Space Grotesk",monospace;font-size:.84rem;color:var(--purple-light)}
+.verb-row .hi{font-size:.84rem;color:var(--text-muted);font-weight:300}
+.row-head{display:grid;grid-template-columns:1.1fr .9fr .9fr 1.5fr;gap:12px;padding:0 18px;margin-bottom:8px;font-family:"Space Grotesk",monospace;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted)}
+.chat-wrap{max-width:720px;margin:0 auto}
+.chat-box{padding:24px;border-radius:var(--r);background:var(--surface);border:1px solid var(--border);min-height:400px;max-height:520px;overflow-y:auto;display:flex;flex-direction:column;gap:14px;margin-bottom:16px}
+.msg{max-width:80%;padding:12px 16px;border-radius:16px;font-size:.95rem;line-height:1.55;animation:pop .25s}
+.msg.bot{background:var(--surface-2);border:1px solid var(--border);align-self:flex-start;border-bottom-left-radius:4px}
+.msg.user{background:var(--grad);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+.msg .hi{display:block;margin-top:6px;font-size:.85em;opacity:.9;font-style:italic}
+.chat-input{display:flex;gap:10px}
+.chat-input input{flex:1;padding:14px 18px;border-radius:999px;background:var(--surface);border:1px solid var(--border);color:var(--text);font-family:"Outfit",sans-serif;font-size:.95rem;outline:none;transition:border-color .2s}
+.chat-input input:focus{border-color:rgba(139,92,246,.6)}
+.quick-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.chip{padding:8px 14px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.03);color:var(--text-muted);font-size:.82rem;cursor:pointer;transition:all .2s;font-family:"Outfit",sans-serif}
+.chip:hover{color:var(--text);border-color:rgba(139,92,246,.5);background:rgba(139,92,246,.1)}
+.soon-wrap{max-width:520px;margin:60px auto;text-align:center;padding:48px 32px;border-radius:var(--r);background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow)}
+.soon-icon{width:72px;height:72px;border-radius:20px;background:var(--grad);display:grid;place-items:center;font-size:2rem;margin:0 auto 24px;box-shadow:0 12px 34px -14px rgba(139,92,246,.9)}
+.mute-btn{position:fixed;bottom:22px;right:22px;z-index:150;width:48px;height:48px;border-radius:50%;background:var(--surface);border:1px solid var(--border-strong);color:var(--text);font-size:1.15rem;cursor:pointer;display:grid;place-items:center;backdrop-filter:blur(14px);transition:all .25s;box-shadow:0 10px 30px -10px rgba(0,0,0,.7)}
+.mute-btn:hover{background:var(--surface-2);border-color:rgba(139,92,246,.5);transform:scale(1.05)}
+@media(max-width:640px){.nav{display:none}.verb-row,.row-head{grid-template-columns:1fr 1fr;gap:6px}.verb-row .hi{grid-column:1/-1}.modal-body{padding:20px}.modal-head{padding:20px}}
 </style>
 </head>
 <body>
@@ -73,54 +149,733 @@ header{position:sticky;top:0;z-index:100;background:rgba(10,13,26,.55);backdrop-
 
 <header>
   <div class="container header-inner">
-    <a href="index.html" class="logo"><span class="logo-mark">EG</span><span>Grammar Hub</span></a>
-    <nav class="nav">
-      <a href="index.html" class="active">Home</a>
-      <a href="module1.html">Module 1</a>
-      <a href="module2.html">Module 2</a>
+    <a class="logo" onclick="go('home')"><span class="logo-mark">EG</span><span>Grammar Hub</span></a>
+    <nav class="nav" id="nav">
+      <a onclick="go('home')" data-view="home">Home</a>
+      <a onclick="go('m1')" data-view="m1">Module 1</a>
+      <a onclick="go('m2')" data-view="m2">Module 2</a>
     </nav>
   </div>
 </header>
 
-<main>
-  <section class="hero">
-    <div class="container">
-      <div class="hero-badge fade-up d1"><span class="dot"></span>Interactive Learning</div>
-      <h1 class="fade-up d2">Master English<br><span class="grad-text">Grammar Step by Step.</span></h1>
-      <p class="fade-up d3">Choose a module below and start your journey. Each lesson includes clear rules, real examples, and a practice game to lock it in.</p>
-    </div>
-  </section>
+<main class="page"><div class="container" id="app"></div></main>
 
-  <section class="modules">
-    <div class="container">
-      <div class="grid">
-        <a href="module1.html" class="mod-card fade-up d2">
-          <div class="mod-icon mono">01</div>
-          <h3>Module 1 — Grammar Basics</h3>
-          <p>Verb to Be, Modal Verbs, Semi Modal Verbs and A–Z Verb Forms. Every verb with meaning, usage, rules, and a 20-question practice game.</p>
-          <span class="mod-tag">12 + 10 + 6 + A–Z</span>
-        </a>
-        <a href="module2.html" class="mod-card fade-up d3">
-          <div class="mod-icon mono">02</div>
-          <h3>Module 2 — Sentence Structure</h3>
-          <p>Sentence types, Clauses, Tenses and Spoken English. All with rules, examples and practice games.</p>
-          <span class="mod-tag">Sentence · Clause · Tense · Spoken</span>
-        </a>
-        <div class="mod-card locked soon fade-up d4">
-          <div class="mod-icon mono">03</div>
-          <h3>Module 3 — Coming Soon</h3>
-          <p>Data structure will be decided later. Placeholder file is ready on GitHub.</p>
-          <span class="mod-tag">Locked</span>
-        </div>
-        <div class="mod-card locked soon fade-up d5">
-          <div class="mod-icon mono">04</div>
-          <h3>Module 4 — Coming Soon</h3>
-          <p>Data structure will be decided later. Placeholder file is ready on GitHub.</p>
-          <span class="mod-tag">Locked</span>
-        </div>
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-head">
+      <div><h3 id="m-title">Practice</h3><div class="sub" id="m-sub">Basic</div></div>
+      <button class="close-btn" onclick="closePractice()">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="tabs" id="m-tabs"></div>
+      <div class="progress-row"><span id="m-progress-text">Question 1 / 7</span><span id="m-score">Score 0</span></div>
+      <div class="progress-bar"><div class="progress-fill" id="m-fill"></div></div>
+      <div class="q-text" id="m-q"></div>
+      <div class="options" id="m-opts"></div>
+      <div class="feedback" id="m-fb"></div>
+      <div class="modal-foot">
+        <span class="score-chip">Correct: <b id="m-correct">0</b> / <span id="m-total">7</span></span>
+        <button class="btn btn-primary btn-sm" id="m-next" onclick="nextQuestion()">Next →</button>
       </div>
     </div>
-  </section>
-</main>
+  </div>
+</div>
+
+<button class="mute-btn" id="mute-btn" title="Sound on/off">🔊</button>
+
+<script src="module1.js"></script>
+<script src="module2.js"></script>
+<script src="module3.js"></script>
+<script src="module4.js"></script>
+<script>
+/* ============================================================
+   SOUND SYSTEM (Web Audio API — no mp3 needed)
+   ============================================================ */
+let audioCtx = null, muted = false;
+function ensureAudio(){
+  if(audioCtx) return audioCtx;
+  try{ audioCtx = new (window.AudioContext||window.webkitAudioContext)(); }catch(e){ audioCtx = null; }
+  return audioCtx;
+}
+function tone(freq, dur, type='sine', vol=0.08, delay=0){
+  if(muted) return;
+  const ctx = ensureAudio(); if(!ctx) return;
+  if(ctx.state === 'suspended') ctx.resume();
+  try{
+    const o = ctx.createOscillator(); const g = ctx.createGain();
+    o.type = type; o.frequency.value = freq;
+    o.connect(g); g.connect(ctx.destination);
+    const t = ctx.currentTime + delay;
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.linearRampToValueAtTime(vol, t+0.01);
+    g.gain.exponentialRampToValueAtTime(0.0001, t+dur);
+    o.start(t); o.stop(t+dur+0.03);
+  }catch(e){}
+}
+function sfxClick(){ tone(560, 0.05, 'sine', 0.035); }
+function sfxCorrect(){ tone(659,0.12,'sine',0.09); tone(784,0.12,'sine',0.09,0.10); tone(1046,0.20,'sine',0.09,0.20); }
+function sfxWrong(){ tone(220,0.14,'sawtooth',0.045); tone(165,0.20,'sawtooth',0.045,0.11); }
+function sfxFinish(){ tone(523,0.12,'sine',0.10); tone(659,0.12,'sine',0.10,0.12); tone(784,0.12,'sine',0.10,0.24); tone(1046,0.34,'sine',0.10,0.36); }
+function sfxOpen(){ tone(700,0.05,'sine',0.04); tone(900,0.06,'sine',0.04,0.06); }
+
+document.addEventListener('click', (e)=>{
+  if(e.target.closest('.opt')) return;
+  if(e.target.closest('#mute-btn')) return;
+  sfxClick();
+});
+document.getElementById('mute-btn').onclick = () => {
+  muted = !muted;
+  document.getElementById('mute-btn').textContent = muted ? '🔇' : '🔊';
+  if(!muted) sfxClick();
+};
+
+/* ============================================================
+   DATA LOAD CHECK
+   ============================================================ */
+if (!window.MODULE1) { console.warn('module1.js not loaded'); window.MODULE1 = {verbToBe:[],modalVerbs:[],semiModals:[],verbForms:{}}; }
+if (!window.MODULE2) { console.warn('module2.js not loaded'); window.MODULE2 = {sentences:[],clauses:[],tenseGroups:{},spokenPhrases:[]}; }
+
+const M1 = window.MODULE1;
+const M2 = window.MODULE2;
+
+/* ============================================================
+   STATE
+   ============================================================ */
+const S = { view:'home', m1cat:null, m1item:null, m1letter:null, m2cat:null, m2sub:null, m2item:null };
+
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function shuffle(a){a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+/* ============================================================
+   CATEGORY DEFINITIONS
+   ============================================================ */
+function CATS_M1(){
+  return {
+    verbToBe:{title:'Verb to Be',icon:'◐',desc:'12 verbs — is, am, are, was, were, shall be, will be, has, have, had, shall have, will have',data:M1.verbToBe||[],tag:'12 verbs'},
+    modal:{title:'Modal Verbs',icon:'◇',desc:'10 modals — can, may, should, could, must, will, shall, would, might, ought',data:M1.modalVerbs||[],tag:'10 verbs'},
+    semiModal:{title:'Semi Modal Verbs',icon:'✦',desc:'6 semi-modals — need, need to, dare, dare to, used to, ought to',data:M1.semiModals||[],tag:'6 verbs'},
+    verbForms:{title:'Verb Forms',icon:'↥',desc:'A to Z verb forms with V1, V2, V3 and practice for each letter',data:M1.verbForms||{},tag:'A–Z'}
+  };
+}
+function CATS_M2(){
+  return {
+    sentence:{title:'Sentence',icon:'✦',desc:'4 types — Assertive, Interrogative, Imperative, Exclamatory',tag:'4 types'},
+    clause:{title:'Clause',icon:'◐',desc:'Independent, Dependent → Noun, Adjective, Adverbial',tag:'5 clauses'},
+    tense:{title:'Tense',icon:'↥',desc:'Present, Past, Future — each with 4 sub-types',tag:'3 × 4'},
+    spoken:{title:'Spoken English',icon:'◇',desc:'AI-style chat to learn everyday English conversation',tag:'Chat'}
+  };
+}
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+function go(view){
+  S.view = view;
+  S.m1cat = S.m1item = S.m1letter = null;
+  S.m2cat = S.m2sub = S.m2item = null;
+  render();
+}
+function goM1Cat(k){ S.view='m1cat'; S.m1cat=k; S.m1item=null; S.m1letter=null; render(); }
+function goM1Detail(i){ S.view='m1detail'; S.m1item=i; render(); }
+function goM1Letters(){ S.view='m1letters'; S.m1cat='verbForms'; render(); }
+function goM1Letter(L){ S.view='m1letterver'; S.m1letter=L; render(); }
+function goM2Cat(k){ S.view='m2cat'; S.m2cat=k; S.m2sub=null; S.m2item=null; render(); }
+function goM2Sub(k){ S.view='m2sub'; S.m2sub=k; S.m2item=null; render(); }
+function goM2Detail(i){ S.view='m2detail'; S.m2item=i; render(); }
+function goM2Spoken(){ S.view='m2spoken'; S.m2cat='spoken'; render(); if(typeof initChat==='function') initChat(); }
+function goBack(){
+  if(S.view==='m1detail') S.view='m1cat';
+  else if(S.view==='m1cat') S.view='m1';
+  else if(S.view==='m1letters') S.view='m1';
+  else if(S.view==='m1letterver') S.view='m1letters';
+  else if(S.view==='m2cat') S.view='m2';
+  else if(S.view==='m2sub') S.view='m2cat';
+  else if(S.view==='m2detail') S.view = S.m2cat==='tense' ? 'm2sub' : 'm2cat';
+  else if(S.view==='m2spoken') S.view='m2';
+  else S.view='home';
+  S.m1item=null; S.m2item=null;
+  render();
+}
+
+/* ============================================================
+   MASTER RENDER
+   ============================================================ */
+function render(){
+  const app = document.getElementById('app');
+  let html = '';
+  switch(S.view){
+    case 'home': html = viewHome(); break;
+    case 'm1': html = viewM1Home(); break;
+    case 'm1cat': html = viewM1Cat(); break;
+    case 'm1detail': html = viewM1Detail(); break;
+    case 'm1letters': html = viewM1Letters(); break;
+    case 'm1letterver': html = viewM1LetterVerbs(); break;
+    case 'm2': html = viewM2Home(); break;
+    case 'm2cat': html = viewM2Cat(); break;
+    case 'm2sub': html = viewM2Sub(); break;
+    case 'm2detail': html = viewM2Detail(); break;
+    case 'm2spoken': html = viewM2Spoken(); break;
+    case 'm3': html = viewSoon('Module 3'); break;
+    case 'm4': html = viewSoon('Module 4'); break;
+    default: html = viewHome();
+  }
+  app.innerHTML = html;
+  document.querySelectorAll('#nav a').forEach(a=>{
+    a.classList.toggle('active', a.dataset.view === S.view);
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(S.view==='m2spoken') initChat();
+}
+
+/* ============================================================
+   VIEWS — HOME
+   ============================================================ */
+function viewHome(){
+  return `
+  <div class="fade-up"><span class="eyebrow">Interactive Learning</span>
+  <h1 class="section-title" style="margin-top:10px;font-size:clamp(2rem,5vw,3.2rem)">Master English Grammar</h1>
+  <p class="section-sub">Choose a module. Every lesson has rules, examples with Hindi meanings, and a 20-question practice game with sound feedback.</p></div>
+  <div class="grid">
+    <div class="card fade-up d1" onclick="go('m1')">
+      <div class="card-icon mono">01</div>
+      <h3>Module 1 — Grammar Basics</h3>
+      <p>Verb to Be, Modal Verbs, Semi Modal Verbs and A–Z Verb Forms. Every verb with meaning, usage, rules, and a 20-question practice game.</p>
+      <span class="card-tag">12 + 10 + 6 + A–Z</span>
+    </div>
+    <div class="card fade-up d2" onclick="go('m2')">
+      <div class="card-icon mono">02</div>
+      <h3>Module 2 — Sentence Structure</h3>
+      <p>Sentence types, Clauses, Tenses and Spoken English. All with rules, examples and practice games.</p>
+      <span class="card-tag">Sentence · Clause · Tense · Spoken</span>
+    </div>
+    <div class="card locked fade-up d3">
+      <div class="card-icon mono">03</div>
+      <h3>Module 3 — Coming Soon</h3>
+      <p>Data structure will be decided later. Placeholder file is ready.</p>
+      <span class="card-tag">Locked</span>
+    </div>
+    <div class="card locked fade-up d4">
+      <div class="card-icon mono">04</div>
+      <h3>Module 4 — Coming Soon</h3>
+      <p>Data structure will be decided later. Placeholder file is ready.</p>
+      <span class="card-tag">Locked</span>
+    </div>
+  </div>`;
+}
+
+/* ============================================================
+   VIEWS — MODULE 1
+   ============================================================ */
+function viewM1Home(){
+  const cats = CATS_M1();
+  return `
+  <a class="back-link" onclick="go('home')">← Back to Home</a>
+  <div class="fade-up"><span class="eyebrow">Module 1</span>
+  <h1 class="section-title" style="margin-top:10px">Grammar Basics</h1>
+  <p class="section-sub">Choose a category. Each verb has meaning, usage, rules, three example sentences (English + Hindi), and a 20-question practice game.</p></div>
+  <div class="grid">
+    ${Object.entries(cats).map(([k,c],i)=>`
+      <div class="card fade-up d${i+1}" onclick="goM1Cat('${k}')">
+        <div class="card-icon mono">${c.icon}</div>
+        <h3>${c.title}</h3>
+        <p>${c.desc}</p>
+        <span class="card-tag">${c.tag}</span>
+      </div>`).join('')}
+  </div>`;
+}
+
+function viewM1Cat(){
+  const cats = CATS_M1();
+  const c = cats[S.m1cat];
+  if(!c) return '<p>Category not found.</p>';
+  if(S.m1cat==='verbForms') return viewM1Letters();
+  return `
+  <a class="back-link" onclick="goBack()">← Back to Categories</a>
+  <div class="fade-up"><span class="eyebrow">Module 1 / ${c.title}</span>
+  <h1 class="section-title" style="margin-top:10px">${c.title}</h1>
+  <p class="section-sub">${c.desc}</p></div>
+  <div class="grid">
+    ${c.data.map((d,i)=>`
+      <div class="verb-card fade-up d${Math.min(i+1,6)}" onclick="goM1Detail(${i})">
+        <div class="v-word">${esc(d.v)}</div>
+        <div class="v-hi">${esc(d.hi)}</div>
+      </div>`).join('')}
+  </div>`;
+}
+
+function viewM1Detail(){
+  const cats = CATS_M1();
+  const c = cats[S.m1cat];
+  const d = c.data[S.m1item];
+  if(!d) return '<p>Not found.</p>';
+  return `
+  <a class="back-link" onclick="goBack()">← Back to ${c.title}</a>
+  <div class="detail">
+    <div class="hero-verb fade-up">
+      <div class="v-big">${esc(d.v)}</div>
+      <div class="v-meaning">${esc(d.hi)}</div>
+      <div class="v-use"><b>Usage:</b> ${esc(d.use)}</div>
+    </div>
+    <div class="rules-box fade-up d1">
+      <h4>Rules & Structure</h4>
+      <pre>${esc(d.rules)}</pre>
+    </div>
+    ${['simple','neg','wh'].map((t,idx)=>{
+      const labels = {simple:'1. Simple Sentence',neg:'2. Negative Sentence',wh:'3. Wh-Question'};
+      return `<div class="sent-card fade-up d${idx+2}">
+        <div class="sent-head"><span class="sent-label">${labels[t]}</span>
+          <button class="btn btn-primary btn-sm" onclick="openPractice('${S.m1cat}',${S.m1item},'${t}')">Practice ⚡</button>
+        </div>
+        <div class="sent-text">${esc(d.s[t])}</div>
+      </div>`;
+    }).join('')}
+  </div>`;
+}
+
+function viewM1Letters(){
+  const forms = M1.verbForms || {};
+  const letters = Object.keys(forms).sort();
+  return `
+  <a class="back-link" onclick="goBack()">← Back to Categories</a>
+  <div class="fade-up"><span class="eyebrow">Module 1 / Verb Forms</span>
+  <h1 class="section-title" style="margin-top:10px">Verb Forms A–Z</h1>
+  <p class="section-sub">Pick a letter to see its verbs (V1, V2, V3 + Hindi) and start a 20-question practice game.</p></div>
+  <div class="letters-grid fade-up d1">
+    ${letters.map(L=>`<button class="letter-btn" onclick="goM1Letter('${L}')">${L}<span class="cnt mono">${forms[L].length}</span></button>`).join('')}
+  </div>`;
+}
+
+function viewM1LetterVerbs(){
+  const forms = M1.verbForms || {};
+  const arr = forms[S.m1letter] || [];
+  return `
+  <a class="back-link" onclick="goBack()">← Back to Letters</a>
+  <div class="fade-up" style="display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:24px">
+    <div><span class="eyebrow">Verb Forms / Letter ${S.m1letter}</span><h1 class="section-title" style="margin-top:10px">Verbs starting with ${S.m1letter}</h1></div>
+    <button class="btn btn-primary" onclick="openLetterPractice('${S.m1letter}')">Practice ${S.m1letter} ⚡</button>
+  </div>
+  <div class="row-head fade-up d1"><span>V1</span><span>V2</span><span>V3</span><span>Hindi</span></div>
+  ${arr.map(v=>`<div class="verb-row fade-up d2"><span class="v1">${esc(v.v1)}</span><span class="v2">${esc(v.v2)}</span><span class="v3">${esc(v.v3)}</span><span class="hi">${esc(v.hi)}</span></div>`).join('')}
+  `;
+}
+
+/* ============================================================
+   VIEWS — MODULE 2
+   ============================================================ */
+function viewM2Home(){
+  const cats = CATS_M2();
+  return `
+  <a class="back-link" onclick="go('home')">← Back to Home</a>
+  <div class="fade-up"><span class="eyebrow">Module 2</span>
+  <h1 class="section-title" style="margin-top:10px">Sentence Structure</h1>
+  <p class="section-sub">Sentences, clauses, tenses and spoken English — all with rules, examples, and practice games.</p></div>
+  <div class="grid">
+    ${Object.entries(cats).map(([k,c],i)=>`
+      <div class="card fade-up d${i+1}" onclick="goM2Cat('${k}')">
+        <div class="card-icon mono">${c.icon}</div>
+        <h3>${c.title}</h3>
+        <p>${c.desc}</p>
+        <span class="card-tag">${c.tag}</span>
+      </div>`).join('')}
+  </div>`;
+}
+
+function viewM2Cat(){
+  if(S.m2cat==='spoken'){ S.view='m2spoken'; return viewM2Spoken(); }
+  let items = [], label = '';
+  if(S.m2cat==='sentence'){ items = M2.sentences||[]; label = 'Sentences'; }
+  else if(S.m2cat==='clause'){ items = M2.clauses||[]; label = 'Clauses'; }
+  else if(S.m2cat==='tense'){
+    const tg = M2.tenseGroups||{};
+    return `
+    <a class="back-link" onclick="goBack()">← Back</a>
+    <div class="fade-up"><span class="eyebrow">Module 2 / Tense</span><h1 class="section-title" style="margin-top:10px">Tenses</h1><p class="section-sub">Pick a tense group. Each has 4 sub-types.</p></div>
+    <div class="grid">
+      ${Object.entries(tg).map(([k,t],i)=>`
+        <div class="card fade-up d${i+1}" onclick="goM2Sub('${k}')">
+          <div class="card-icon mono">${i+1}</div><h3>${t.title}</h3><p>4 sub-types</p>
+        </div>`).join('')}
+    </div>`;
+  }
+  return `
+  <a class="back-link" onclick="goBack()">← Back</a>
+  <div class="fade-up"><span class="eyebrow">Module 2 / ${label}</span><h1 class="section-title" style="margin-top:10px">${label}</h1></div>
+  <div class="grid">
+    ${items.map((d,i)=>`
+      <div class="card fade-up d${Math.min(i+1,6)}" onclick="goM2Detail(${i})">
+        <h3 style="margin-bottom:6px">${esc(d.title)}</h3>
+        <p style="font-size:.85rem;color:var(--purple-light);margin-bottom:8px">${esc(d.hi)}</p>
+        <p>${esc(d.use)}</p>
+      </div>`).join('')}
+  </div>`;
+}
+
+function viewM2Sub(){
+  const tg = M2.tenseGroups||{};
+  const g = tg[S.m2sub];
+  if(!g) return '<p>Not found.</p>';
+  return `
+  <a class="back-link" onclick="goBack()">← Back to Tenses</a>
+  <div class="fade-up"><span class="eyebrow">Tense / ${g.title}</span><h1 class="section-title" style="margin-top:10px">${g.title}</h1></div>
+  <div class="grid">
+    ${g.types.map((t,i)=>`
+      <div class="card fade-up d${Math.min(i+1,4)}" onclick="goM2Detail(${i})">
+        <h3 style="margin-bottom:6px">${esc(t.title)}</h3>
+        <p style="font-size:.85rem;color:var(--purple-light);margin-bottom:8px">${esc(t.hi)}</p>
+        <p>${esc(t.use)}</p>
+      </div>`).join('')}
+  </div>`;
+}
+
+function viewM2Detail(){
+  let d;
+  if(S.m2cat==='sentence') d = (M2.sentences||[])[S.m2item];
+  else if(S.m2cat==='clause') d = (M2.clauses||[])[S.m2item];
+  else if(S.m2cat==='tense'){ const g = (M2.tenseGroups||{})[S.m2sub]; d = g ? g.types[S.m2item] : null; }
+  if(!d) return '<p>Not found.</p>';
+  return `
+  <a class="back-link" onclick="goBack()">← Back</a>
+  <div class="detail">
+    <div class="hero-verb fade-up">
+      <div class="v-big">${esc(d.title)}</div>
+      <div class="v-meaning">${esc(d.hi)}</div>
+      <div class="v-use"><b>Usage:</b> ${esc(d.use)}</div>
+    </div>
+    <div class="rules-box fade-up d1"><h4>Rules & Structure</h4><pre>${esc(d.rules)}</pre></div>
+    ${['simple','neg','wh'].map((t,i)=>{
+      const labels = {simple:'1. Simple Sentence',neg:'2. Negative Sentence',wh:'3. Wh-Question'};
+      return `<div class="sent-card fade-up d${i+2}">
+        <div class="sent-head"><span class="sent-label">${labels[t]}</span>
+          <button class="btn btn-primary btn-sm" onclick="openPracticeM2('${S.m2cat}',${S.m2item},'${t}')">Practice ⚡</button>
+        </div>
+        <div class="sent-text">${esc(d.s[t])}</div>
+      </div>`;
+    }).join('')}
+  </div>`;
+}
+
+function viewM2Spoken(){
+  return `
+  <a class="back-link" onclick="goBack()">← Back</a>
+  <div class="fade-up"><span class="eyebrow">Module 2 / Spoken English</span><h1 class="section-title" style="margin-top:10px">Spoken English Chat</h1>
+  <p class="section-sub">Type or tap a quick phrase. The bot replies with the phrase (English on top, Hindi below).</p></div>
+  <div class="chat-wrap fade-up d1">
+    <div class="quick-chips">
+      <button class="chip" onclick="sendSpoken('hello')">Hello</button>
+      <button class="chip" onclick="sendSpoken('good morning')">Good morning</button>
+      <button class="chip" onclick="sendSpoken('how are you')">How are you?</button>
+      <button class="chip" onclick="sendSpoken('thank you')">Thank you</button>
+      <button class="chip" onclick="sendSpoken('what is your name')">What is your name?</button>
+    </div>
+    <div class="chat-box" id="chat-box"></div>
+    <div class="chat-input">
+      <input id="chat-in" placeholder="Type a phrase..." onkeydown="if(event.key==='Enter')sendSpoken()">
+      <button class="btn btn-primary" onclick="sendSpoken()">Send</button>
+    </div>
+  </div>`;
+}
+
+function viewSoon(title){
+  return `
+  <a class="back-link" onclick="go('home')">← Back to Home</a>
+  <div class="soon-wrap fade-up">
+    <div class="soon-icon">🚧</div>
+    <h1 class="section-title" style="margin-top:0">${title} — Coming Soon</h1>
+    <p class="section-sub" style="margin-bottom:0">Data structure abhi final nahi hua. Placeholder file ready hai — jab content aayega, sirf us module ki .js file me data add karna hoga.</p>
+  </div>`;
+}
+
+/* ============================================================
+   PRACTICE ENGINE
+   ============================================================ */
+let P = null;
+
+function optsForVerbToBe(v){
+  const all = ['is','am','are','was','were','shall be','will be','has','have','had','shall have','will have'];
+  if(['is','am','are'].includes(v)) return ['is','am','are'];
+  if(['was','were'].includes(v)) return ['was','were'];
+  if(['shall be','will be'].includes(v)) return ['shall be','will be'];
+  if(['has','have','had'].includes(v)) return ['has','have','had'];
+  if(['shall have','will have'].includes(v)) return ['shall have','will have'];
+  return all;
+}
+
+function genVerbToBeQuestions(data,type){
+  const qs = []; const whs = ['What','Where','Why','Who','When','How'];
+  const opts = optsForVerbToBe(data.v);
+  for(let i=0;i<20;i++){
+    const subj = data.subs[i % data.subs.length];
+    const comp = data.comps[i % data.comps.length];
+    let q;
+    if(type==='simple') q = `${subj} ___ ${comp}.`;
+    else if(type==='neg') q = `${subj} ___ not ${comp}.`;
+    else q = `${whs[i % whs.length]} ___ ${subj.toLowerCase()}?`;
+    const level = i<7?'basic':i<14?'hard':'advance';
+    let options;
+    if(level==='basic'){ const wrong = opts.find(x=>x!==data.v) || 'is'; options = shuffle([data.v, wrong]); }
+    else if(level==='hard'){ const wrongs = opts.filter(x=>x!==data.v).slice(0,2); options = shuffle([data.v, ...wrongs]); }
+    else { const wrongs = opts.filter(x=>x!==data.v).slice(0,3); options = shuffle([data.v, ...wrongs]); }
+    qs.push({q, options, answer:data.v, level, hint:`${data.v} = ${data.hi}`});
+  }
+  return qs;
+}
+
+function genModalQuestions(data,type){
+  const qs = []; const whs = ['What','Where','Why','Who','When','How'];
+  const allModals = ['can','may','should','could','must','will','shall','would','might','ought','need','dare','used to'];
+  for(let i=0;i<20;i++){
+    const subj = data.subs[i % data.subs.length];
+    const comp = data.comps[i % data.comps.length];
+    let q;
+    if(type==='simple') q = `${subj} ___ ${comp}.`;
+    else if(type==='neg') q = `${subj} ___ not ${comp}.`;
+    else q = `${whs[i % whs.length]} ___ ${subj.toLowerCase()} ${comp}?`;
+    const level = i<7?'basic':i<14?'hard':'advance';
+    let wrongs;
+    if(level==='basic'){ wrongs = shuffle(allModals.filter(x=>x!==data.v)).slice(0,1); }
+    else if(level==='hard'){ wrongs = shuffle(allModals.filter(x=>x!==data.v)).slice(0,2); }
+    else { wrongs = shuffle(allModals.filter(x=>x!==data.v)).slice(0,3); }
+    qs.push({q, options:shuffle([data.v,...wrongs]), answer:data.v, level, hint:`${data.v} = ${data.hi}`});
+  }
+  return qs;
+}
+
+function genLetterQuestions(letter){
+  const arr = (M1.verbForms||{})[letter] || [];
+  if(arr.length===0) return [];
+  const qs = [];
+  for(let i=0;i<20;i++){
+    const v = arr[i % arr.length];
+    const askFor = i%2===0 ? 'v2' : 'v3';
+    const correct = askFor==='v2' ? v.v2 : v.v3;
+    const others = arr.filter(x=>x!==v).map(x=>askFor==='v2'?x.v2:x.v3);
+    const level = i<7?'basic':i<14?'hard':'advance';
+    const wrongs = shuffle(others).slice(0, level==='basic'?1:level==='hard'?2:3);
+    qs.push({
+      q: `<b>${esc(v.v1)}</b> <span style="color:var(--text-muted);font-size:.85em">(${esc(v.hi)})</span> का <b>${askFor.toUpperCase()}</b> क्या है?`,
+      options: shuffle([correct, ...wrongs]),
+      answer: correct,
+      level,
+      hint: `${esc(v.v1)} — V2: ${esc(v.v2)} | V3: ${esc(v.v3)}`
+    });
+  }
+  return qs;
+}
+
+function genM2Questions(cat, sentenceType){
+  const qs = [];
+  for(let i=0;i<20;i++){
+    const level = i<7?'basic':i<14?'hard':'advance';
+    let q, opts, answer, hint='';
+    if(sentenceType==='simple'){
+      if(level==='basic'){
+        q = `Which is a correct ${cat} simple sentence?`;
+        const correct = cat==='sentence' ? 'He is a doctor.' : cat==='clause' ? 'She went to school.' : 'He plays cricket.';
+        opts = shuffle([correct, 'He doctor a is.', 'Doctor he is a.']); answer = correct;
+      } else if(level==='hard'){
+        q = `Fill the blank: ${cat==='sentence'?'He ___ a doctor.':cat==='clause'?'She ___ to school.':'He ___ cricket.'}`;
+        opts = shuffle(['is / went / plays','are / go / play','am / goes / playing']); answer = 'is / went / plays';
+      } else {
+        q = `Choose correct subject-verb agreement:`;
+        opts = shuffle(['He plays.','He play.','He playing.']); answer = 'He plays.';
+      }
+      hint = 'Simple = positive statement';
+    } else if(sentenceType==='neg'){
+      if(level==='basic'){
+        q = `Which is the correct negative form?`;
+        opts = shuffle(['He is not a doctor.','He not is a doctor.','He is a doctor not.']); answer = 'He is not a doctor.';
+      } else if(level==='hard'){
+        q = `Fill the blank: He ___ not a doctor.`;
+        opts = shuffle(['is','are','am']); answer = 'is';
+      } else {
+        q = `Choose the correct negative structure:`;
+        opts = shuffle(['Subject + helping verb + not + main verb','Subject + not + helping verb + main verb','Not + subject + helping verb + main verb']); answer = 'Subject + helping verb + not + main verb';
+      }
+      hint = 'Negative = not के साथ';
+    } else {
+      if(level==='basic'){
+        q = `Which is a correct wh-question?`;
+        opts = shuffle(['What is his profession?','What his profession is?','His profession is what?']); answer = 'What is his profession?';
+      } else if(level==='hard'){
+        q = `Fill the blank: ___ is his profession?`;
+        opts = shuffle(['What','Where','Who']); answer = 'What';
+      } else {
+        q = `Choose the correct wh-question structure:`;
+        opts = shuffle(['Wh-word + helping verb + subject + main verb','Wh-word + subject + helping verb + main verb','Helping verb + wh-word + subject + main verb']); answer = 'Wh-word + helping verb + subject + main verb';
+      }
+      hint = 'Wh = question word (What/Where/Why/Who/When/How)';
+    }
+    qs.push({q, options:opts, answer, level, hint});
+  }
+  return qs;
+}
+
+function openPractice(cat, idx, type){
+  const cats = CATS_M1();
+  const data = cats[cat].data[idx];
+  P = {
+    cat, type, idx, data,
+    title: data.v,
+    questions: cat==='verbToBe' ? genVerbToBeQuestions(data,type) : genModalQuestions(data,type),
+    current:0, level:'basic', answered:false, correctCount:0, selected:null
+  };
+  showModal();
+}
+
+function openLetterPractice(letter){
+  P = {
+    cat:'verbForms', letter, type:'forms', data:{v:'Letter '+letter},
+    title:'Letter '+letter,
+    questions: genLetterQuestions(letter),
+    current:0, level:'basic', answered:false, correctCount:0, selected:null
+  };
+  showModal();
+}
+
+function openPracticeM2(cat, idx, type){
+  let d;
+  if(cat==='sentence') d = (M2.sentences||[])[idx];
+  else if(cat==='clause') d = (M2.clauses||[])[idx];
+  else if(cat==='tense'){ const g = (M2.tenseGroups||{})[S.m2sub]; d = g ? g.types[idx] : null; }
+  if(!d) return;
+  P = {
+    cat, type, idx, data:d, title:d.title,
+    questions: genM2Questions(cat, type),
+    current:0, level:'basic', answered:false, correctCount:0, selected:null
+  };
+  showModal();
+}
+
+function showModal(){
+  document.getElementById('modal').classList.add('open');
+  document.getElementById('m-title').textContent = 'Practice: ' + P.title;
+  const subs = {verbToBe:'Verb to Be',modal:'Modal Verb',semiModal:'Semi Modal',verbForms:'Verb Forms',sentence:'Sentence',clause:'Clause',tense:'Tense'};
+  document.getElementById('m-sub').textContent = subs[P.cat] || 'Practice';
+  document.getElementById('m-next').onclick = nextQuestion;
+  sfxOpen();
+  renderPractice();
+}
+
+function closePractice(){
+  document.getElementById('modal').classList.remove('open');
+  P = null;
+}
+
+function levelQuestions(level){ return P.questions.filter(q=>q.level===level); }
+
+function renderPractice(){
+  const tabsEl = document.getElementById('m-tabs');
+  while(tabsEl.firstChild) tabsEl.removeChild(tabsEl.firstChild);
+  ['basic','hard','advance'].forEach(lv=>{
+    const btn = document.createElement('button');
+    btn.className = 'tab' + (P.level===lv?' active':'');
+    btn.textContent = lv.charAt(0).toUpperCase()+lv.slice(1);
+    btn.onclick = ()=>{ P.level=lv; P.current=0; P.answered=false; P.selected=null; renderPractice(); };
+    tabsEl.appendChild(btn);
+  });
+  const qs = levelQuestions(P.level);
+  const q = qs[P.current];
+  if(!q){ document.getElementById('m-q').textContent = 'No questions.'; return; }
+  document.getElementById('m-progress-text').textContent = `Question ${P.current+1} / ${qs.length}`;
+  document.getElementById('m-score').textContent = `Score ${P.correctCount}`;
+  document.getElementById('m-fill').style.width = `${(P.current/qs.length)*100}%`;
+  const questionHTML = esc(q.q).replace(/___/g,'<span class="blank">___</span>');
+  const hintHTML = q.hint ? `<div class="q-hint">💡 ${esc(q.hint)}</div>` : '';
+  document.getElementById('m-q').innerHTML = questionHTML + hintHTML;
+  document.getElementById('m-correct').textContent = P.correctCount;
+  document.getElementById('m-total').textContent = qs.length;
+  const optsEl = document.getElementById('m-opts'); optsEl.innerHTML = '';
+  const keys = ['A','B','C','D'];
+  q.options.forEach((o,i)=>{
+    const b = document.createElement('button');
+    b.className = 'opt' + (P.answered?' disabled':'');
+    b.innerHTML = `<span class="key">${keys[i]}</span><span>${esc(o)}</span>`;
+    if(P.answered){
+      if(o===q.answer) b.classList.add('correct');
+      else if(o===P.selected) b.classList.add('wrong');
+    }
+    b.onclick = ()=>selectOpt(o);
+    optsEl.appendChild(b);
+  });
+  const fb = document.getElementById('m-fb');
+  fb.className='feedback'; fb.textContent='';
+  if(P.answered){
+    if(P.selected===q.answer){ fb.className='feedback show ok'; fb.textContent='✓ Correct!'; }
+    else { fb.className='feedback show bad'; fb.textContent=`✗ Wrong. Correct: ${q.answer}`; }
+  }
+  document.getElementById('m-next').textContent = P.current >= qs.length-1 ? 'Finish' : 'Next →';
+}
+
+function selectOpt(opt){
+  if(P.answered) return;
+  const qs = levelQuestions(P.level); const q = qs[P.current];
+  P.answered = true; P.selected = opt;
+  if(opt === q.answer){ P.correctCount++; sfxCorrect(); } else { sfxWrong(); }
+  renderPractice();
+}
+
+function nextQuestion(){
+  const qs = levelQuestions(P.level);
+  if(P.current >= qs.length-1){
+    sfxFinish();
+    document.getElementById('m-q').innerHTML = `<div style="text-align:center;padding:20px 0"><div style="font-size:2.6rem;margin-bottom:12px">🎉</div><div style="font-size:1.2rem;font-weight:700;margin-bottom:8px">Level Complete!</div><div style="color:var(--text-muted)">You scored <b style="color:var(--purple-light)">${P.correctCount}</b> out of ${qs.length}</div></div>`;
+    document.getElementById('m-opts').innerHTML = '';
+    document.getElementById('m-fb').className='feedback';
+    document.getElementById('m-next').textContent = 'Close';
+    document.getElementById('m-next').onclick = closePractice;
+    return;
+  }
+  P.current++; P.answered=false; P.selected=null;
+  renderPractice();
+}
+
+/* ============================================================
+   SPOKEN ENGLISH CHAT
+   ============================================================ */
+let chatInit = false;
+function initChat(){
+  const box = document.getElementById('chat-box');
+  if(!box || chatInit) return;
+  chatInit = true;
+  addBotMsg('Hello! 👋 Main aapki Spoken English practice me madad karunga. Neeche se koi phrase chuno ya type karo.', 'नमस्ते! नीचे से कोई वाक्यांश चुनें या टाइप करें।');
+}
+function addBotMsg(en, hi){
+  const box = document.getElementById('chat-box'); if(!box) return;
+  const div = document.createElement('div');
+  div.className = 'msg bot';
+  div.innerHTML = `${esc(en)}<span class="hi">${esc(hi)}</span>`;
+  box.appendChild(div); box.scrollTop = box.scrollHeight;
+}
+function addUserMsg(text){
+  const box = document.getElementById('chat-box'); if(!box) return;
+  const div = document.createElement('div');
+  div.className = 'msg user'; div.textContent = text;
+  box.appendChild(div); box.scrollTop = box.scrollHeight;
+}
+function sendSpoken(quick){
+  if(S.view !== 'm2spoken') return;
+  const input = document.getElementById('chat-in');
+  const text = quick || (input ? input.value.trim() : '');
+  if(!text) return;
+  if(!quick && input) input.value = '';
+  if(!document.getElementById('chat-box')) return;
+  addUserMsg(text);
+  const lower = text.toLowerCase();
+  const phrases = M2.spokenPhrases || [];
+  const found = phrases.find(p=>p.en.toLowerCase().includes(lower) || lower.includes(p.en.toLowerCase().split(' ')[0]));
+  setTimeout(()=>{
+    if(found){ addBotMsg(found.en, found.hi); }
+    else {
+      addBotMsg('Good try! Try one of these:', 'अच्छी कोशिश! इनमें से कोई आज़माएं:');
+      shuffle(phrases).slice(0,3).forEach(p=>addBotMsg(p.en, p.hi));
+    }
+  }, 350);
+}
+
+/* ============================================================
+   INIT
+   ============================================================ */
+render();
+</script>
 </body>
 </html>
