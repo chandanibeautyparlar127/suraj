@@ -8,7 +8,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-/* ── TUMHARA PURANA CSS (waisa hi rahega, thode naye classes add kiye hain) ── */
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--bg:#070913;--surface:#101425;--surface-2:#141a2e;--purple:#8b5cf6;--purple-light:#a78bfa;--blue:#3b82f6;--text:#f8fafc;--text-muted:#94a3b8;--border:rgba(255,255,255,.08);--border-strong:rgba(255,255,255,.14);--grad:linear-gradient(135deg,#a78bfa,#8b5cf6,#3b82f6);--r:20px;--shadow:0 18px 50px -20px rgba(0,0,0,.85);--glow:0 0 0 1px rgba(139,92,246,.45),0 18px 60px -18px rgba(139,92,246,.55)}
 html{scroll-behavior:smooth}
@@ -102,9 +101,6 @@ header{position:sticky;top:0;z-index:100;background:rgba(10,13,26,.55);backdrop-
 .close-btn{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--text);cursor:pointer;display:grid;place-items:center}
 .close-btn:hover{background:rgba(139,92,246,.2)}
 .modal-body{padding:24px 28px 28px}
-.tabs{display:flex;gap:6px;margin-bottom:22px;background:rgba(0,0,0,.25);padding:5px;border-radius:999px}
-.tab{flex:1;padding:9px;border-radius:999px;border:none;background:transparent;color:var(--text-muted);font-family:"Outfit",sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;transition:all .25s}
-.tab.active{background:var(--grad);color:#fff;box-shadow:0 8px 20px -8px rgba(139,92,246,.9)}
 .progress-row{display:flex;justify-content:space-between;margin-bottom:10px;font-family:"Space Grotesk",monospace;font-size:.78rem;color:var(--text-muted)}
 .progress-bar{height:6px;background:rgba(255,255,255,.06);border-radius:999px;overflow:hidden;margin-bottom:22px}
 .progress-fill{height:100%;background:var(--grad);border-radius:999px;transition:width .4s;width:0%}
@@ -165,7 +161,6 @@ header{position:sticky;top:0;z-index:100;background:rgba(10,13,26,.55);backdrop-
       <button class="close-btn" onclick="closePractice()">×</button>
     </div>
     <div class="modal-body">
-      <div class="tabs" id="m-tabs"></div>
       <div class="progress-row"><span id="m-progress-text">Q 1 / 7</span><span id="m-score">Score 0</span></div>
       <div class="progress-bar"><div class="progress-fill" id="m-fill"></div></div>
       <div class="q-text" id="m-q"></div>
@@ -184,12 +179,12 @@ header{position:sticky;top:0;z-index:100;background:rgba(10,13,26,.55);backdrop-
 <script src="module3.js"></script>
 <script src="module4.js"></script>
 <script>
-// Sound, Data Check, State (same as pehle)
+// Sound, Data Check, State
 let audioCtx=null, muted=false;
 function ensureAudio(){ if(audioCtx) return audioCtx; try{ audioCtx = new (window.AudioContext||window.webkitAudioContext)(); }catch(e){} return audioCtx; }
 function tone(f,d,t='sine',v=0.08,dl=0){ if(muted) return; const c=ensureAudio(); if(!c) return; if(c.state==='suspended') c.resume(); const o=c.createOscillator(), g=c.createGain(); o.type=t; o.frequency.value=f; o.connect(g); g.connect(c.destination); const tm=c.currentTime+dl; g.gain.setValueAtTime(0.0001,tm); g.gain.linearRampToValueAtTime(v,tm+0.01); g.gain.exponentialRampToValueAtTime(0.0001,tm+d); o.start(tm); o.stop(tm+d+0.03); }
 function sfxClick(){tone(560,.05,'sine',.035)} function sfxCorrect(){tone(659,.12,'sine',.09);tone(784,.12,'sine',.09,.1);tone(1046,.2,'sine',.09,.2)} function sfxWrong(){tone(220,.14,'sawtooth',.045);tone(165,.2,'sawtooth',.045,.11)} function sfxFinish(){tone(523,.12,'sine',.1);tone(659,.12,'sine',.1,.12);tone(784,.12,'sine',.1,.24);tone(1046,.34,'sine',.1,.36)}
-document.addEventListener('click',e=>{ if(e.target.closest('.opt')||e.target.closest('.wa-word')) return; sfxClick(); });
+document.addEventListener('click',e=>{ if(e.target.closest('.opt')) return; sfxClick(); });
 
 if(!window.MODULE1) window.MODULE1={verbToBe:[],modalVerbs:[],semiModals:[],verbForms:{}};
 if(!window.MODULE2) window.MODULE2={sentences:[],clauses:[],tenseGroups:{},spokenPhrases:[]};
@@ -226,10 +221,22 @@ function render(){
 // Home
 function viewHome(){ return `<div class="fade-up"><span class="eyebrow">Interactive Learning</span><h1 class="section-title" style="font-size:clamp(2rem,5vw,3.2rem)">Master English Grammar</h1><p class="section-sub">Choose a module. Deep rules, Hindi examples, and smart practice.</p></div><div class="grid"><div class="card" onclick="go('m1')"><div class="card-icon mono">01</div><h3>Module 1 — Grammar Basics</h3><p>Verb to Be, Modals, Semi Modals, A–Z Forms.</p></div><div class="card" onclick="go('m2')"><div class="card-icon mono">02</div><h3>Module 2 — Sentence Structure</h3><p>Sentence, Clause, Tense, Spoken AI Chat.</p></div><div class="card locked"><div class="card-icon mono">03</div><h3>Module 3</h3><p>Coming Soon</p></div><div class="card locked"><div class="card-icon mono">04</div><h3>Module 4</h3><p>Coming Soon</p></div></div>`; }
 
-// Module 1 (waise hi rahega)
+// Module 1
 function viewM1Home(){ return `<a class="back-link" onclick="go('home')">← Back</a><h1 class="section-title">Grammar Basics</h1><div class="grid">${['verbToBe','modal','semiModal'].map(k=>`<div class="card" onclick="goM1Cat('${k}')"><h3>${k}</h3></div>`).join('')}</div>`; }
 function viewM1Cat(){ return `<a class="back-link" onclick="goBack()">← Back</a><h1 class="section-title">${S.m1cat}</h1><div class="grid">${(M1[S.m1cat==='verbToBe'?'verbToBe':S.m1cat==='modal'?'modalVerbs':'semiModals']||[]).map((d,i)=>`<div class="card" onclick="goM1Detail(${i})"><h3>${esc(d.v)}</h3><p>${esc(d.hi)}</p></div>`).join('')}</div>`; }
-function viewM1Detail(){ return `<a class="back-link" onclick="goBack()">← Back</a><h1 class="section-title">Detail View</h1>`; }
+function viewM1Detail(){ 
+  let d;
+  if(S.m1cat==='verbToBe') d=(M1.verbToBe||[])[S.m1item];
+  else if(S.m1cat==='modal') d=(M1.modalVerbs||[])[S.m1item];
+  else d=(M1.semiModals||[])[S.m1item];
+  if(!d) return '<p>Not found.</p>';
+  return `<a class="back-link" onclick="goBack()">← Back</a>
+  <div class="rich-hero"><h1>${esc(d.v)}</h1><div class="meaning">${esc(d.hi)}</div></div>
+  <div class="rich-box"><div class="box-head"><div class="box-icon">💡</div><h4>Usage</h4></div><div class="box-body">${esc(d.use)}</div></div>
+  <div class="rich-box"><div class="box-head"><div class="box-icon">🔺</div><h4>Rules</h4></div><div class="formula-box">${esc(d.rules)}</div></div>
+  <div class="rich-box"><div class="box-head"><div class="box-icon">✅</div><h4>Examples</h4></div><div class="examples-list"><div class="ex-item"><div class="ex-en">${esc(d.s.simple)}</div></div><div class="ex-item"><div class="ex-en">${esc(d.s.neg)}</div></div><div class="ex-item"><div class="ex-en">${esc(d.s.wh)}</div></div></div></div>
+  `;
+}
 
 // Module 2 Home
 function viewM2Home(){ return `<a class="back-link" onclick="go('home')">← Back</a><h1 class="section-title">Sentence Structure</h1><div class="grid"><div class="card" onclick="goM2Cat('sentence')"><h3>Sentence</h3></div><div class="card" onclick="goM2Cat('clause')"><h3>Clause</h3></div><div class="card" onclick="goM2Cat('tense')"><h3>Tense</h3></div><div class="card" onclick="S.view='m2spoken';render()"><h3>Spoken AI Chat</h3></div></div>`; }
@@ -311,13 +318,13 @@ function viewM2Detail(){
 
   <!-- Practice buttons -->
   <div class="practice-group">
-    <button class="btn btn-primary" onclick="openPractice('sentence','${S.m2item}','simple')">Practice ⚡</button>
+    <button class="btn btn-primary" onclick="openPractice('${S.m2cat}','${S.m2item}')">Practice ⚡</button>
     ${S.m2cat==='tense'?`<button class="btn btn-ghost" onclick="openAllPractice()">All Practice 🎯</button>`:''}
   </div>
   `;
 }
 
-// Spoken Chat
+// Spoken Chat View
 function viewM2Spoken(){
   return `<a class="back-link" onclick="goBack()">← Back</a><h1 class="section-title">Spoken AI Chat</h1><p class="section-sub">Ask about any grammar topic, or just chat with me.</p>
   <div class="chat-wrap"><div class="quick-chips">
@@ -349,7 +356,7 @@ function aiAnswer(q){
   const lower = q.toLowerCase();
 
   // 1. Personal / Meta questions
-  if (lower.includes('name') && (lower.includes('your')||lower.includes('tumhara')||lower.includes('tumhara'))) {
+  if (lower.includes('name') && (lower.includes('your')||lower.includes('tumhara'))) {
     return { en: "My name is AI Spoken Chat.", hi: "मेरा नाम AI Spoken Chat है।" };
   }
   if (lower.includes('age') || lower.includes('umar')) {
@@ -368,7 +375,6 @@ function aiAnswer(q){
     (M2.sentences||[]).forEach(s=>all.push({type:'sentence',d:s}));
     (M2.clauses||[]).forEach(c=>all.push({type:'clause',d:c}));
     Object.values(M2.tenseGroups||{}).forEach(g=>(g.types||[]).forEach(t=>all.push({type:'tense',d:t})));
-    // Match title or id
     return all.find(x => lower.includes(x.d.title.toLowerCase().split(' ')[0].toLowerCase()) || lower.includes(x.d.id));
   };
   const m2 = findM2();
@@ -405,10 +411,23 @@ function aiAnswer(q){
   };
 }
 
-// ── PRACTICE ENGINE (Modal) ──
+// ── PRACTICE ENGINE ──
 let P=null;
+
+// Normal practice (sirf us topic ka basic)
+function openPractice(cat, idx){
+  let d;
+  if(cat==='sentence') d=(M2.sentences||[])[idx];
+  else if(cat==='clause') d=(M2.clauses||[])[idx];
+  else if(cat==='tense'){ const g=(M2.tenseGroups||{})[S.m2sub]; d=g?g.types[idx]:null; }
+  if(!d || !d.practice || !d.practice.basic || !d.practice.basic.length) { alert('No practice questions available for this topic.'); return; }
+  
+  P = { title:d.title, questions: shuffle(d.practice.basic), current:0, answered:false, correctCount:0, selected:null };
+  showModal();
+}
+
+// All practice (saare tenses mix)
 function openAllPractice(){
-  // Mix all tenses from M2
   let allQ = [];
   Object.values(M2.tenseGroups||{}).forEach(g=>{
     (g.types||[]).forEach(t=>{
@@ -416,19 +435,7 @@ function openAllPractice(){
     });
   });
   if(!allQ.length) { alert('No practice data available.'); return; }
-  P = { title:'All Practice (Mixed)', questions: shuffle(allQ), current:0, level:'all', answered:false, correctCount:0, selected:null };
-  showModal();
-}
-
-function openPractice(cat, idx, type){
-  let d;
-  if(cat==='sentence') d=(M2.sentences||[])[idx];
-  else if(cat==='clause') d=(M2.clauses||[])[idx];
-  else if(cat==='tense'){ const g=(M2.tenseGroups||{})[S.m2sub]; d=g?g.types[idx]:null; }
-  if(!d || !d.practice) { alert('No practice data.'); return; }
-  let allQ = [];
-  if(d.practice.basic) allQ = allQ.concat(d.practice.basic);
-  P = { title:d.title, questions: shuffle(allQ), current:0, level:'all', answered:false, correctCount:0, selected:null };
+  P = { title:'All Practice (Mixed)', questions: shuffle(allQ), current:0, answered:false, correctCount:0, selected:null };
   showModal();
 }
 
@@ -442,8 +449,6 @@ function showModal(){
 function closePractice(){ document.getElementById('modal').classList.remove('open'); P=null; }
 
 function renderPractice(){
-  // Hide tabs for simplicity (only 'all' level now)
-  document.getElementById('m-tabs').innerHTML = '';
   const q = P.questions[P.current];
   if(!q){ document.getElementById('m-q').textContent = 'No questions.'; return; }
   document.getElementById('m-progress-text').textContent = `Q ${P.current+1} / ${P.questions.length}`;
@@ -452,6 +457,7 @@ function renderPractice(){
   document.getElementById('m-q').innerHTML = esc(q.q) + (q.src ? `<div class="q-hint">💡 Topic: ${esc(q.src)}</div>` : '');
   document.getElementById('m-correct').textContent = P.correctCount;
   document.getElementById('m-total').textContent = P.questions.length;
+  
   const optsEl = document.getElementById('m-opts'); optsEl.innerHTML = '';
   q.options.forEach((o,i)=>{
     const b = document.createElement('button');
@@ -461,9 +467,13 @@ function renderPractice(){
     b.onclick = ()=>selectOpt(o);
     optsEl.appendChild(b);
   });
+  
   const fb = document.getElementById('m-fb');
   fb.className='feedback'; fb.textContent='';
-  if(P.answered){ if(P.selected===q.answer){ fb.className='feedback show ok'; fb.textContent='✓ Correct!'; } else { fb.className='feedback show bad'; fb.textContent=`✗ Wrong. Correct: ${q.answer}`; } }
+  if(P.answered){ 
+    if(P.selected===q.answer){ fb.className='feedback show ok'; fb.textContent='✓ Correct!'; } 
+    else { fb.className='feedback show bad'; fb.textContent=`✗ Wrong. Correct: ${q.answer}`; } 
+  }
   document.getElementById('m-next').textContent = P.current >= P.questions.length-1 ? 'Finish' : 'Next →';
 }
 
@@ -489,6 +499,7 @@ function nextQuestion(){
   renderPractice();
 }
 
+// Init
 render();
 </script>
 </body>
