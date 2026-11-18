@@ -860,18 +860,57 @@ function sendSpoken(quick){
   if(!quick && input) input.value = '';
   if(!document.getElementById('chat-box')) return;
   addUserMsg(text);
-  const lower = text.toLowerCase();
-  const phrases = M2.spokenPhrases || [];
-  const found = phrases.find(p=>p.en.toLowerCase().includes(lower) || lower.includes(p.en.toLowerCase().split(' ')[0]));
   setTimeout(()=>{
-    if(found){ addBotMsg(found.en, found.hi); }
-    else {
-      addBotMsg('Good try! Try one of these:', 'अच्छी कोशिश! इनमें से कोई आज़माएं:');
-      shuffle(phrases).slice(0,3).forEach(p=>addBotMsg(p.en, p.hi));
-    }
-  }, 350);
+    const reply = aiAnswer(text);
+    addBotMsg(reply.en, reply.hi);
+  }, 300);
 }
 
+// ── AI answer engine — poore data se ──
+function aiAnswer(q){
+  const lower = q.toLowerCase();
+
+  // 1. Match by keyword → topic/type
+  function findInM2(){
+    const all = [];
+    (M2.sentences||[]).forEach((s,i)=>all.push({kind:'sentence', item:s}));
+    (M2.clauses||[]).forEach((s,i)=>all.push({kind:'clause', item:s}));
+    Object.entries(M2.tenseGroups||{}).forEach(([gk,g])=>{
+      (g.types||[]).forEach(t=>all.push({kind:'tense', group:g.title, item:t}));
+    });
+    return all.find(x=> lower.includes(x.item.title.toLowerCase().split(' ')[0].toLowerCase()));
+  }
+  const m2 = findInM2();
+  if(m2){
+    const d = m2.item;
+    const ex = d.examples?.simple?.[0];
+    return {
+      en: `${d.title}\n\n${d.definition||''}\n\nRule: ${d.rule||''}\n\nExample: ${ex?ex.en:''}`,
+      hi: `${d.hi||''}\n\n${d.ruleExplain||''}\n\n${ex?ex.hi:''}`
+    };
+  }
+
+  // 2. Match verb from Module 1
+  const allM1 = [
+    ...(M1.verbToBe||[]).map(v=>({cat:'Verb to Be', v})),
+    ...(M1.modalVerbs||[]).map(v=>({cat:'Modal Verb', v})),
+    ...(M1.semiModals||[]).map(v=>({cat:'Semi Modal', v}))
+  ];
+  const found = allM1.find(x=> lower.includes(x.v.v.toLowerCase()));
+  if(found){
+    return {
+      en: `${found.v.v} — ${found.cat}\n\n${found.v.s.simple}\n${found.v.s.neg}\n${found.v.s.wh}`,
+      hi: `${found.v.hi}\n\n${found.v.use}\n\nRules: ${found.v.rules}`
+    };
+  }
+
+  // 3. Fallback — random suggestion
+  const sample = shuffle(M2.spokenPhrases||[]).slice(0,2);
+  return {
+    en: `Good question! Try asking about: sentence, clause, tense, or a verb (is, can, should). For example: "What is present perfect tense?" or "Tell me about can".`,
+    hi: sample.map(x=>x.hi).join(' | ')
+  };
+}
 /* ============================================================
    INIT
    ============================================================ */
