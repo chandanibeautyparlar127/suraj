@@ -1,676 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>English Mastery</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Grammar Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #070913; --bg-card: #101425; --bg-hover: #181e36; --bg-inner: #0a0d1a;
-  --purple: #8b5cf6; --purple-l: #a78bfa; --blue: #3b82f6;
-  --green: #10b981; --green-bg: rgba(16,185,129,0.12);
-  --red: #ef4444; --red-bg: rgba(239,68,68,0.12);
-  --yellow: #f59e0b; --text: #f8fafc; --muted: #94a3b8;
-  --border: rgba(255,255,255,0.08); --border-glow: rgba(139,92,246,0.35);
-  --grad: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 40%, #3b82f6 100%);
-  --font: "Outfit", sans-serif; --mono: "Space Grotesk", monospace;
-  --ease: cubic-bezier(0.16, 1, 0.3, 1);
-}
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;line-height:1.6}
-button,input{font-family:inherit;color:inherit;border:none;outline:none;background:none;cursor:pointer}
-::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--bg-hover);border-radius:8px}
-
-.bg-orb{position:fixed;border-radius:50%;filter:blur(120px);pointer-events:none;z-index:0;opacity:0.35}
-.bg-orb-1{width:500px;height:500px;background:#8b5cf6;top:-150px;left:-150px}
-.bg-orb-2{width:600px;height:600px;background:#3b82f6;bottom:-200px;right:-200px;opacity:0.25}
-
-.screen{display:none;min-height:100vh;position:relative;z-index:1}
-.screen.active{display:block;animation:fadeUp 0.4s var(--ease)}
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-
-.hdr{padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;background:rgba(7,9,19,0.85);backdrop-filter:blur(20px)}
-.btn-back{padding:8px 16px;border-radius:10px;background:var(--bg-card);border:1px solid var(--border);font-weight:600;font-size:14px;transition:0.2s}
-.btn-back:hover{background:var(--bg-hover);border-color:var(--purple)}
-.btn-back:disabled{opacity:0.4;cursor:not-allowed}
-.hdr-stats{display:flex;gap:8px;align-items:center}
-.stat-pill{display:flex;align-items:center;gap:6px;padding:6px 12px;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:999px;font-size:12.5px;font-weight:600;font-family:var(--mono);white-space:nowrap}
-.stat-pill.xp{color:var(--purple-l);border-color:rgba(139,92,246,0.3);background:rgba(139,92,246,0.08)}
-.stat-pill.streak{color:var(--yellow)}
-
-.wrap{max-width:960px;margin:0 auto;padding:24px 20px 80px}
-.nav-head{margin-bottom:26px}
-.nav-title{font-size:28px;font-weight:800;margin-bottom:4px;line-height:1.2}
-.nav-sub{color:var(--muted);font-size:14.5px}
-
-/* Modules grid */
-.modules-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
-.module-card{background:var(--bg-card);border:1px solid var(--border);border-radius:20px;padding:26px;cursor:pointer;transition:0.3s var(--ease)}
-.module-card:hover{transform:translateY(-5px);border-color:var(--border-glow);box-shadow:0 20px 40px rgba(0,0,0,0.4),0 0 30px rgba(139,92,246,0.15)}
-.mc-icon{font-size:34px;margin-bottom:14px}
-.mc-title{font-size:19px;font-weight:700;margin-bottom:4px}
-.mc-desc{font-size:13.5px;color:var(--muted);line-height:1.5}
-
-/* Cards list */
-.lessons-list{display:flex;flex-direction:column;gap:12px}
-.lesson-row{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:22px 24px;display:flex;align-items:center;gap:18px;cursor:pointer;transition:0.2s var(--ease)}
-.lesson-row:hover{background:var(--bg-hover);border-color:var(--purple-l);transform:translateX(5px)}
-.lr-num{width:44px;height:44px;border-radius:12px;background:rgba(139,92,246,0.15);color:var(--purple-l);display:grid;place-items:center;font-weight:700;font-size:18px;flex-shrink:0;font-family:var(--mono)}
-.lr-body{flex:1;min-width:0}
-.lr-title{font-size:16px;font-weight:600;margin-bottom:2px}
-.lr-sub{font-size:12.5px;color:var(--muted)}
-.lr-arrow{color:var(--muted);font-size:20px;flex-shrink:0}
-
-/* Verb grid */
-.verb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:12px}
-.verb-btn{padding:18px 12px;background:var(--bg-card);border:1.5px solid var(--border);border-radius:14px;text-align:center;font-weight:800;font-size:17px;color:var(--yellow);transition:0.2s var(--ease);font-family:var(--mono);letter-spacing:0.5px}
-.verb-btn:hover{background:var(--bg-hover);border-color:var(--yellow);transform:translateY(-3px)}
-
-/* Verb detail */
-.verb-detail{display:flex;flex-direction:column;gap:18px}
-.vd-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:22px}
-.vd-meaning{font-size:32px;font-weight:800;color:var(--yellow);margin-bottom:4px;line-height:1.1}
-.vd-usage{color:var(--muted);font-size:14.5px}
-.vd-section h3{font-size:15.5px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
-.vd-section h3 .dot{width:8px;height:8px;border-radius:50%;display:inline-block}
-.ex-item{background:var(--bg-inner);padding:12px 16px;border-radius:10px;margin-bottom:8px;border-left:3px solid var(--blue)}
-.ex-item:last-child{margin-bottom:0}
-.ex-en{font-size:14.5px;font-weight:600;margin-bottom:2px}
-.ex-hi{font-size:13px;color:var(--muted)}
-.struct-box{background:var(--bg-inner);padding:14px 16px;border-radius:10px;border-left:3px solid var(--yellow);font-family:var(--mono);font-size:12.5px;white-space:pre-line;color:var(--yellow);line-height:1.6;margin-top:10px}
-
-/* Practice bar */
-.practice-bar{background:linear-gradient(145deg,rgba(139,92,246,0.15),rgba(59,130,246,0.06));border:1px solid var(--border-glow);border-radius:16px;padding:22px}
-.practice-bar h3{font-size:17px;font-weight:700;margin-bottom:4px}
-.practice-bar p{color:var(--muted);font-size:13.5px;margin-bottom:16px}
-.practice-btns{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.practice-btn{padding:16px 12px;border-radius:12px;text-align:center;font-weight:700;transition:0.2s var(--ease);border:1.5px solid;cursor:pointer}
-.practice-btn .pb-label{font-size:14px;display:block;margin-bottom:2px}
-.practice-btn .pb-desc{font-size:11px;opacity:0.85;display:block;font-weight:500}
-.practice-btn.basic{background:rgba(16,185,129,0.1);border-color:var(--green);color:var(--green)}
-.practice-btn.basic:hover{background:rgba(16,185,129,0.2);transform:translateY(-2px)}
-.practice-btn.hard{background:rgba(245,158,11,0.1);border-color:var(--yellow);color:var(--yellow)}
-.practice-btn.hard:hover{background:rgba(245,158,11,0.2);transform:translateY(-2px)}
-.practice-btn.advance{background:rgba(239,68,68,0.1);border-color:var(--red);color:var(--red)}
-.practice-btn.advance:hover{background:rgba(239,68,68,0.2);transform:translateY(-2px)}
-
-/* Game */
-.game-container{background:var(--bg-card);border:1px solid var(--border);border-radius:20px;padding:28px 24px;margin-top:20px}
-.game-hdr{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:12.5px;color:var(--muted);margin-bottom:20px;letter-spacing:0.5px}
-.game-progress-bar{height:8px;background:rgba(255,255,255,0.06);border-radius:8px;overflow:hidden;margin-bottom:24px}
-.game-progress-fill{height:100%;background:var(--grad);border-radius:8px;box-shadow:0 0 12px rgba(139,92,246,0.5);transition:width 0.5s var(--ease)}
-.q-prompt{font-size:13px;font-family:var(--mono);letter-spacing:2px;text-transform:uppercase;color:var(--purple-l);margin-bottom:10px}
-.q-title{font-size:clamp(20px,3vw,26px);font-weight:700;line-height:1.4;margin-bottom:24px}
-.q-title em{color:var(--yellow);font-style:italic}
-.q-subtitle{font-size:clamp(17px,2.5vw,21px);font-weight:600;color:var(--yellow);margin-bottom:24px;font-family:var(--mono);letter-spacing:0.5px}
-
-.mcq-btn{display:flex;align-items:center;gap:14px;width:100%;padding:16px 20px;background:var(--bg-inner);border:1.5px solid var(--border);border-radius:12px;margin-bottom:10px;text-align:left;font-size:15px;font-weight:500;transition:0.2s var(--ease)}
-.mcq-btn:hover:not(:disabled){border-color:var(--purple);background:var(--bg-hover);transform:translateX(4px)}
-.mcq-key{width:28px;height:28px;border-radius:8px;background:rgba(139,92,246,0.15);border:1px solid rgba(139,92,246,0.3);display:grid;place-items:center;font-family:var(--mono);font-size:12px;font-weight:700;color:var(--purple-l);flex-shrink:0}
-.mcq-btn.correct{background:var(--green-bg);border-color:var(--green);color:var(--green)}
-.mcq-btn.correct .mcq-key{background:rgba(16,185,129,0.25);border-color:var(--green);color:var(--green)}
-.mcq-btn.wrong{background:var(--red-bg);border-color:var(--red);color:var(--red)}
-.mcq-btn.wrong .mcq-key{background:rgba(239,68,68,0.25);border-color:var(--red);color:var(--red)}
-.mcq-btn:disabled{cursor:default}
-
-.arrange-hint{font-size:15px;color:var(--muted);text-align:center;margin-bottom:16px}
-.arrange-area{min-height:76px;padding:14px;background:var(--bg-inner);border:1.5px dashed var(--border);border-radius:12px;display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;align-content:flex-start}
-.arrange-pool{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;justify-content:center}
-.chip{padding:10px 16px;background:var(--bg-hover);border:1px solid var(--border);border-radius:10px;font-weight:600;font-size:15px;transition:0.2s var(--ease);cursor:pointer;user-select:none}
-.chip:hover{border-color:var(--yellow);transform:translateY(-2px)}
-.chip.placed{background:rgba(139,92,246,0.18);border-color:var(--purple);color:var(--purple-l)}
-.chip.correct-final{background:rgba(16,185,129,0.18);border-color:var(--green);color:var(--green)}
-.chip.wrong-final{background:rgba(239,68,68,0.18);border-color:var(--red);color:var(--red)}
-.check-btn{display:block;margin:0 auto;padding:14px 48px;background:var(--grad);border-radius:30px;font-weight:700;font-size:15px;color:white;transition:0.2s var(--ease);box-shadow:0 8px 24px rgba(139,92,246,0.4)}
-.check-btn:hover:not(:disabled){transform:translateY(-2px)}
-.check-btn:disabled{opacity:0.4;cursor:not-allowed}
-
-.result-wrap{text-align:center;padding:30px 20px;background:var(--bg-card);border:1px solid var(--border);border-radius:20px;animation:fadeUp 0.5s var(--ease)}
-.result-emoji{font-size:72px;margin-bottom:12px}
-.result-title{font-size:30px;font-weight:800;margin-bottom:6px;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.result-sub{color:var(--muted);font-size:15px;margin-bottom:24px}
-.result-stats{display:flex;justify-content:center;gap:16px;margin-bottom:24px;flex-wrap:wrap}
-.result-stat{padding:14px 22px;background:var(--bg-inner);border:1px solid var(--border);border-radius:12px;min-width:90px}
-.rs-val{font-family:var(--mono);font-size:24px;font-weight:800;color:var(--yellow);line-height:1;margin-bottom:4px}
-.rs-label{font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)}
-.result-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
-.btn-primary{padding:13px 32px;background:var(--grad);border-radius:30px;font-weight:700;font-size:14px;color:white;transition:0.2s}
-.btn-primary:hover{transform:translateY(-2px)}
-.btn-secondary{padding:13px 32px;background:transparent;border:1.5px solid var(--border);border-radius:30px;font-weight:700;font-size:14px}
-.btn-secondary:hover{background:var(--bg-hover);border-color:var(--purple)}
-
-.toast{position:fixed;top:80px;left:50%;transform:translate(-50%,-120px);padding:14px 26px;border-radius:30px;font-weight:700;font-size:14px;opacity:0;transition:0.4s var(--ease);z-index:9999;pointer-events:none;white-space:nowrap}
-.toast.show{transform:translate(-50%,0);opacity:1}
-.toast.success{background:var(--green);color:white}
-.toast.error{background:var(--red);color:white}
-
-@media (max-width:600px){
-  .hdr{padding:12px 16px}
-  .wrap{padding:16px 16px 60px}
-  .nav-title{font-size:22px}
-  .module-card{padding:22px 20px}
-  .lesson-row{padding:18px 20px}
-  .practice-btns{grid-template-columns:1fr}
-  .verb-grid{grid-template-columns:repeat(auto-fill,minmax(90px,1fr))}
-  .result-title{font-size:24px}
-  .result-emoji{font-size:60px}
-}
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#070913;--surface:#101425;--surface-2:#141a2e;--purple:#8b5cf6;--purple-light:#a78bfa;--blue:#3b82f6;--text:#f8fafc;--text-muted:#94a3b8;--border:rgba(255,255,255,.08);--border-strong:rgba(255,255,255,.14);--grad:linear-gradient(135deg,#a78bfa,#8b5cf6,#3b82f6);--r:20px;--shadow:0 18px 50px -20px rgba(0,0,0,.85);--glow:0 0 0 1px rgba(139,92,246,.45),0 18px 60px -18px rgba(139,92,246,.55)}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:"Outfit",system-ui,sans-serif;line-height:1.6;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::selection{background:rgba(139,92,246,.35);color:#fff}
+::-webkit-scrollbar{width:10px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--purple),var(--blue));border-radius:999px;border:2px solid var(--bg)}
+.mono{font-family:"Space Grotesk",monospace}
+.orbs{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.orb{position:absolute;border-radius:50%;filter:blur(120px)}
+.orb-p{width:520px;height:520px;background:#8b5cf6;top:-160px;left:-120px;opacity:.4;animation:float 18s ease-in-out infinite}
+.orb-b{width:560px;height:560px;background:#3b82f6;top:30%;right:-200px;opacity:.3;animation:float 22s ease-in-out infinite reverse}
+.orb-v{width:460px;height:460px;background:#a78bfa;bottom:-180px;left:35%;opacity:.22;animation:float 26s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(40px,-50px,0) scale(1.12)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes gradShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.fade-up{opacity:0;animation:fadeUp .8s cubic-bezier(.22,1,.36,1) forwards}
+.d1{animation-delay:.05s}.d2{animation-delay:.15s}.d3{animation-delay:.25s}.d4{animation-delay:.35s}.d5{animation-delay:.45s}
+.container{width:100%;max-width:1180px;margin-inline:auto;padding-inline:24px;position:relative;z-index:1}
+header{position:sticky;top:0;z-index:100;background:rgba(10,13,26,.55);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border-bottom:1px solid var(--border);animation:fadeIn .9s ease both}
+.header-inner{display:flex;align-items:center;justify-content:space-between;gap:24px;height:76px}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--text);font-weight:700;font-size:1.15rem}
+.logo-mark{width:36px;height:36px;border-radius:11px;background:var(--grad);display:grid;place-items:center;font-family:"Space Grotesk",monospace;font-size:.95rem;font-weight:700;color:#fff;box-shadow:0 8px 24px -8px rgba(139,92,246,.85)}
+.nav{display:flex;align-items:center;gap:6px}
+.nav a{padding:9px 16px;border-radius:999px;font-size:.92rem;font-weight:500;color:var(--text-muted);text-decoration:none;transition:all .25s}
+.nav a:hover{color:var(--text);background:rgba(255,255,255,.05)}
+.nav a.active{color:var(--text);background:rgba(139,92,246,.14);box-shadow:inset 0 0 0 1px rgba(139,92,246,.35)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-family:"Outfit",sans-serif;font-size:.94rem;font-weight:600;padding:13px 26px;border-radius:999px;border:1px solid transparent;cursor:pointer;text-decoration:none;white-space:nowrap;transition:all .25s}
+.btn-primary{color:#fff;background:var(--grad);background-size:180% 180%;animation:gradShift 7s ease infinite;box-shadow:0 12px 34px -14px rgba(139,92,246,.95)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 18px 46px -14px rgba(139,92,246,1)}
+.btn-ghost{color:var(--text);background:rgba(255,255,255,.03);border-color:var(--border-strong);backdrop-filter:blur(10px)}
+.btn-ghost:hover{transform:translateY(-2px);border-color:rgba(139,92,246,.55);background:rgba(139,92,246,.1)}
+.hero{padding:110px 0 60px;text-align:center}
+.hero h1{font-size:clamp(2.5rem,6.4vw,4.6rem);font-weight:800;line-height:1.05;letter-spacing:-.035em;margin-bottom:26px}
+.grad-text{background:var(--grad);background-size:200% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:gradShift 7s ease infinite}
+.hero p{max-width:620px;margin:0 auto 42px;font-size:1.1rem;font-weight:300;color:var(--text-muted)}
+.hero-badge{display:inline-flex;align-items:center;gap:10px;padding:8px 18px 8px 14px;border-radius:999px;border:1px solid var(--border);background:rgba(16,20,37,.7);backdrop-filter:blur(14px);font-family:"Space Grotesk",monospace;font-size:.74rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:30px}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--purple-light);box-shadow:0 0 12px 2px rgba(167,139,250,.85);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.modules{padding:40px 0 100px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:22px}
+.mod-card{position:relative;padding:32px;border-radius:var(--r);background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow);overflow:hidden;transition:all .35s cubic-bezier(.22,1,.36,1);cursor:pointer;text-decoration:none;color:var(--text);display:block}
+.mod-card::before{content:"";position:absolute;inset:0 0 auto 0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),transparent);opacity:.7;transition:opacity .35s}
+.mod-card::after{content:"";position:absolute;top:-60%;left:50%;width:340px;height:340px;transform:translateX(-50%);background:radial-gradient(circle,rgba(139,92,246,.22),transparent 68%);opacity:0;transition:opacity .45s;pointer-events:none}
+.mod-card:hover{transform:translateY(-5px);border-color:rgba(139,92,246,.6);background:var(--surface-2);box-shadow:var(--glow),var(--shadow)}
+.mod-card:hover::before{opacity:0}
+.mod-card:hover::after{opacity:1}
+.mod-card.locked{cursor:not-allowed;opacity:.55}
+.mod-card.locked:hover{transform:none;border-color:var(--border);box-shadow:var(--shadow)}
+.mod-icon{position:relative;z-index:1;width:54px;height:54px;border-radius:15px;display:grid;place-items:center;font-size:1.4rem;margin-bottom:22px;background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.28);color:var(--purple-light);transition:all .35s}
+.mod-card:hover .mod-icon{background:rgba(139,92,246,.2);border-color:rgba(167,139,250,.55);transform:translateY(-2px)}
+.mod-card h3{position:relative;z-index:1;font-size:1.2rem;font-weight:700;margin-bottom:8px;letter-spacing:-.02em}
+.mod-card p{position:relative;z-index:1;font-size:.9rem;font-weight:300;line-height:1.65;color:var(--text-muted);margin-bottom:16px}
+.mod-tag{position:relative;z-index:1;display:inline-block;padding:5px 12px;border-radius:999px;border:1px solid var(--border);font-family:"Space Grotesk",monospace;font-size:.66rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted)}
+.mod-card.soon .mod-tag{color:var(--purple-light);border-color:rgba(139,92,246,.3)}
+@media(max-width:640px){.nav{display:none}.hero{padding:70px 0 40px}}
 </style>
 </head>
 <body>
+<div class="orbs"><div class="orb orb-p"></div><div class="orb orb-b"></div><div class="orb orb-v"></div></div>
 
-<div class="bg-orb bg-orb-1"></div>
-<div class="bg-orb bg-orb-2"></div>
-
-<!-- NAV SCREEN (universal) -->
-<div class="screen active" id="screen-nav">
-  <header class="hdr">
-    <button class="btn-back" id="backBtn" onclick="goBack()">← Back</button>
-    <div class="hdr-stats">
-      <div class="stat-pill streak">🔥 <span id="hdrStreak">0</span></div>
-      <div class="stat-pill xp">⚡ <span id="hdrXP">0</span></div>
-    </div>
-  </header>
-  <div class="wrap">
-    <div class="nav-head">
-      <h1 class="nav-title" id="navTitle"></h1>
-      <p class="nav-sub" id="navSub"></p>
-    </div>
-    <div id="navContent"></div>
+<header>
+  <div class="container header-inner">
+    <a href="index.html" class="logo"><span class="logo-mark">EG</span><span>Grammar Hub</span></a>
+    <nav class="nav">
+      <a href="index.html" class="active">Home</a>
+      <a href="module1.html">Module 1</a>
+      <a href="module2.html">Module 2</a>
+    </nav>
   </div>
-</div>
+</header>
 
-<!-- GAME SCREEN -->
-<div class="screen" id="screen-game">
-  <header class="hdr">
-    <button class="btn-back" onclick="quitGame()">← Back</button>
-    <div class="hdr-stats">
-      <div class="stat-pill xp">⚡ <span id="gameXP">0</span></div>
+<main>
+  <section class="hero">
+    <div class="container">
+      <div class="hero-badge fade-up d1"><span class="dot"></span>Interactive Learning</div>
+      <h1 class="fade-up d2">Master English<br><span class="grad-text">Grammar Step by Step.</span></h1>
+      <p class="fade-up d3">Choose a module below and start your journey. Each lesson includes clear rules, real examples, and a practice game to lock it in.</p>
     </div>
-  </header>
-  <div class="wrap" id="gameBody"></div>
-</div>
+  </section>
 
-<div class="toast" id="toast"></div>
-
-<script src="module1.js"></script>
-<!-- Add later: <script src="module2.js"></script> etc -->
-
-<script>
-/* ==========================================================
-   GLOBAL STATE
-   ========================================================== */
-const MODULES = [];
-if (typeof MODULE1 !== 'undefined') MODULES.push(MODULE1);
-if (typeof MODULE2 !== 'undefined') MODULES.push(MODULE2);
-if (typeof MODULE3 !== 'undefined') MODULES.push(MODULE3);
-if (typeof MODULE4 !== 'undefined') MODULES.push(MODULE4);
-
-const STORAGE_KEY = 'english_mastery_v2';
-const DEFAULT_STATE = { xp: 0, streak: 0, lastPlayed: null, totalCorrect: 0, totalWrong: 0, completed: [] };
-let state = loadState();
-let viewStack = [];
-let gameState = null;
-let arrangeState = null;
-let audioCtx = null;
-
-function loadState() {
-  try { const r = localStorage.getItem(STORAGE_KEY); return r ? {...DEFAULT_STATE, ...JSON.parse(r)} : {...DEFAULT_STATE}; }
-  catch { return {...DEFAULT_STATE}; }
-}
-function saveState() { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e){} }
-
-/* ==========================================================
-   AUDIO
-   ========================================================== */
-function ensureAudio() {
-  try {
-    if (!audioCtx) {
-      const AC = window.AudioContext || window.webkitAudioContext;
-      if (AC) audioCtx = new AC();
-    }
-    if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
-  } catch(e){}
-}
-function playSound(type) {
-  if (!audioCtx) return;
-  try {
-    const now = audioCtx.currentTime;
-    const osc = audioCtx.createOscillator();
-    const gain = audioCtx.createGain();
-    osc.connect(gain); gain.connect(audioCtx.destination);
-    if (type === 'click') {
-      osc.type='sine'; osc.frequency.setValueAtTime(600,now); osc.frequency.exponentialRampToValueAtTime(400,now+0.08);
-      gain.gain.setValueAtTime(0.06,now); gain.gain.exponentialRampToValueAtTime(0.001,now+0.1);
-      osc.start(now); osc.stop(now+0.1);
-    } else if (type === 'correct') {
-      osc.type='sine'; osc.frequency.setValueAtTime(523,now); osc.frequency.setValueAtTime(659,now+0.1); osc.frequency.setValueAtTime(784,now+0.2);
-      gain.gain.setValueAtTime(0.09,now); gain.gain.exponentialRampToValueAtTime(0.001,now+0.4);
-      osc.start(now); osc.stop(now+0.4);
-    } else if (type === 'wrong') {
-      osc.type='sawtooth'; osc.frequency.setValueAtTime(220,now); osc.frequency.exponentialRampToValueAtTime(110,now+0.3);
-      gain.gain.setValueAtTime(0.06,now); gain.gain.exponentialRampToValueAtTime(0.001,now+0.3);
-      osc.start(now); osc.stop(now+0.3);
-    } else if (type === 'win') {
-      osc.type='triangle';
-      [523,659,784,1047].forEach((f,i)=>osc.frequency.setValueAtTime(f,now+i*0.1));
-      gain.gain.setValueAtTime(0.1,now); gain.gain.exponentialRampToValueAtTime(0.001,now+0.6);
-      osc.start(now); osc.stop(now+0.6);
-    }
-  } catch(e){}
-}
-
-/* ==========================================================
-   HELPERS
-   ========================================================== */
-function $(id) { return document.getElementById(id); }
-function shuffle(a) { a=[...a]; for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
-function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  $(id).classList.add('active');
-  window.scrollTo(0,0);
-}
-let toastTimer;
-function showToast(msg, type='success') {
-  const t = $('toast'); t.textContent = msg; t.className = 'toast show ' + type;
-  clearTimeout(toastTimer); toastTimer = setTimeout(()=>t.classList.remove('show'), 2200);
-}
-
-/* ==========================================================
-   NAVIGATION
-   ========================================================== */
-function navigateTo(viewFactory) {
-  viewStack.push(viewFactory);
-  renderView(viewFactory());
-}
-function goBack() {
-  playSound('click');
-  if (viewStack.length > 1) {
-    viewStack.pop();
-    renderView(viewStack[viewStack.length - 1]());
-  }
-}
-function renderView(view) {
-  $('navTitle').textContent = view.title || '';
-  $('navSub').textContent = view.subtitle || '';
-  $('navContent').innerHTML = view.html;
-  $('backBtn').disabled = viewStack.length <= 1;
-  $('hdrXP').textContent = state.xp;
-  $('hdrStreak').textContent = state.streak;
-}
-
-/* ==========================================================
-   VIEW FACTORIES
-   ========================================================== */
-function viewModules() {
-  return {
-    title: 'Your Modules',
-    subtitle: 'Pick a module to start learning',
-    html: `<div class="modules-grid">
-      ${MODULES.map(m => `
-        <div class="module-card" onclick="playSound('click'); navigateTo(() => viewCard('${m.id}', []))">
-          <div class="mc-icon">${m.icon}</div>
-          <div class="mc-title">${m.title}</div>
-          <div class="mc-desc">${m.desc || ''}</div>
+  <section class="modules">
+    <div class="container">
+      <div class="grid">
+        <a href="module1.html" class="mod-card fade-up d2">
+          <div class="mod-icon mono">01</div>
+          <h3>Module 1 — Grammar Basics</h3>
+          <p>Verb to Be, Modal Verbs, Semi Modal Verbs and A–Z Verb Forms. Every verb with meaning, usage, rules, and a 20-question practice game.</p>
+          <span class="mod-tag">12 + 10 + 6 + A–Z</span>
+        </a>
+        <a href="module2.html" class="mod-card fade-up d3">
+          <div class="mod-icon mono">02</div>
+          <h3>Module 2 — Sentence Structure</h3>
+          <p>Sentence types, Clauses, Tenses and Spoken English. All with rules, examples and practice games.</p>
+          <span class="mod-tag">Sentence · Clause · Tense · Spoken</span>
+        </a>
+        <div class="mod-card locked soon fade-up d4">
+          <div class="mod-icon mono">03</div>
+          <h3>Module 3 — Coming Soon</h3>
+          <p>Data structure will be decided later. Placeholder file is ready on GitHub.</p>
+          <span class="mod-tag">Locked</span>
         </div>
-      `).join('')}
-    </div>`
-  };
-}
-
-function getCardByPath(moduleId, path) {
-  const mod = MODULES.find(m => m.id === moduleId);
-  if (!mod) return null;
-  let cards = mod.cards;
-  let card = null;
-  for (const id of path) {
-    card = cards.find(c => c.id === id);
-    if (!card) return null;
-    cards = card.cards || [];
-  }
-  return card;
-}
-
-function viewCard(moduleId, path) {
-  const mod = MODULES.find(m => m.id === moduleId);
-  if (!mod) return viewModules();
-
-  if (path.length === 0) {
-    return {
-      title: mod.title,
-      subtitle: mod.desc || '',
-      html: `<div class="lessons-list">
-        ${mod.cards.map((c, i) => `
-          <div class="lesson-row" onclick="playSound('click'); navigateTo(() => viewCard('${moduleId}', ['${c.id}']))">
-            <div class="lr-num">${i + 1}</div>
-            <div class="lr-body">
-              <div class="lr-title">${c.title}</div>
-              <div class="lr-sub">${c.desc || c.subtitle || ''}</div>
-            </div>
-            <div class="lr-arrow">›</div>
-          </div>
-        `).join('')}
-      </div>`
-    };
-  }
-
-  const card = getCardByPath(moduleId, path);
-  if (!card) return viewModules();
-
-  // Verb grid card
-  if (card.type === 'verb-grid' && card.verbs) {
-    return {
-      title: card.title,
-      subtitle: card.desc || `Click any verb to learn and practice`,
-      html: `<div class="verb-grid">
-        ${card.verbs.map((v, i) => `
-          <button class="verb-btn" onclick="playSound('click'); navigateTo(() => viewVerb('${moduleId}', ${JSON.stringify(path)}, ${i}))">${v.word}</button>
-        `).join('')}
-      </div>`
-    };
-  }
-
-  // Group card (has sub-cards)
-  if (card.cards && card.cards.length) {
-    return {
-      title: card.title,
-      subtitle: card.desc || '',
-      html: `<div class="lessons-list">
-        ${card.cards.map((c, i) => `
-          <div class="lesson-row" onclick="playSound('click'); navigateTo(() => viewCard('${moduleId}', ${JSON.stringify([...path, c.id])}))">
-            <div class="lr-num">${i + 1}</div>
-            <div class="lr-body">
-              <div class="lr-title">${c.title}</div>
-              <div class="lr-sub">${c.desc || c.subtitle || ''}</div>
-            </div>
-            <div class="lr-arrow">›</div>
-          </div>
-        `).join('')}
-      </div>`
-    };
-  }
-
-  // Detail card
-  if (card.type === 'detail' || card.definition || card.examples) {
-    return {
-      title: card.title,
-      subtitle: card.desc || '',
-      html: renderDetailCard(card)
-    };
-  }
-
-  return { title: card.title, subtitle: '', html: '<p>Content coming soon…</p>' };
-}
-
-function renderDetailCard(card) {
-  let html = '';
-  if (card.definition) {
-    html += `<div class="vd-card"><p style="font-size:15px;line-height:1.7">${card.definition}</p></div>`;
-  }
-  const cats = [
-    { key: 'simple', label: 'Simple Sentences', color: 'var(--green)' },
-    { key: 'negative', label: 'Negative Sentences', color: 'var(--red)' },
-    { key: 'wh', label: 'WH Questions', color: 'var(--blue)' },
-  ];
-  cats.forEach(cat => {
-    const exs = card.examples && card.examples[cat.key];
-    if (!exs || exs.length === 0) return;
-    html += `<div class="vd-card vd-section" style="margin-top:16px">
-      <h3><span class="dot" style="background:${cat.color}"></span>${cat.label}</h3>
-      ${exs.map(ex => `<div class="ex-item"><div class="ex-en">${ex.en}</div><div class="ex-hi">${ex.hi}</div></div>`).join('')}
-    </div>`;
-  });
-  return html;
-}
-
-/* ==========================================================
-   VERB DETAIL
-   ========================================================== */
-function viewVerb(moduleId, cardPath, verbIdx) {
-  const card = getCardByPath(moduleId, cardPath);
-  const verb = card.verbs[verbIdx];
-
-  const catMeta = [
-    { key: 'simple', label: 'Simple Sentences', color: 'var(--green)' },
-    { key: 'negative', label: 'Negative Sentences', color: 'var(--red)' },
-    { key: 'wh', label: 'WH Questions', color: 'var(--blue)' },
-  ];
-
-  let html = `<div class="verb-detail">
-    <div class="vd-card">
-      <div class="vd-meaning">${verb.word}</div>
-      <div style="font-size:22px;font-weight:700;color:var(--purple-l);margin-bottom:6px">${verb.meaning}</div>
-      <div class="vd-usage">${verb.usage || ''}</div>
-    </div>`;
-
-  catMeta.forEach(cat => {
-    const exs = verb[cat.key] || [];
-    if (exs.length === 0) return;
-    html += `<div class="vd-card vd-section">
-      <h3><span class="dot" style="background:${cat.color}"></span>${cat.label}</h3>
-      ${exs.map(ex => `<div class="ex-item" style="border-left-color:${cat.color}"><div class="ex-en">${ex.en}</div><div class="ex-hi">${ex.hi}</div></div>`).join('')}
-      ${verb.structures && verb.structures[cat.key] ? `<div class="struct-box">${verb.structures[cat.key]}</div>` : ''}
-    </div>`;
-  });
-
-  html += `<div class="practice-bar">
-    <h3>🎮 Practice Time</h3>
-    <p>Choose difficulty and test your knowledge with 20 questions.</p>
-    <div class="practice-btns">
-      <button class="practice-btn basic" onclick="startPractice('${moduleId}', ${JSON.stringify(cardPath).replace(/"/g,'&quot;')}, ${verbIdx}, 'basic')">
-        <span class="pb-label">🟢 Basic</span>
-        <span class="pb-desc">English → Hindi MCQ</span>
-      </button>
-      <button class="practice-btn hard" onclick="startPractice('${moduleId}', ${JSON.stringify(cardPath).replace(/"/g,'&quot;')}, ${verbIdx}, 'hard')">
-        <span class="pb-label">🟡 Hard</span>
-        <span class="pb-desc">Hindi → English MCQ</span>
-      </button>
-      <button class="practice-btn advance" onclick="startPractice('${moduleId}', ${JSON.stringify(cardPath).replace(/"/g,'&quot;')}, ${verbIdx}, 'advance')">
-        <span class="pb-label">🔴 Advance</span>
-        <span class="pb-desc">Arrange Hindi words</span>
-      </button>
-    </div>
-  </div></div>`;
-
-  return { title: verb.word, subtitle: card.title, html };
-}
-
-/* ==========================================================
-   GAME ENGINE
-   ========================================================== */
-function startPractice(moduleId, cardPath, verbIdx, type) {
-  playSound('click');
-  ensureAudio();
-  const card = getCardByPath(moduleId, cardPath);
-  const verb = card.verbs[verbIdx];
-  const qs = verb.practice && verb.practice[type];
-
-  if (!qs || qs.length === 0) {
-    showToast('Practice questions coming soon for this verb!', 'error');
-    return;
-  }
-
-  const pool = shuffle(qs).slice(0, Math.min(5, qs.length));
-  gameState = { type, verb: verb.word, questions: pool, index: 0, correct: 0, total: pool.length };
-  showScreen('screen-game');
-  renderGameQuestion();
-}
-
-function quitGame() {
-  playSound('click');
-  gameState = null;
-  arrangeState = null;
-  showScreen('screen-nav');
-}
-
-function renderGameQuestion() {
-  const gs = gameState;
-  if (!gs) return;
-  if (gs.index >= gs.total) return showGameResult();
-  const q = gs.questions[gs.index];
-  $('gameXP').textContent = state.xp;
-
-  const pct = (gs.index / gs.total) * 100;
-  const progressBar = `<div class="game-progress-bar"><div class="game-progress-fill" style="width:${pct}%"></div></div>`;
-  const header = `<div class="game-hdr"><span>Q ${gs.index + 1} / ${gs.total} · ${gs.verb}</span><span>Score: ${gs.correct}</span></div>`;
-
-  if (gs.type === 'basic') {
-    // English → Hindi MCQ
-    $('gameBody').innerHTML = `<div class="game-container">
-      ${progressBar}${header}
-      <div class="q-prompt">What is the Hindi meaning?</div>
-      <div class="q-title">${q.en}</div>
-      <div id="mcqOptions">
-        ${q.options.map((opt, i) => `<button class="mcq-btn" data-i="${i}" onclick="answerMCQ(${i})">
-          <span class="mcq-key">${String.fromCharCode(65+i)}</span><span>${opt}</span>
-        </button>`).join('')}
+        <div class="mod-card locked soon fade-up d5">
+          <div class="mod-icon mono">04</div>
+          <h3>Module 4 — Coming Soon</h3>
+          <p>Data structure will be decided later. Placeholder file is ready on GitHub.</p>
+          <span class="mod-tag">Locked</span>
+        </div>
       </div>
-    </div>`;
-  } else if (gs.type === 'hard') {
-    // Hindi → English MCQ
-    $('gameBody').innerHTML = `<div class="game-container">
-      ${progressBar}${header}
-      <div class="q-prompt">Choose the correct English translation</div>
-      <div class="q-title" style="color:var(--yellow)">${q.hi}</div>
-      <div id="mcqOptions">
-        ${q.options.map((opt, i) => `<button class="mcq-btn" data-i="${i}" onclick="answerMCQ(${i})">
-          <span class="mcq-key">${String.fromCharCode(65+i)}</span><span>${opt}</span>
-        </button>`).join('')}
-      </div>
-    </div>`;
-  } else if (gs.type === 'advance') {
-    // English → arrange Hindi words
-    const words = q.hi.replace(/[।.,!?]/g,'').split(/\s+/).filter(w => w);
-    const pool = shuffle(words.map((w, i) => ({ w, id: i })));
-    arrangeState = { pool, chosen: [], correct: q.hi, en: q.en };
-    $('gameBody').innerHTML = `<div class="game-container">
-      ${progressBar}${header}
-      <div class="q-prompt">Translate to Hindi (arrange words)</div>
-      <div class="q-title">${q.en}</div>
-      <div class="arrange-area" id="arrangeArea"></div>
-      <div class="arrange-pool" id="arrangePool"></div>
-      <button class="check-btn" id="checkBtn" onclick="checkArrange()" disabled>Check</button>
-    </div>`;
-    renderArrangeArea();
-  }
-}
-
-function answerMCQ(i) {
-  const q = gameState.questions[gameState.index];
-  const btns = document.querySelectorAll('.mcq-btn');
-  btns.forEach(b => b.disabled = true);
-  const ok = i === q.correct;
-  if (ok) {
-    btns[i].classList.add('correct');
-    playSound('correct'); showToast('Correct!', 'success');
-    gameState.correct++;
-    state.xp += 5; state.totalCorrect++;
-  } else {
-    btns[i].classList.add('wrong');
-    btns[q.correct].classList.add('correct');
-    playSound('wrong'); showToast('Not quite...', 'error');
-    state.totalWrong++;
-  }
-  saveState();
-  $('gameXP').textContent = state.xp;
-  setTimeout(() => { gameState.index++; renderGameQuestion(); }, ok ? 900 : 1600);
-}
-
-function renderArrangeArea() {
-  const area = $('arrangeArea'); const pool = $('arrangePool');
-  if (!area || !pool) return;
-  area.innerHTML = arrangeState.chosen.map((item, i) =>
-    `<div class="chip placed" onclick="removeChip(${i})">${item.w}</div>`).join('');
-  pool.innerHTML = arrangeState.pool.map(item => {
-    const used = arrangeState.chosen.find(c => c.id === item.id);
-    return used ? '' : `<div class="chip" onclick="pickChip(${item.id})">${item.w}</div>`;
-  }).join('');
-  const btn = $('checkBtn'); if (btn) btn.disabled = arrangeState.chosen.length === 0;
-}
-function pickChip(id) { playSound('click'); const it = arrangeState.pool.find(p => p.id === id); if (it) arrangeState.chosen.push(it); renderArrangeArea(); }
-function removeChip(i) { playSound('click'); arrangeState.chosen.splice(i, 1); renderArrangeArea(); }
-
-function checkArrange() {
-  const user = arrangeState.chosen.map(c => c.w).join(' ').replace(/\s+/g,' ').trim();
-  const target = arrangeState.correct.replace(/[।.,!?]/g,'').replace(/\s+/g,' ').trim();
-  const ok = user === target;
-  document.querySelectorAll('#arrangeArea .chip').forEach(c => c.classList.add(ok ? 'correct-final' : 'wrong-final'));
-  $('checkBtn').disabled = true;
-  if (ok) {
-    playSound('correct'); showToast('Perfect!', 'success');
-    gameState.correct++; state.xp += 8; state.totalCorrect++;
-  } else {
-    playSound('wrong'); showToast('Not quite. Correct: ' + arrangeState.correct, 'error');
-    state.totalWrong++;
-  }
-  saveState(); $('gameXP').textContent = state.xp;
-  setTimeout(() => { gameState.index++; renderGameQuestion(); }, ok ? 1000 : 2200);
-}
-
-function showGameResult() {
-  const gs = gameState;
-  const pct = Math.round((gs.correct / gs.total) * 100);
-  let emoji = '🎉', title = 'Practice Complete!';
-  if (pct === 100) { emoji = '⭐'; title = 'Perfect!'; }
-  else if (pct >= 80) { emoji = '🔥'; title = 'Excellent!'; }
-  else if (pct >= 60) { emoji = '👍'; title = 'Good Job!'; }
-  else { emoji = '💪'; title = 'Keep Practicing!'; }
-
-  const bonus = pct === 100 ? 25 : 10;
-  state.xp += bonus;
-  saveState();
-  playSound('win');
-
-  $('gameBody').innerHTML = `<div class="result-wrap">
-    <div class="result-emoji">${emoji}</div>
-    <div class="result-title">${title}</div>
-    <div class="result-sub">You answered ${gs.correct} out of ${gs.total} correctly</div>
-    <div class="result-stats">
-      <div class="result-stat"><div class="rs-val">${gs.correct}/${gs.total}</div><div class="rs-label">Correct</div></div>
-      <div class="result-stat"><div class="rs-val">${pct}%</div><div class="rs-label">Accuracy</div></div>
-      <div class="result-stat"><div class="rs-val">+${gs.correct * 5 + bonus}</div><div class="rs-label">XP</div></div>
     </div>
-    <div class="result-actions">
-      <button class="btn-secondary" onclick="quitGame()">Back</button>
-      <button class="btn-primary" onclick="playAgain()">Try Again</button>
-    </div>
-  </div>`;
-  $('gameXP').textContent = state.xp;
-}
-
-function playAgain() {
-  playSound('click');
-  if (!gameState) return;
-  const { type, verb } = gameState;
-  // Restart same practice type
-  const found = findVerbByWord(verb);
-  if (found) startPractice(found.moduleId, found.cardPath, found.verbIdx, type);
-}
-
-function findVerbByWord(word) {
-  for (const mod of MODULES) {
-    for (const card of mod.cards) {
-      if (card.verbs) {
-        const idx = card.verbs.findIndex(v => v.word === word);
-        if (idx >= 0) return { moduleId: mod.id, cardPath: [card.id], verbIdx: idx };
-      }
-    }
-  }
-  return null;
-}
-
-/* ==========================================================
-   INIT
-   ========================================================== */
-document.addEventListener('click', ensureAudio, { once: true });
-document.addEventListener('touchstart', ensureAudio, { once: true });
-
-function init() {
-  navigateTo(viewModules);
-}
-init();
-</script>
+  </section>
+</main>
 </body>
 </html>
