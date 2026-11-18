@@ -3,114 +3,160 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>English Mastery — Learn & Play</title>
+<title>English Mastery</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <style>
 :root {
   --bg: #070913; --bg-card: #101425; --bg-hover: #181e36; --bg-inner: #0a0d1a;
-  --purple: #8b5cf6; --purple-l: #a78bfa; --blue: #3b82f6; --green: #10b981;
-  --green-bg: rgba(16, 185, 129, 0.12); --red: #ef4444; --red-bg: rgba(239, 68, 68, 0.12);
-  --yellow: #f59e0b; --text: #f8fafc; --muted: #94a3b8; --border: rgba(255, 255, 255, 0.08);
-  --border-glow: rgba(139, 92, 246, 0.35); --grad: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 40%, #3b82f6 100%);
-  --font: "Outfit", sans-serif; --mono: "Space Grotesk", monospace; --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --purple: #8b5cf6; --purple-l: #a78bfa; --blue: #3b82f6;
+  --green: #10b981; --green-bg: rgba(16,185,129,0.12);
+  --red: #ef4444; --red-bg: rgba(239,68,68,0.12);
+  --yellow: #f59e0b; --text: #f8fafc; --muted: #94a3b8;
+  --border: rgba(255,255,255,0.08); --border-glow: rgba(139,92,246,0.35);
+  --grad: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 40%, #3b82f6 100%);
+  --font: "Outfit", sans-serif; --mono: "Space Grotesk", monospace;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: var(--font); background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; line-height: 1.6; }
-button, input { font-family: inherit; color: inherit; border: none; outline: none; background: none; cursor: pointer; }
-::-webkit-scrollbar { width: 8px; } ::-webkit-scrollbar-track { background: var(--bg); } ::-webkit-scrollbar-thumb { background: var(--bg-hover); border-radius: 8px; }
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;line-height:1.6}
+button,input{font-family:inherit;color:inherit;border:none;outline:none;background:none;cursor:pointer}
+::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--bg-hover);border-radius:8px}
 
-/* Background orbs */
-.bg-orb { position: fixed; border-radius: 50%; filter: blur(120px); pointer-events: none; z-index: 0; opacity: 0.4; }
-.bg-orb-1 { width: 500px; height: 500px; background: #8b5cf6; top: -150px; left: -150px; }
-.bg-orb-2 { width: 600px; height: 600px; background: #3b82f6; bottom: -200px; right: -200px; opacity: 0.3; }
+.bg-orb{position:fixed;border-radius:50%;filter:blur(120px);pointer-events:none;z-index:0;opacity:0.35}
+.bg-orb-1{width:500px;height:500px;background:#8b5cf6;top:-150px;left:-150px}
+.bg-orb-2{width:600px;height:600px;background:#3b82f6;bottom:-200px;right:-200px;opacity:0.25}
 
-/* Screens */
-.screen { display: none; min-height: 100vh; position: relative; z-index: 1; }
-.screen.active { display: block; animation: fadeUp 0.5s var(--ease); }
-@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+.screen{display:none;min-height:100vh;position:relative;z-index:1}
+.screen.active{display:block;animation:fadeUp 0.4s var(--ease)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 
-/* Header */
-.hdr { padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; background: rgba(7, 9, 19, 0.85); backdrop-filter: blur(20px); }
-.hdr-brand { font-family: var(--mono); font-size: 18px; font-weight: 800; letter-spacing: 1px; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 8px; }
-.hdr-brand::before { content: "📘"; font-size: 20px; -webkit-text-fill-color: initial; }
-.hdr-stats { display: flex; gap: 8px; align-items: center; }
-.stat-pill { display: flex; align-items: center; gap: 6px; padding: 6px 12px; background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border); border-radius: 999px; font-size: 12.5px; font-weight: 600; font-family: var(--mono); white-space: nowrap; }
-.stat-pill.xp { color: var(--purple-l); border-color: rgba(139, 92, 246, 0.3); background: rgba(139, 92, 246, 0.08); }
-.btn-back { padding: 8px 16px; border-radius: 10px; background: var(--bg-card); border: 1px solid var(--border); font-weight: 600; font-size: 14px; transition: 0.2s; }
-.btn-back:hover { background: var(--bg-hover); border-color: var(--purple); }
+.hdr{padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;background:rgba(7,9,19,0.85);backdrop-filter:blur(20px)}
+.btn-back{padding:8px 16px;border-radius:10px;background:var(--bg-card);border:1px solid var(--border);font-weight:600;font-size:14px;transition:0.2s}
+.btn-back:hover{background:var(--bg-hover);border-color:var(--purple)}
+.btn-back:disabled{opacity:0.4;cursor:not-allowed}
+.hdr-stats{display:flex;gap:8px;align-items:center}
+.stat-pill{display:flex;align-items:center;gap:6px;padding:6px 12px;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:999px;font-size:12.5px;font-weight:600;font-family:var(--mono);white-space:nowrap}
+.stat-pill.xp{color:var(--purple-l);border-color:rgba(139,92,246,0.3);background:rgba(139,92,246,0.08)}
+.stat-pill.streak{color:var(--yellow)}
 
-/* Wrappers */
-.wrap { max-width: 960px; margin: 0 auto; padding: 24px 20px 80px; }
+.wrap{max-width:960px;margin:0 auto;padding:24px 20px 80px}
+.nav-head{margin-bottom:26px}
+.nav-title{font-size:28px;font-weight:800;margin-bottom:4px;line-height:1.2}
+.nav-sub{color:var(--muted);font-size:14.5px}
 
-/* Hero */
-.hero { background: linear-gradient(145deg, rgba(139, 92, 246, 0.12), rgba(59, 130, 246, 0.06), rgba(16, 20, 37, 0.9)); border: 1px solid var(--border-glow); border-radius: 24px; padding: 32px 28px; margin-bottom: 28px; position: relative; overflow: hidden; }
-.hero-emoji { font-size: 40px; margin-bottom: 6px; }
-.hero-title { font-size: 28px; font-weight: 800; line-height: 1.2; margin-bottom: 6px; position: relative; }
-.hero-title .grad { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-.hero-sub { color: var(--muted); font-size: 14.5px; margin-bottom: 20px; }
+/* Modules grid */
+.modules-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.module-card{background:var(--bg-card);border:1px solid var(--border);border-radius:20px;padding:26px;cursor:pointer;transition:0.3s var(--ease)}
+.module-card:hover{transform:translateY(-5px);border-color:var(--border-glow);box-shadow:0 20px 40px rgba(0,0,0,0.4),0 0 30px rgba(139,92,246,0.15)}
+.mc-icon{font-size:34px;margin-bottom:14px}
+.mc-title{font-size:19px;font-weight:700;margin-bottom:4px}
+.mc-desc{font-size:13.5px;color:var(--muted);line-height:1.5}
 
-/* Section title */
-.section-title { font-size: 20px; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
-.section-title::before { content: ""; width: 4px; height: 22px; background: var(--grad); border-radius: 4px; }
+/* Cards list */
+.lessons-list{display:flex;flex-direction:column;gap:12px}
+.lesson-row{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:22px 24px;display:flex;align-items:center;gap:18px;cursor:pointer;transition:0.2s var(--ease)}
+.lesson-row:hover{background:var(--bg-hover);border-color:var(--purple-l);transform:translateX(5px)}
+.lr-num{width:44px;height:44px;border-radius:12px;background:rgba(139,92,246,0.15);color:var(--purple-l);display:grid;place-items:center;font-weight:700;font-size:18px;flex-shrink:0;font-family:var(--mono)}
+.lr-body{flex:1;min-width:0}
+.lr-title{font-size:16px;font-weight:600;margin-bottom:2px}
+.lr-sub{font-size:12.5px;color:var(--muted)}
+.lr-arrow{color:var(--muted);font-size:20px;flex-shrink:0}
 
-/* Grid & Cards */
-.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
-.grid-verbs { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 12px; margin-bottom: 24px; }
-.card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; padding: 26px; cursor: pointer; transition: 0.3s var(--ease); position: relative; overflow: hidden; }
-.card:hover { transform: translateY(-5px); border-color: var(--border-glow); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(139, 92, 246, 0.15); }
-.card-icon { font-size: 34px; margin-bottom: 14px; }
-.card-title { font-size: 19px; font-weight: 700; margin-bottom: 4px; }
-.card-desc { font-size: 13.5px; color: var(--muted); margin-bottom: 16px; line-height: 1.5; }
+/* Verb grid */
+.verb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:12px}
+.verb-btn{padding:18px 12px;background:var(--bg-card);border:1.5px solid var(--border);border-radius:14px;text-align:center;font-weight:800;font-size:17px;color:var(--yellow);transition:0.2s var(--ease);font-family:var(--mono);letter-spacing:0.5px}
+.verb-btn:hover{background:var(--bg-hover);border-color:var(--yellow);transform:translateY(-3px)}
 
-/* Verb Buttons */
-.verb-btn { padding: 18px 12px; background: var(--bg-card); border: 1.5px solid var(--border); border-radius: 14px; text-align: center; font-weight: 800; font-size: 18px; color: var(--yellow); transition: 0.2s var(--ease); font-family: var(--mono); letter-spacing: 1px; }
-.verb-btn:hover { background: var(--bg-hover); border-color: var(--yellow); transform: translateY(-3px); }
-.verb-btn.active { background: var(--grad); color: white; border-color: transparent; box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4); }
+/* Verb detail */
+.verb-detail{display:flex;flex-direction:column;gap:18px}
+.vd-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:22px}
+.vd-meaning{font-size:32px;font-weight:800;color:var(--yellow);margin-bottom:4px;line-height:1.1}
+.vd-usage{color:var(--muted);font-size:14.5px}
+.vd-section h3{font-size:15.5px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.vd-section h3 .dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+.ex-item{background:var(--bg-inner);padding:12px 16px;border-radius:10px;margin-bottom:8px;border-left:3px solid var(--blue)}
+.ex-item:last-child{margin-bottom:0}
+.ex-en{font-size:14.5px;font-weight:600;margin-bottom:2px}
+.ex-hi{font-size:13px;color:var(--muted)}
+.struct-box{background:var(--bg-inner);padding:14px 16px;border-radius:10px;border-left:3px solid var(--yellow);font-family:var(--mono);font-size:12.5px;white-space:pre-line;color:var(--yellow);line-height:1.6;margin-top:10px}
 
-/* Details Section */
-.usage-box { background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.3); padding: 15px 20px; border-radius: 12px; margin-bottom: 24px; color: var(--purple-l); font-weight: 600; }
-.ex-section { margin-bottom: 24px; border-radius: 14px; border: 1px solid var(--border); background: var(--bg-card); overflow: hidden; }
-.ex-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; border-bottom: 1px solid var(--border); }
-.ex-title { font-size: 15px; font-weight: 700; }
-.play-btn { padding: 8px 18px; background: linear-gradient(135deg, var(--green), #059669); border-radius: 20px; font-weight: 700; font-size: 12.5px; display: flex; align-items: center; gap: 6px; transition: 0.2s; color: white;}
-.play-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4); }
-.ex-list { padding: 14px; max-height: 400px; overflow-y: auto; background: var(--bg-inner); }
-.ex-item { background: var(--bg-card); padding: 14px 16px; border-radius: 10px; margin-bottom: 10px; border-left: 3px solid var(--blue); }
-.ex-en { font-size: 15px; font-weight: 600; margin-bottom: 3px; color: var(--text); }
-.ex-hi { font-size: 13px; color: var(--muted); }
+/* Practice bar */
+.practice-bar{background:linear-gradient(145deg,rgba(139,92,246,0.15),rgba(59,130,246,0.06));border:1px solid var(--border-glow);border-radius:16px;padding:22px}
+.practice-bar h3{font-size:17px;font-weight:700;margin-bottom:4px}
+.practice-bar p{color:var(--muted);font-size:13.5px;margin-bottom:16px}
+.practice-btns{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.practice-btn{padding:16px 12px;border-radius:12px;text-align:center;font-weight:700;transition:0.2s var(--ease);border:1.5px solid;cursor:pointer}
+.practice-btn .pb-label{font-size:14px;display:block;margin-bottom:2px}
+.practice-btn .pb-desc{font-size:11px;opacity:0.85;display:block;font-weight:500}
+.practice-btn.basic{background:rgba(16,185,129,0.1);border-color:var(--green);color:var(--green)}
+.practice-btn.basic:hover{background:rgba(16,185,129,0.2);transform:translateY(-2px)}
+.practice-btn.hard{background:rgba(245,158,11,0.1);border-color:var(--yellow);color:var(--yellow)}
+.practice-btn.hard:hover{background:rgba(245,158,11,0.2);transform:translateY(-2px)}
+.practice-btn.advance{background:rgba(239,68,68,0.1);border-color:var(--red);color:var(--red)}
+.practice-btn.advance:hover{background:rgba(239,68,68,0.2);transform:translateY(-2px)}
 
-/* Game / Practice Container */
-.game-container { background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; padding: 28px 24px; margin-top: 20px; }
-.game-hdr { display: flex; justify-content: space-between; align-items: center; font-family: var(--mono); font-size: 12.5px; color: var(--muted); margin-bottom: 20px; }
-.game-progress-bar { height: 8px; background: rgba(255, 255, 255, 0.06); border-radius: 8px; overflow: hidden; margin-bottom: 24px; }
-.game-progress-fill { height: 100%; background: var(--grad); border-radius: 8px; transition: width 0.5s var(--ease); }
-.q-prompt { font-size: 13px; font-family: var(--mono); text-transform: uppercase; color: var(--purple-l); margin-bottom: 10px; }
-.q-subtitle { font-size: 20px; font-weight: 700; color: var(--yellow); margin-bottom: 24px; }
-.mcq-btn { display: flex; align-items: center; gap: 14px; width: 100%; padding: 16px 20px; background: var(--bg-inner); border: 1.5px solid var(--border); border-radius: 12px; margin-bottom: 10px; text-align: left; font-size: 15px; font-weight: 500; transition: 0.2s var(--ease); }
-.mcq-btn:hover:not(:disabled) { border-color: var(--purple); background: var(--bg-hover); transform: translateX(4px); }
-.mcq-key { width: 28px; height: 28px; border-radius: 8px; background: rgba(139, 92, 246, 0.15); border: 1px solid rgba(139, 92, 246, 0.3); display: grid; place-items: center; font-family: var(--mono); font-size: 12px; font-weight: 700; color: var(--purple-l); flex-shrink: 0; }
-.mcq-btn.correct { background: var(--green-bg); border-color: var(--green); color: var(--green); }
-.mcq-btn.correct .mcq-key { background: rgba(16, 185, 129, 0.25); border-color: var(--green); color: var(--green); }
-.mcq-btn.wrong { background: var(--red-bg); border-color: var(--red); color: var(--red); }
-.mcq-btn.wrong .mcq-key { background: rgba(239, 68, 68, 0.25); border-color: var(--red); color: var(--red); }
+/* Game */
+.game-container{background:var(--bg-card);border:1px solid var(--border);border-radius:20px;padding:28px 24px;margin-top:20px}
+.game-hdr{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:12.5px;color:var(--muted);margin-bottom:20px;letter-spacing:0.5px}
+.game-progress-bar{height:8px;background:rgba(255,255,255,0.06);border-radius:8px;overflow:hidden;margin-bottom:24px}
+.game-progress-fill{height:100%;background:var(--grad);border-radius:8px;box-shadow:0 0 12px rgba(139,92,246,0.5);transition:width 0.5s var(--ease)}
+.q-prompt{font-size:13px;font-family:var(--mono);letter-spacing:2px;text-transform:uppercase;color:var(--purple-l);margin-bottom:10px}
+.q-title{font-size:clamp(20px,3vw,26px);font-weight:700;line-height:1.4;margin-bottom:24px}
+.q-title em{color:var(--yellow);font-style:italic}
+.q-subtitle{font-size:clamp(17px,2.5vw,21px);font-weight:600;color:var(--yellow);margin-bottom:24px;font-family:var(--mono);letter-spacing:0.5px}
 
-/* Result */
-.result-wrap { text-align: center; padding: 30px 20px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; }
-.result-emoji { font-size: 72px; margin-bottom: 12px; }
-.result-title { font-size: 30px; font-weight: 800; margin-bottom: 6px; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-.result-sub { color: var(--muted); font-size: 15px; margin-bottom: 24px; }
-.btn-primary { padding: 13px 32px; background: var(--grad); border-radius: 30px; font-weight: 700; font-size: 14px; color: white; transition: 0.2s; }
-.btn-primary:hover { transform: translateY(-2px); }
-.btn-secondary { padding: 13px 32px; background: transparent; border: 1.5px solid var(--border); border-radius: 30px; font-weight: 700; font-size: 14px; color: var(--text); }
-.btn-secondary:hover { background: var(--bg-hover); border-color: var(--purple); }
+.mcq-btn{display:flex;align-items:center;gap:14px;width:100%;padding:16px 20px;background:var(--bg-inner);border:1.5px solid var(--border);border-radius:12px;margin-bottom:10px;text-align:left;font-size:15px;font-weight:500;transition:0.2s var(--ease)}
+.mcq-btn:hover:not(:disabled){border-color:var(--purple);background:var(--bg-hover);transform:translateX(4px)}
+.mcq-key{width:28px;height:28px;border-radius:8px;background:rgba(139,92,246,0.15);border:1px solid rgba(139,92,246,0.3);display:grid;place-items:center;font-family:var(--mono);font-size:12px;font-weight:700;color:var(--purple-l);flex-shrink:0}
+.mcq-btn.correct{background:var(--green-bg);border-color:var(--green);color:var(--green)}
+.mcq-btn.correct .mcq-key{background:rgba(16,185,129,0.25);border-color:var(--green);color:var(--green)}
+.mcq-btn.wrong{background:var(--red-bg);border-color:var(--red);color:var(--red)}
+.mcq-btn.wrong .mcq-key{background:rgba(239,68,68,0.25);border-color:var(--red);color:var(--red)}
+.mcq-btn:disabled{cursor:default}
 
-/* Toast */
-.toast { position: fixed; top: 80px; left: 50%; transform: translate(-50%, -120px); padding: 14px 26px; border-radius: 30px; font-weight: 700; font-size: 14px; opacity: 0; transition: 0.4s var(--ease); z-index: 9999; pointer-events: none; }
-.toast.show { transform: translate(-50%, 0); opacity: 1; }
-.toast.success { background: var(--green); color: white; }
-.toast.error { background: var(--red); color: white; }
+.arrange-hint{font-size:15px;color:var(--muted);text-align:center;margin-bottom:16px}
+.arrange-area{min-height:76px;padding:14px;background:var(--bg-inner);border:1.5px dashed var(--border);border-radius:12px;display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;align-content:flex-start}
+.arrange-pool{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;justify-content:center}
+.chip{padding:10px 16px;background:var(--bg-hover);border:1px solid var(--border);border-radius:10px;font-weight:600;font-size:15px;transition:0.2s var(--ease);cursor:pointer;user-select:none}
+.chip:hover{border-color:var(--yellow);transform:translateY(-2px)}
+.chip.placed{background:rgba(139,92,246,0.18);border-color:var(--purple);color:var(--purple-l)}
+.chip.correct-final{background:rgba(16,185,129,0.18);border-color:var(--green);color:var(--green)}
+.chip.wrong-final{background:rgba(239,68,68,0.18);border-color:var(--red);color:var(--red)}
+.check-btn{display:block;margin:0 auto;padding:14px 48px;background:var(--grad);border-radius:30px;font-weight:700;font-size:15px;color:white;transition:0.2s var(--ease);box-shadow:0 8px 24px rgba(139,92,246,0.4)}
+.check-btn:hover:not(:disabled){transform:translateY(-2px)}
+.check-btn:disabled{opacity:0.4;cursor:not-allowed}
+
+.result-wrap{text-align:center;padding:30px 20px;background:var(--bg-card);border:1px solid var(--border);border-radius:20px;animation:fadeUp 0.5s var(--ease)}
+.result-emoji{font-size:72px;margin-bottom:12px}
+.result-title{font-size:30px;font-weight:800;margin-bottom:6px;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.result-sub{color:var(--muted);font-size:15px;margin-bottom:24px}
+.result-stats{display:flex;justify-content:center;gap:16px;margin-bottom:24px;flex-wrap:wrap}
+.result-stat{padding:14px 22px;background:var(--bg-inner);border:1px solid var(--border);border-radius:12px;min-width:90px}
+.rs-val{font-family:var(--mono);font-size:24px;font-weight:800;color:var(--yellow);line-height:1;margin-bottom:4px}
+.rs-label{font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)}
+.result-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.btn-primary{padding:13px 32px;background:var(--grad);border-radius:30px;font-weight:700;font-size:14px;color:white;transition:0.2s}
+.btn-primary:hover{transform:translateY(-2px)}
+.btn-secondary{padding:13px 32px;background:transparent;border:1.5px solid var(--border);border-radius:30px;font-weight:700;font-size:14px}
+.btn-secondary:hover{background:var(--bg-hover);border-color:var(--purple)}
+
+.toast{position:fixed;top:80px;left:50%;transform:translate(-50%,-120px);padding:14px 26px;border-radius:30px;font-weight:700;font-size:14px;opacity:0;transition:0.4s var(--ease);z-index:9999;pointer-events:none;white-space:nowrap}
+.toast.show{transform:translate(-50%,0);opacity:1}
+.toast.success{background:var(--green);color:white}
+.toast.error{background:var(--red);color:white}
+
+@media (max-width:600px){
+  .hdr{padding:12px 16px}
+  .wrap{padding:16px 16px 60px}
+  .nav-title{font-size:22px}
+  .module-card{padding:22px 20px}
+  .lesson-row{padding:18px 20px}
+  .practice-btns{grid-template-columns:1fr}
+  .verb-grid{grid-template-columns:repeat(auto-fill,minmax(90px,1fr))}
+  .result-title{font-size:24px}
+  .result-emoji{font-size:60px}
+}
 </style>
 </head>
 <body>
@@ -118,54 +164,21 @@ button, input { font-family: inherit; color: inherit; border: none; outline: non
 <div class="bg-orb bg-orb-1"></div>
 <div class="bg-orb bg-orb-2"></div>
 
-<!-- HOME SCREEN -->
-<div class="screen active" id="screen-home">
+<!-- NAV SCREEN (universal) -->
+<div class="screen active" id="screen-nav">
   <header class="hdr">
-    <div class="hdr-brand">ENGLISH MASTERY</div>
+    <button class="btn-back" id="backBtn" onclick="goBack()">← Back</button>
     <div class="hdr-stats">
-      <div class="stat-pill xp"><span>⚡</span><span id="hdrXP">0</span> XP</div>
+      <div class="stat-pill streak">🔥 <span id="hdrStreak">0</span></div>
+      <div class="stat-pill xp">⚡ <span id="hdrXP">0</span></div>
     </div>
   </header>
   <div class="wrap">
-    <div class="hero">
-      <div class="hero-emoji">👋</div>
-      <h1 class="hero-title">Welcome to <span class="grad">English Mastery!</span></h1>
-      <p class="hero-sub">Select a module below to start learning and practicing.</p>
+    <div class="nav-head">
+      <h1 class="nav-title" id="navTitle"></h1>
+      <p class="nav-sub" id="navSub"></p>
     </div>
-    <h2 class="section-title">Your Modules</h2>
-    <div class="grid-3" id="modulesGrid"></div>
-  </div>
-</div>
-
-<!-- SUB-MODULE SCREEN -->
-<div class="screen" id="screen-submodule">
-  <header class="hdr">
-    <button class="btn-back" onclick="goHome()">← Back</button>
-    <div class="hdr-stats"><div class="stat-pill xp"><span>⚡</span><span id="subXP">0</span> XP</div></div>
-  </header>
-  <div class="wrap">
-    <div class="hero" style="padding: 20px 24px; margin-bottom: 20px;">
-      <h1 class="hero-title" id="subTitle">Title</h1>
-      <p class="hero-sub" id="subDesc">Description</p>
-    </div>
-    <div class="grid-3" id="subGrid"></div>
-  </div>
-</div>
-
-<!-- LESSON / VERB SCREEN -->
-<div class="screen" id="screen-lesson">
-  <header class="hdr">
-    <button class="btn-back" onclick="goBackToSub()">← Back</button>
-    <div class="hdr-stats"><div class="stat-pill xp"><span>⚡</span><span id="lesXP">0</span> XP</div></div>
-  </header>
-  <div class="wrap">
-    <div class="grid-verbs" id="verbGrid" style="display:none;"></div>
-    
-    <div class="lesson-head">
-      <h1 class="hero-title" id="lesTitle" style="font-size: 24px;">Verb Name</h1>
-      <p class="hero-sub" id="lesSub">Meaning</p>
-    </div>
-    <div id="lessonBody"></div>
+    <div id="navContent"></div>
   </div>
 </div>
 
@@ -173,429 +186,491 @@ button, input { font-family: inherit; color: inherit; border: none; outline: non
 <div class="screen" id="screen-game">
   <header class="hdr">
     <button class="btn-back" onclick="quitGame()">← Back</button>
-    <div class="hdr-stats"><div class="stat-pill xp"><span>⚡</span><span id="gameXP">0</span> XP</div></div>
+    <div class="hdr-stats">
+      <div class="stat-pill xp">⚡ <span id="gameXP">0</span></div>
+    </div>
   </header>
   <div class="wrap" id="gameBody"></div>
 </div>
 
 <div class="toast" id="toast"></div>
 
+<script src="module1.js"></script>
+<!-- Add later: <script src="module2.js"></script> etc -->
+
 <script>
 /* ==========================================================
-   ALL DATA (Module 1 & 2)
+   GLOBAL STATE
    ========================================================== */
-const module1 = {
-  id: 'm1', title: 'Module 1: Verbs', desc: 'Learn all types of verbs with examples and practice.', icon: '📗',
-  items: [
-    {
-      id: 'v-to-be', title: 'Verb To Be', desc: 'is, am, are, was, were, shall be, etc.', icon: '🌱', type: 'verb',
-      verbs: [
-        { word: 'is', meaning: 'है (hai) - Used with He, She, It', usage: 'Use "is" with singular subjects like He, She, It, or singular nouns.', structure: 'Simple: He/She/It + is + ...\nNegative: He/She/It + is + not + ...\nWH: WH + is + Subject + ...',
-          examples: {
-            simple: [ { en: 'She is my sister.', hi: 'वह मेरी बहन है।' }, { en: 'He is a doctor.', hi: 'वह डॉक्टर है।' }, { en: 'It is cold today.', hi: 'आज ठंड है।' } ],
-            negative: [ { en: 'She is not here.', hi: 'वह यहाँ नहीं है।' }, { en: 'He is not tired.', hi: 'वह थका नहीं है।' }, { en: 'It is not ready.', hi: 'यह तैयार नहीं है।' } ],
-            wh: [ { en: 'Where is she?', hi: 'वह कहाँ है?' }, { en: 'Who is he?', hi: 'वह कौन है?' }, { en: 'Why is it late?', hi: 'देर क्यों है?' } ]
-          }
-        },
-        { word: 'am', meaning: 'हूँ (hūn) - Used with I', usage: 'Use "am" only with the subject "I" in present tense.', structure: 'Simple: I + am + ...\nNegative: I + am + not + ...\nWH: WH + am + I + ...',
-          examples: {
-            simple: [ { en: 'I am happy.', hi: 'मैं खुश हूँ।' }, { en: 'I am a student.', hi: 'मैं एक छात्र हूँ।' }, { en: 'I am ready.', hi: 'मैं तैयार हूँ।' } ],
-            negative: [ { en: 'I am not busy.', hi: 'मैं व्यस्त नहीं हूँ।' }, { en: 'I am not angry.', hi: 'मैं गुस्से में नहीं हूँ।' }, { en: 'I am not late.', hi: 'मैं देर से नहीं हूँ।' } ],
-            wh: [ { en: 'Why am I here?', hi: 'मैं यहाँ क्यों हूँ?' }, { en: 'Where am I?', hi: 'मैं कहाँ हूँ?' }, { en: 'Who am I?', hi: 'मैं कौन हूँ?' } ]
-          }
-        },
-        { word: 'are', meaning: 'हैं (hain) - Used with You, We, They', usage: 'Use "are" with plural subjects like We, They, You.', structure: 'Simple: We/They/You + are + ...\nNegative: We/They/You + are + not + ...',
-          examples: {
-            simple: [ { en: 'We are friends.', hi: 'हम दोस्त हैं।' }, { en: 'They are students.', hi: 'वे छात्र हैं।' }, { en: 'You are kind.', hi: 'तुम दयालु हो।' } ],
-            negative: [ { en: 'We are not late.', hi: 'हम देर से नहीं हैं।' }, { en: 'They are not here.', hi: 'वे यहाँ नहीं हैं।' }, { en: 'You are not wrong.', hi: 'तुम गलत नहीं हो।' } ],
-            wh: [ { en: 'Where are they?', hi: 'वे कहाँ हैं?' }, { en: 'Who are you?', hi: 'तुम कौन हो?' }, { en: 'What are we doing?', hi: 'हम क्या कर रहे हैं?' } ]
-          }
-        },
-        { word: 'was', meaning: 'था / थी (tha / thi) - Past singular', usage: 'Past tense of "is/am". Used with I, He, She, It.', structure: 'Simple: I/He/She/It + was + ...\nNegative: I/He/She/It + was + not + ...',
-          examples: {
-            simple: [ { en: 'She was happy.', hi: 'वह खुश थी।' }, { en: 'I was tired.', hi: 'मैं थका हुआ था।' }, { en: 'It was cold.', hi: 'ठंड थी।' } ],
-            negative: [ { en: 'He was not here.', hi: 'वह यहाँ नहीं था।' }, { en: 'It was not easy.', hi: 'यह आसान नहीं था।' }, { en: 'I was not ready.', hi: 'मैं तैयार नहीं था।' } ],
-            wh: [ { en: 'Where was she?', hi: 'वह कहाँ थी?' }, { en: 'Why was it late?', hi: 'देर क्यों थी?' }, { en: 'Who was that?', hi: 'वह कौन था?' } ]
-          }
-        },
-        { word: 'were', meaning: 'थे / थीं (the / thin) - Past plural', usage: 'Past tense of "are". Used with We, They, You.', structure: 'Simple: We/They/You + were + ...\nNegative: We/They/You + were + not + ...',
-          examples: {
-            simple: [ { en: 'They were friends.', hi: 'वे दोस्त थे।' }, { en: 'We were young.', hi: 'हम जवान थे।' }, { en: 'You were right.', hi: 'तुम सही थे।' } ],
-            negative: [ { en: 'They were not late.', hi: 'वे देर से नहीं थे।' }, { en: 'We were not ready.', hi: 'हम तैयार नहीं थे।' }, { en: 'You were not wrong.', hi: 'तुम गलत नहीं थे।' } ],
-            wh: [ { en: 'Where were they?', hi: 'वे कहाँ थे?' }, { en: 'Why were you angry?', hi: 'तुम गुस्से में क्यों थे?' }, { en: 'Who were they?', hi: 'वे कौन थे?' } ]
-          }
-        },
-        { word: 'shall be', meaning: 'होगा (hoga) - Future', usage: 'Future tense. Used with I, We usually.', structure: 'Simple: I/We + shall be + ...\nNegative: I/We + shall not be + ...',
-          examples: {
-            simple: [ { en: 'I shall be there.', hi: 'मैं वहाँ रहूँगा।' }, { en: 'We shall be late.', hi: 'हम देर से होंगे।' }, { en: 'I shall be happy.', hi: 'मैं खुश रहूँगा।' } ],
-            negative: [ { en: 'I shall not be late.', hi: 'मैं देर नहीं करूँगा।' }, { en: 'We shall not be there.', hi: 'हम वहाँ नहीं होंगे।' }, { en: 'I shall not be angry.', hi: 'मैं गुस्सा नहीं होऊँगा।' } ],
-            wh: [ { en: 'Where shall I be?', hi: 'मैं कहाँ रहूँगा?' }, { en: 'Why shall we be late?', hi: 'हम देर क्यों होंगे?' }, { en: 'How shall I be ready?', hi: 'मैं कैसे तैयार होऊँगा?' } ]
-          }
-        },
-        { word: 'will be', meaning: 'होगा (hoga) - Future', usage: 'Future tense. Used with He, She, It, You, They.', structure: 'Simple: Subject + will be + ...\nNegative: Subject + will not be + ...',
-          examples: {
-            simple: [ { en: 'He will be here.', hi: 'वह यहाँ होगा।' }, { en: 'They will be happy.', hi: 'वे खुश होंगे।' }, { en: 'She will be a doctor.', hi: 'वह डॉक्टर बनेगी।' } ],
-            negative: [ { en: 'He will not be here.', hi: 'वह यहाँ नहीं होगा।' }, { en: 'They will not be late.', hi: 'वे देर से नहीं होंगे।' }, { en: 'She will not be angry.', hi: 'वह गुस्सा नहीं होगी।' } ],
-            wh: [ { en: 'Where will he be?', hi: 'वह कहाँ होगा?' }, { en: 'Why will they be late?', hi: 'वे देर क्यों होंगे?' }, { en: 'When will she be ready?', hi: 'वह कब तैयार होगी?' } ]
-          }
-        },
-        { word: 'has', meaning: 'पास है (paas hai) - Present singular', usage: 'Shows possession. Used with He, She, It.', structure: 'Simple: He/She/It + has + ...\nNegative: He/She/It + does not have + ...',
-          examples: {
-            simple: [ { en: 'He has a car.', hi: 'उसके पास एक कार है।' }, { en: 'She has a pen.', hi: 'उसके पास एक कलम है।' }, { en: 'It has a tail.', hi: 'इसकी एक पूंछ है।' } ],
-            negative: [ { en: 'He does not have a car.', hi: 'उसके पास कार नहीं है।' }, { en: 'She does not have a pen.', hi: 'उसके पास कलम नहीं है।' }, { en: 'It does not have a tail.', hi: 'इसकी पूंछ नहीं है।' } ],
-            wh: [ { en: 'What does he have?', hi: 'उसके पास क्या है?' }, { en: 'Why does she have a pen?', hi: 'उसके पास कलम क्यों है?' }, { en: 'Who has a car?', hi: 'किसके पास कार है?' } ]
-          }
-        },
-        { word: 'have', meaning: 'पास है (paas hai) - Present plural', usage: 'Shows possession. Used with I, You, We, They.', structure: 'Simple: I/You/We/They + have + ...\nNegative: I/You/We/They + do not have + ...',
-          examples: {
-            simple: [ { en: 'I have a book.', hi: 'मेरे पास एक किताब है।' }, { en: 'They have a house.', hi: 'उनके पास एक घर है।' }, { en: 'We have time.', hi: 'हमारे पास समय है।' } ],
-            negative: [ { en: 'I do not have a book.', hi: 'मेरे पास किताब नहीं है।' }, { en: 'They do not have a house.', hi: 'उनके पास घर नहीं है।' }, { en: 'We do not have time.', hi: 'हमारे पास समय नहीं है।' } ],
-            wh: [ { en: 'What do I have?', hi: 'मेरे पास क्या है?' }, { en: 'Why do they have a house?', hi: 'उनके पास घर क्यों है?' }, { en: 'Who has time?', hi: 'किसके पास समय है?' } ]
-          }
-        },
-        { word: 'had', meaning: 'पास था (paas tha) - Past', usage: 'Past possession. Used with all subjects.', structure: 'Simple: Subject + had + ...\nNegative: Subject + did not have + ...',
-          examples: {
-            simple: [ { en: 'I had a car.', hi: 'मेरे पास कार थी।' }, { en: 'She had a book.', hi: 'उसके पास किताब थी।' }, { en: 'They had money.', hi: 'उनके पास पैसे थे।' } ],
-            negative: [ { en: 'I did not have a car.', hi: 'मेरे पास कार नहीं थी।' }, { en: 'She did not have a book.', hi: 'उसके पास किताब नहीं थी।' }, { en: 'They did not have money.', hi: 'उनके पास पैसे नहीं थे।' } ],
-            wh: [ { en: 'What did I have?', hi: 'मेरे पास क्या था?' }, { en: 'Why did she have a book?', hi: 'उसके पास किताब क्यों थी?' }, { en: 'Who had money?', hi: 'किसके पास पैसे थे?' } ]
-          }
-        },
-        { word: 'shall have', meaning: 'पास होगा (paas hoga) - Future', usage: 'Future possession with I, We.', structure: 'Simple: I/We + shall have + ...\nNegative: I/We + shall not have + ...',
-          examples: {
-            simple: [ { en: 'I shall have a car.', hi: 'मेरे पास कार होगी।' }, { en: 'We shall have time.', hi: 'हमारे पास समय होगा।' }, { en: 'I shall have a book.', hi: 'मेरे पास किताब होगी।' } ],
-            negative: [ { en: 'I shall not have a car.', hi: 'मेरे पास कार नहीं होगी।' }, { en: 'We shall not have time.', hi: 'हमारे पास समय नहीं होगा।' }, { en: 'I shall not have a book.', hi: 'मेरे पास किताब नहीं होगी।' } ],
-            wh: [ { en: 'What shall I have?', hi: 'मेरे पास क्या होगा?' }, { en: 'Why shall we have time?', hi: 'हमारे पास समय क्यों होगा?' }, { en: 'Who shall have a car?', hi: 'किसके पास कार होगी?' } ]
-          }
-        },
-        { word: 'will have', meaning: 'पास होगा (paas hoga) - Future', usage: 'Future possession with He, She, It, You, They.', structure: 'Simple: Subject + will have + ...\nNegative: Subject + will not have + ...',
-          examples: {
-            simple: [ { en: 'He will have a car.', hi: 'उसके पास कार होगी।' }, { en: 'They will have time.', hi: 'उनके पास समय होगा।' }, { en: 'She will have a book.', hi: 'उसके पास किताब होगी।' } ],
-            negative: [ { en: 'He will not have a car.', hi: 'उसके पास कार नहीं होगी।' }, { en: 'They will not have time.', hi: 'उनके पास समय नहीं होगा।' }, { en: 'She will not have a book.', hi: 'उसके पास किताब नहीं होगी।' } ],
-            wh: [ { en: 'What will he have?', hi: 'उसके पास क्या होगा?' }, { en: 'Why will they have time?', hi: 'उनके पास समय क्यों होगा?' }, { en: 'Who will have a car?', hi: 'किसके पास कार होगी?' } ]
-          }
-        }
-      ]
-    },
-    {
-      id: 'modals', title: 'Modals Verbs', desc: 'can, may, should, could, etc.', icon: '🛠️', type: 'verb',
-      verbs: [
-        { word: 'can', meaning: 'सकता है (sakta hai) - Ability', usage: 'Shows ability or permission in present.', structure: 'Simple: Subject + can + V1\nNegative: Subject + cannot + V1',
-          examples: {
-            simple: [ { en: 'I can swim.', hi: 'मैं तैर सकता हूँ।' }, { en: 'She can speak English.', hi: 'वह अंग्रेजी बोल सकती है।' }, { en: 'They can run fast.', hi: 'वे तेज दौड़ सकते हैं।' } ],
-            negative: [ { en: 'I cannot swim.', hi: 'मैं तैर नहीं सकता।' }, { en: 'She cannot speak English.', hi: 'वह अंग्रेजी नहीं बोल सकती।' }, { en: 'They cannot run fast.', hi: 'वे तेज नहीं दौड़ सकते।' } ],
-            wh: [ { en: 'Can you help me?', hi: 'क्या तुम मेरी मदद कर सकते हो?' }, { en: 'What can I do?', hi: 'मैं क्या कर सकता हूँ?' }, { en: 'Where can we go?', hi: 'हम कहाँ जा सकते हैं?' } ]
-          }
-        },
-        { word: 'may', meaning: 'सकता है (sakta hai) - Permission/Possibility', usage: 'Shows possibility or formal permission.', structure: 'Simple: Subject + may + V1\nNegative: Subject + may not + V1',
-          examples: {
-            simple: [ { en: 'It may rain today.', hi: 'आज बारिश हो सकती है।' }, { en: 'May I come in?', hi: 'क्या मैं अंदर आ सकता हूँ?' }, { en: 'He may be late.', hi: 'वह देर से हो सकता है।' } ],
-            negative: [ { en: 'It may not rain.', hi: 'बारिश नहीं हो सकती।' }, { en: 'He may not come.', hi: 'वह नहीं आ सकता।' }, { en: 'You may not go.', hi: 'तुम नहीं जा सकते।' } ],
-            wh: [ { en: 'May I help you?', hi: 'क्या मैं आपकी मदद कर सकता हूँ?' }, { en: 'When may he arrive?', hi: 'वह कब आ सकता है?' }, { en: 'Where may they be?', hi: 'वे कहाँ हो सकते हैं?' } ]
-          }
-        },
-        { word: 'should', meaning: 'चाहिए (chahiye) - Advice', usage: 'Shows advice, suggestion, or duty.', structure: 'Simple: Subject + should + V1\nNegative: Subject + should not + V1',
-          examples: {
-            simple: [ { en: 'You should study.', hi: 'तुम्हें पढ़ाई करनी चाहिए।' }, { en: 'We should help others.', hi: 'हमें दूसरों की मदद करनी चाहिए।' }, { en: 'He should rest.', hi: 'उसे आराम करना चाहिए।' } ],
-            negative: [ { en: 'You should not smoke.', hi: 'तुम्हें धूम्रपान नहीं करना चाहिए।' }, { en: 'We should not lie.', hi: 'हमें झूठ नहीं बोलना चाहिए।' }, { en: 'He should not go.', hi: 'उसे नहीं जाना चाहिए।' } ],
-            wh: [ { en: 'What should I do?', hi: 'मुझे क्या करना चाहिए?' }, { en: 'Why should we help?', hi: 'हमें मदद क्यों करनी चाहिए?' }, { en: 'Where should he go?', hi: 'उसे कहाँ जाना चाहिए?' } ]
-          }
-        }
-      ]
-    },
-    {
-      id: 'semi-modals', title: 'Semi Modals Verb', desc: 'need, dare, used to, etc.', icon: '📝', type: 'verb',
-      verbs: [
-        { word: 'need', meaning: 'ज़रूरत है (zaroorat hai)', usage: 'Shows necessity.', structure: 'Simple: Subject + need + ...\nNegative: Subject + need not + ...',
-          examples: {
-            simple: [ { en: 'I need help.', hi: 'मुझे मदद की ज़रूरत है।' }, { en: 'We need water.', hi: 'हमें पानी की ज़रूरत है।' }, { en: 'She needs a pen.', hi: 'उसे कलम की ज़रूरत है।' } ],
-            negative: [ { en: 'I do not need help.', hi: 'मुझे मदद की ज़रूरत नहीं है।' }, { en: 'We do not need water.', hi: 'हमें पानी की ज़रूरत नहीं है।' }, { en: 'She does not need a pen.', hi: 'उसे कलम की ज़रूरत नहीं है।' } ],
-            wh: [ { en: 'What do you need?', hi: 'तुम्हें क्या ज़रूरत है?' }, { en: 'Why do we need water?', hi: 'हमें पानी की ज़रूरत क्यों है?' }, { en: 'Who needs a pen?', hi: 'किसे कलम की ज़रूरत है?' } ]
-          }
-        },
-        { word: 'dare', meaning: 'हिम्मत करना (himmat karna)', usage: 'Shows courage to do something.', structure: 'Simple: Subject + dare + ...\nNegative: Subject + dare not + ...',
-          examples: {
-            simple: [ { en: 'He dare not speak.', hi: 'उसकी बोलने की हिम्मत नहीं है।' }, { en: 'I dare to jump.', hi: 'मेरी कूदने की हिम्मत है।' }, { en: 'She dares to fight.', hi: 'उसकी लड़ने की हिम्मत है।' } ],
-            negative: [ { en: 'I do not dare to go.', hi: 'मेरी जाने की हिम्मत नहीं है।' }, { en: 'He does not dare to ask.', hi: 'उसकी पूछने की हिम्मत नहीं है।' }, { en: 'They do not dare to fight.', hi: 'उनकी लड़ने की हिम्मत नहीं है।' } ],
-            wh: [ { en: 'How dare you?', hi: 'तुम्हारी हिम्मत कैसे हुई?' }, { en: 'Why do you dare?', hi: 'तुम हिम्मत क्यों करते हो?' }, { en: 'Who dares to go?', hi: 'किसकी जाने की हिम्मत है?' } ]
-          }
-        }
-      ]
-    }
-  ]
-};
+const MODULES = [];
+if (typeof MODULE1 !== 'undefined') MODULES.push(MODULE1);
+if (typeof MODULE2 !== 'undefined') MODULES.push(MODULE2);
+if (typeof MODULE3 !== 'undefined') MODULES.push(MODULE3);
+if (typeof MODULE4 !== 'undefined') MODULES.push(MODULE4);
 
-const module2 = {
-  id: 'm2', title: 'Module 2: Grammar', desc: 'Sentence, Clause, and Tense structures.', icon: '📘',
-  items: [
-    {
-      id: 'sentence', title: 'Sentence', desc: 'Types of sentences', icon: '📝', type: 'standard',
-      definition: 'A group of words that makes complete sense is called a sentence.',
-      rule: 'Starts with a capital letter and ends with a full stop, question mark, or exclamation mark.',
-      examples: {
-        simple: [ { en: 'I am a boy.', hi: 'मैं एक लड़का हूँ।' }, { en: 'She is a girl.', hi: 'वह एक लड़की है।' }, { en: 'They play cricket.', hi: 'वे क्रिकेट खेलते हैं।' } ],
-        negative: [ { en: 'I am not a boy.', hi: 'मैं लड़का नहीं हूँ।' }, { en: 'She is not a girl.', hi: 'वह लड़की नहीं है।' }, { en: 'They do not play cricket.', hi: 'वे क्रिकेट नहीं खेलते।' } ],
-        wh: [ { en: 'Who is he?', hi: 'वह कौन है?' }, { en: 'Where are they?', hi: 'वे कहाँ हैं?' }, { en: 'What do you do?', hi: 'तुम क्या करते हो?' } ]
-      }
-    },
-    {
-      id: 'clause', title: 'Clause', desc: 'Independent and Dependent clauses', icon: '🔗', type: 'standard',
-      definition: 'A clause is a group of words that contains a subject and a verb.',
-      rule: 'Independent clauses can stand alone. Dependent clauses cannot.',
-      examples: {
-        simple: [ { en: 'He is playing.', hi: 'वह खेल रहा है।' }, { en: 'I know the truth.', hi: 'मैं सच जानता हूँ।' }, { en: 'When he came...', hi: 'जब वह आया...' } ],
-        negative: [ { en: 'He is not playing.', hi: 'वह नहीं खेल रहा है।' }, { en: 'I do not know the truth.', hi: 'मैं सच नहीं जानता।' }, { en: 'When he did not come...', hi: 'जब वह नहीं आया...' } ],
-        wh: [ { en: 'Who is playing?', hi: 'कौन खेल रहा है?' }, { en: 'Why do you know the truth?', hi: 'तुम सच कैसे जानते हो?' }, { en: 'When did he come?', hi: 'वह कब आया?' } ]
-      }
-    },
-    {
-      id: 'tense', title: 'Tense', desc: 'Present, Past, Future', icon: '⏳', type: 'standard',
-      definition: 'Tense shows the time of an action (Present, Past, or Future).',
-      rule: 'Present (V1/V5), Past (V2), Future (will/shall + V1).',
-      examples: {
-        simple: [ { en: 'I write a letter.', hi: 'मैं पत्र लिखता हूँ।' }, { en: 'I wrote a letter.', hi: 'मैंने पत्र लिखा।' }, { en: 'I will write a letter.', hi: 'मैं पत्र लिखूँगा।' } ],
-        negative: [ { en: 'I do not write a letter.', hi: 'मैं पत्र नहीं लिखता।' }, { en: 'I did not write a letter.', hi: 'मैंने पत्र नहीं लिखा।' }, { en: 'I will not write a letter.', hi: 'मैं पत्र नहीं लिखूँगा।' } ],
-        wh: [ { en: 'Why do I write a letter?', hi: 'मैं पत्र क्यों लिखता हूँ?' }, { en: 'Why did I write a letter?', hi: 'मैंने पत्र क्यों लिखा?' }, { en: 'Why will I write a letter?', hi: 'मैं पत्र क्यों लिखूँगा?' } ]
-      }
-    }
-  ]
-};
+const STORAGE_KEY = 'english_mastery_v2';
+const DEFAULT_STATE = { xp: 0, streak: 0, lastPlayed: null, totalCorrect: 0, totalWrong: 0, completed: [] };
+let state = loadState();
+let viewStack = [];
+let gameState = null;
+let arrangeState = null;
+let audioCtx = null;
 
-const MODULES = [module1, module2];
+function loadState() {
+  try { const r = localStorage.getItem(STORAGE_KEY); return r ? {...DEFAULT_STATE, ...JSON.parse(r)} : {...DEFAULT_STATE}; }
+  catch { return {...DEFAULT_STATE}; }
+}
+function saveState() { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e){} }
 
 /* ==========================================================
-   APP LOGIC
+   AUDIO
    ========================================================== */
-let state = { xp: parseInt(localStorage.getItem('eng_xp')) || 0 };
-let currentModule = null;
-let currentSub = null;
-let currentVerbIndex = 0;
-let gameState = null;
-
-function $(id) { return document.getElementById(id); }
-function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  $(id).classList.add('active');
-  window.scrollTo(0, 0);
-}
-function updateXP() {
-  $('hdrXP').textContent = state.xp; $('subXP').textContent = state.xp;
-  $('lesXP').textContent = state.xp; $('gameXP').textContent = state.xp;
-  localStorage.setItem('eng_xp', state.xp);
-}
-function shuffle(a) { a = [...a]; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
-
-let toastTimer;
-function showToast(msg, type = 'success') {
-  const t = $('toast');
-  t.textContent = msg; t.className = 'toast show ' + type;
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove('show'), 2000);
-}
-
-function renderHome() {
-  updateXP();
-  $('modulesGrid').innerHTML = MODULES.map(mod => `
-    <div class="card" onclick="openModule('${mod.id}')">
-      <div class="card-icon">${mod.icon || '📚'}</div>
-      <div class="card-title">${mod.title}</div>
-      <div class="card-desc">${mod.desc}</div>
-    </div>
-  `).join('');
-}
-
-function goHome() { showScreen('screen-home'); renderHome(); }
-
-function openModule(modId) {
-  currentModule = MODULES.find(m => m.id === modId);
-  $('subTitle').textContent = currentModule.title;
-  $('subDesc').textContent = currentModule.desc;
-  $('subGrid').innerHTML = currentModule.items.map((item, i) => `
-    <div class="card" onclick="openSubItem(${i})">
-      <div class="card-icon">${item.icon || '📄'}</div>
-      <div class="card-title">${item.title}</div>
-      <div class="card-desc">${item.desc || ''}</div>
-    </div>
-  `).join('');
-  showScreen('screen-submodule');
-}
-
-function openSubItem(index) {
-  currentSub = currentModule.items[index];
-  
-  if (currentSub.type === 'verb') {
-    $('verbGrid').style.display = 'grid';
-    $('verbGrid').innerHTML = currentSub.verbs.map((v, i) => `
-      <button class="verb-btn ${i===0?'active':''}" onclick="pickVerb(${i})">${v.word.toUpperCase()}</button>
-    `).join('');
-    currentVerbIndex = 0;
-    loadVerbDetails();
-  } else {
-    $('verbGrid').style.display = 'none';
-    $('lesTitle').textContent = currentSub.title;
-    $('lesSub').textContent = currentSub.desc || '';
-    renderStandardLessonBody(currentSub);
-  }
-  showScreen('screen-lesson');
-}
-
-function pickVerb(i) {
-  document.querySelectorAll('.verb-btn').forEach((b, idx) => b.classList.toggle('active', idx === i));
-  currentVerbIndex = i;
-  loadVerbDetails();
-}
-
-function loadVerbDetails() {
-  const verb = currentSub.verbs[currentVerbIndex];
-  $('lesTitle').textContent = verb.word.toUpperCase();
-  $('lesSub').textContent = verb.meaning;
-  
-  let html = `<div class="usage-box"><strong>Rule / Usage:</strong> ${verb.usage || 'Use as per subject.'}</div>`;
-  if (verb.structure) {
-    html += `<div class="usage-box" style="background:var(--bg-inner); border-color:var(--border); color:var(--yellow); font-family:var(--mono);"><strong>Structure:</strong><br>${verb.structure.replace(/\n/g, '<br>')}</div>`;
-  }
-
-  const createSection = (title, key, color) => {
-    if (!verb.examples || !verb.examples[key] || verb.examples[key].length === 0) return '';
-    return `
-      <div class="ex-section">
-        <div class="ex-header">
-          <div class="ex-title" style="color:${color}">${title}</div>
-          <button class="play-btn" onclick="startGame('${key}')">🎮 Practice</button>
-        </div>
-        <div class="ex-list">
-          ${verb.examples[key].map(ex => `<div class="ex-item" style="border-left-color:${color}"><div class="ex-en">${ex.en}</div><div class="ex-hi">${ex.hi}</div></div>`).join('')}
-        </div>
-      </div>
-    `;
-  };
-
-  html += createSection('Simple Sentences', 'simple', 'var(--green)');
-  html += createSection('Negative Sentences', 'negative', 'var(--red)');
-  html += createSection('WH Questions', 'wh', 'var(--blue)');
-
-  $('lessonBody').innerHTML = html;
-}
-
-function renderStandardLessonBody(item) {
-  let html = '';
-  if(item.definition) html += `<div class="usage-box">${item.definition}</div>`;
-  if(item.rule) html += `<div class="usage-box" style="background:var(--bg-inner); border-color:var(--border); color:var(--yellow);"><strong>Rule / Structure:</strong><br>${item.rule}</div>`;
-  
-  if (item.examples) {
-    const createSection = (title, key, color) => {
-      if (!item.examples[key] || item.examples[key].length === 0) return '';
-      return `
-        <div class="ex-section">
-          <div class="ex-header">
-            <div class="ex-title" style="color:${color}">${title}</div>
-            <button class="play-btn" onclick="startGame('${key}')">🎮 Practice</button>
-          </div>
-          <div class="ex-list">
-            ${item.examples[key].map(ex => `<div class="ex-item" style="border-left-color:${color}"><div class="ex-en">${ex.en}</div><div class="ex-hi">${ex.hi}</div></div>`).join('')}
-          </div>
-        </div>
-      `;
-    };
-    html += createSection('Simple Sentences', 'simple', 'var(--green)');
-    html += createSection('Negative Sentences', 'negative', 'var(--red)');
-    html += createSection('WH Questions', 'wh', 'var(--blue)');
-  }
-  $('lessonBody').innerHTML = html;
-}
-
-function goBackToSub() { openModule(currentModule.id); }
-
-function startGame(sectionKey) {
-  let data = currentSub.type === 'verb' ? currentSub.verbs[currentVerbIndex] : currentSub;
-  let examples = data.examples[sectionKey];
-  if(!examples || examples.length === 0) return showToast('No examples to practice!', 'error');
-  
-  let pool = [...examples];
-  while (pool.length < 20) { pool = pool.concat(examples); }
-  pool = pool.slice(0, 20);
-
-  let questions = shuffle(pool).map(ex => {
-    const isHard = Math.random() > 0.5;
-    if (isHard) {
-      let wrongOpts = shuffle(examples.filter(e => e.en !== ex.en)).slice(0, 3);
-      while(wrongOpts.length < 3) wrongOpts.push({en: "None of these"});
-      let opts = shuffle([ex.en, ...wrongOpts.map(w => w.en)]);
-      return { q: ex.hi, opts: opts, correct: opts.indexOf(ex.en) };
-    } else {
-      let wrongOpts = shuffle(examples.filter(e => e.hi !== ex.hi)).slice(0, 3);
-      while(wrongOpts.length < 3) wrongOpts.push({hi: "इनमें से कोई नहीं"});
-      let opts = shuffle([ex.hi, ...wrongOpts.map(w => w.hi)]);
-      return { q: ex.en, opts: opts, correct: opts.indexOf(ex.hi) };
+function ensureAudio() {
+  try {
+    if (!audioCtx) {
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if (AC) audioCtx = new AC();
     }
+    if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+  } catch(e){}
+}
+function playSound(type) {
+  if (!audioCtx) return;
+  try {
+    const now = audioCtx.currentTime;
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.connect(gain); gain.connect(audioCtx.destination);
+    if (type === 'click') {
+      osc.type='sine'; osc.frequency.setValueAtTime(600,now); osc.frequency.exponentialRampToValueAtTime(400,now+0.08);
+      gain.gain.setValueAtTime(0.06,now); gain.gain.exponentialRampToValueAtTime(0.001,now+0.1);
+      osc.start(now); osc.stop(now+0.1);
+    } else if (type === 'correct') {
+      osc.type='sine'; osc.frequency.setValueAtTime(523,now); osc.frequency.setValueAtTime(659,now+0.1); osc.frequency.setValueAtTime(784,now+0.2);
+      gain.gain.setValueAtTime(0.09,now); gain.gain.exponentialRampToValueAtTime(0.001,now+0.4);
+      osc.start(now); osc.stop(now+0.4);
+    } else if (type === 'wrong') {
+      osc.type='sawtooth'; osc.frequency.setValueAtTime(220,now); osc.frequency.exponentialRampToValueAtTime(110,now+0.3);
+      gain.gain.setValueAtTime(0.06,now); gain.gain.exponentialRampToValueAtTime(0.001,now+0.3);
+      osc.start(now); osc.stop(now+0.3);
+    } else if (type === 'win') {
+      osc.type='triangle';
+      [523,659,784,1047].forEach((f,i)=>osc.frequency.setValueAtTime(f,now+i*0.1));
+      gain.gain.setValueAtTime(0.1,now); gain.gain.exponentialRampToValueAtTime(0.001,now+0.6);
+      osc.start(now); osc.stop(now+0.6);
+    }
+  } catch(e){}
+}
+
+/* ==========================================================
+   HELPERS
+   ========================================================== */
+function $(id) { return document.getElementById(id); }
+function shuffle(a) { a=[...a]; for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  $(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+let toastTimer;
+function showToast(msg, type='success') {
+  const t = $('toast'); t.textContent = msg; t.className = 'toast show ' + type;
+  clearTimeout(toastTimer); toastTimer = setTimeout(()=>t.classList.remove('show'), 2200);
+}
+
+/* ==========================================================
+   NAVIGATION
+   ========================================================== */
+function navigateTo(viewFactory) {
+  viewStack.push(viewFactory);
+  renderView(viewFactory());
+}
+function goBack() {
+  playSound('click');
+  if (viewStack.length > 1) {
+    viewStack.pop();
+    renderView(viewStack[viewStack.length - 1]());
+  }
+}
+function renderView(view) {
+  $('navTitle').textContent = view.title || '';
+  $('navSub').textContent = view.subtitle || '';
+  $('navContent').innerHTML = view.html;
+  $('backBtn').disabled = viewStack.length <= 1;
+  $('hdrXP').textContent = state.xp;
+  $('hdrStreak').textContent = state.streak;
+}
+
+/* ==========================================================
+   VIEW FACTORIES
+   ========================================================== */
+function viewModules() {
+  return {
+    title: 'Your Modules',
+    subtitle: 'Pick a module to start learning',
+    html: `<div class="modules-grid">
+      ${MODULES.map(m => `
+        <div class="module-card" onclick="playSound('click'); navigateTo(() => viewCard('${m.id}', []))">
+          <div class="mc-icon">${m.icon}</div>
+          <div class="mc-title">${m.title}</div>
+          <div class="mc-desc">${m.desc || ''}</div>
+        </div>
+      `).join('')}
+    </div>`
+  };
+}
+
+function getCardByPath(moduleId, path) {
+  const mod = MODULES.find(m => m.id === moduleId);
+  if (!mod) return null;
+  let cards = mod.cards;
+  let card = null;
+  for (const id of path) {
+    card = cards.find(c => c.id === id);
+    if (!card) return null;
+    cards = card.cards || [];
+  }
+  return card;
+}
+
+function viewCard(moduleId, path) {
+  const mod = MODULES.find(m => m.id === moduleId);
+  if (!mod) return viewModules();
+
+  if (path.length === 0) {
+    return {
+      title: mod.title,
+      subtitle: mod.desc || '',
+      html: `<div class="lessons-list">
+        ${mod.cards.map((c, i) => `
+          <div class="lesson-row" onclick="playSound('click'); navigateTo(() => viewCard('${moduleId}', ['${c.id}']))">
+            <div class="lr-num">${i + 1}</div>
+            <div class="lr-body">
+              <div class="lr-title">${c.title}</div>
+              <div class="lr-sub">${c.desc || c.subtitle || ''}</div>
+            </div>
+            <div class="lr-arrow">›</div>
+          </div>
+        `).join('')}
+      </div>`
+    };
+  }
+
+  const card = getCardByPath(moduleId, path);
+  if (!card) return viewModules();
+
+  // Verb grid card
+  if (card.type === 'verb-grid' && card.verbs) {
+    return {
+      title: card.title,
+      subtitle: card.desc || `Click any verb to learn and practice`,
+      html: `<div class="verb-grid">
+        ${card.verbs.map((v, i) => `
+          <button class="verb-btn" onclick="playSound('click'); navigateTo(() => viewVerb('${moduleId}', ${JSON.stringify(path)}, ${i}))">${v.word}</button>
+        `).join('')}
+      </div>`
+    };
+  }
+
+  // Group card (has sub-cards)
+  if (card.cards && card.cards.length) {
+    return {
+      title: card.title,
+      subtitle: card.desc || '',
+      html: `<div class="lessons-list">
+        ${card.cards.map((c, i) => `
+          <div class="lesson-row" onclick="playSound('click'); navigateTo(() => viewCard('${moduleId}', ${JSON.stringify([...path, c.id])}))">
+            <div class="lr-num">${i + 1}</div>
+            <div class="lr-body">
+              <div class="lr-title">${c.title}</div>
+              <div class="lr-sub">${c.desc || c.subtitle || ''}</div>
+            </div>
+            <div class="lr-arrow">›</div>
+          </div>
+        `).join('')}
+      </div>`
+    };
+  }
+
+  // Detail card
+  if (card.type === 'detail' || card.definition || card.examples) {
+    return {
+      title: card.title,
+      subtitle: card.desc || '',
+      html: renderDetailCard(card)
+    };
+  }
+
+  return { title: card.title, subtitle: '', html: '<p>Content coming soon…</p>' };
+}
+
+function renderDetailCard(card) {
+  let html = '';
+  if (card.definition) {
+    html += `<div class="vd-card"><p style="font-size:15px;line-height:1.7">${card.definition}</p></div>`;
+  }
+  const cats = [
+    { key: 'simple', label: 'Simple Sentences', color: 'var(--green)' },
+    { key: 'negative', label: 'Negative Sentences', color: 'var(--red)' },
+    { key: 'wh', label: 'WH Questions', color: 'var(--blue)' },
+  ];
+  cats.forEach(cat => {
+    const exs = card.examples && card.examples[cat.key];
+    if (!exs || exs.length === 0) return;
+    html += `<div class="vd-card vd-section" style="margin-top:16px">
+      <h3><span class="dot" style="background:${cat.color}"></span>${cat.label}</h3>
+      ${exs.map(ex => `<div class="ex-item"><div class="ex-en">${ex.en}</div><div class="ex-hi">${ex.hi}</div></div>`).join('')}
+    </div>`;
+  });
+  return html;
+}
+
+/* ==========================================================
+   VERB DETAIL
+   ========================================================== */
+function viewVerb(moduleId, cardPath, verbIdx) {
+  const card = getCardByPath(moduleId, cardPath);
+  const verb = card.verbs[verbIdx];
+
+  const catMeta = [
+    { key: 'simple', label: 'Simple Sentences', color: 'var(--green)' },
+    { key: 'negative', label: 'Negative Sentences', color: 'var(--red)' },
+    { key: 'wh', label: 'WH Questions', color: 'var(--blue)' },
+  ];
+
+  let html = `<div class="verb-detail">
+    <div class="vd-card">
+      <div class="vd-meaning">${verb.word}</div>
+      <div style="font-size:22px;font-weight:700;color:var(--purple-l);margin-bottom:6px">${verb.meaning}</div>
+      <div class="vd-usage">${verb.usage || ''}</div>
+    </div>`;
+
+  catMeta.forEach(cat => {
+    const exs = verb[cat.key] || [];
+    if (exs.length === 0) return;
+    html += `<div class="vd-card vd-section">
+      <h3><span class="dot" style="background:${cat.color}"></span>${cat.label}</h3>
+      ${exs.map(ex => `<div class="ex-item" style="border-left-color:${cat.color}"><div class="ex-en">${ex.en}</div><div class="ex-hi">${ex.hi}</div></div>`).join('')}
+      ${verb.structures && verb.structures[cat.key] ? `<div class="struct-box">${verb.structures[cat.key]}</div>` : ''}
+    </div>`;
   });
 
-  gameState = { questions, index: 0, correct: 0, total: questions.length, sectionKey };
-  showScreen('screen-game');
-  renderGame();
+  html += `<div class="practice-bar">
+    <h3>🎮 Practice Time</h3>
+    <p>Choose difficulty and test your knowledge with 20 questions.</p>
+    <div class="practice-btns">
+      <button class="practice-btn basic" onclick="startPractice('${moduleId}', ${JSON.stringify(cardPath).replace(/"/g,'&quot;')}, ${verbIdx}, 'basic')">
+        <span class="pb-label">🟢 Basic</span>
+        <span class="pb-desc">English → Hindi MCQ</span>
+      </button>
+      <button class="practice-btn hard" onclick="startPractice('${moduleId}', ${JSON.stringify(cardPath).replace(/"/g,'&quot;')}, ${verbIdx}, 'hard')">
+        <span class="pb-label">🟡 Hard</span>
+        <span class="pb-desc">Hindi → English MCQ</span>
+      </button>
+      <button class="practice-btn advance" onclick="startPractice('${moduleId}', ${JSON.stringify(cardPath).replace(/"/g,'&quot;')}, ${verbIdx}, 'advance')">
+        <span class="pb-label">🔴 Advance</span>
+        <span class="pb-desc">Arrange Hindi words</span>
+      </button>
+    </div>
+  </div></div>`;
+
+  return { title: verb.word, subtitle: card.title, html };
 }
 
-function renderGame() {
-  let gs = gameState;
-  if (gs.index >= gs.total) return showResult();
-  let q = gs.questions[gs.index];
-  let pct = (gs.index / gs.total) * 100;
+/* ==========================================================
+   GAME ENGINE
+   ========================================================== */
+function startPractice(moduleId, cardPath, verbIdx, type) {
+  playSound('click');
+  ensureAudio();
+  const card = getCardByPath(moduleId, cardPath);
+  const verb = card.verbs[verbIdx];
+  const qs = verb.practice && verb.practice[type];
 
-  $('gameBody').innerHTML = `
-    <div class="game-container">
-      <div class="game-progress-bar"><div class="game-progress-fill" style="width:${pct}%"></div></div>
-      <div class="game-hdr"><span>Question ${gs.index + 1} of ${gs.total}</span><span>Score: ${gs.correct}</span></div>
-      <div class="q-prompt">Translate this:</div>
-      <div class="q-subtitle">${q.q}</div>
+  if (!qs || qs.length === 0) {
+    showToast('Practice questions coming soon for this verb!', 'error');
+    return;
+  }
+
+  const pool = shuffle(qs).slice(0, Math.min(5, qs.length));
+  gameState = { type, verb: verb.word, questions: pool, index: 0, correct: 0, total: pool.length };
+  showScreen('screen-game');
+  renderGameQuestion();
+}
+
+function quitGame() {
+  playSound('click');
+  gameState = null;
+  arrangeState = null;
+  showScreen('screen-nav');
+}
+
+function renderGameQuestion() {
+  const gs = gameState;
+  if (!gs) return;
+  if (gs.index >= gs.total) return showGameResult();
+  const q = gs.questions[gs.index];
+  $('gameXP').textContent = state.xp;
+
+  const pct = (gs.index / gs.total) * 100;
+  const progressBar = `<div class="game-progress-bar"><div class="game-progress-fill" style="width:${pct}%"></div></div>`;
+  const header = `<div class="game-hdr"><span>Q ${gs.index + 1} / ${gs.total} · ${gs.verb}</span><span>Score: ${gs.correct}</span></div>`;
+
+  if (gs.type === 'basic') {
+    // English → Hindi MCQ
+    $('gameBody').innerHTML = `<div class="game-container">
+      ${progressBar}${header}
+      <div class="q-prompt">What is the Hindi meaning?</div>
+      <div class="q-title">${q.en}</div>
       <div id="mcqOptions">
-        ${q.opts.map((opt, i) => `
-          <button class="mcq-btn" onclick="answerMCQ(${i})">
-            <span class="mcq-key">${String.fromCharCode(65 + i)}</span>
-            <span>${opt}</span>
-          </button>
-        `).join('')}
+        ${q.options.map((opt, i) => `<button class="mcq-btn" data-i="${i}" onclick="answerMCQ(${i})">
+          <span class="mcq-key">${String.fromCharCode(65+i)}</span><span>${opt}</span>
+        </button>`).join('')}
       </div>
-    </div>
-  `;
+    </div>`;
+  } else if (gs.type === 'hard') {
+    // Hindi → English MCQ
+    $('gameBody').innerHTML = `<div class="game-container">
+      ${progressBar}${header}
+      <div class="q-prompt">Choose the correct English translation</div>
+      <div class="q-title" style="color:var(--yellow)">${q.hi}</div>
+      <div id="mcqOptions">
+        ${q.options.map((opt, i) => `<button class="mcq-btn" data-i="${i}" onclick="answerMCQ(${i})">
+          <span class="mcq-key">${String.fromCharCode(65+i)}</span><span>${opt}</span>
+        </button>`).join('')}
+      </div>
+    </div>`;
+  } else if (gs.type === 'advance') {
+    // English → arrange Hindi words
+    const words = q.hi.replace(/[।.,!?]/g,'').split(/\s+/).filter(w => w);
+    const pool = shuffle(words.map((w, i) => ({ w, id: i })));
+    arrangeState = { pool, chosen: [], correct: q.hi, en: q.en };
+    $('gameBody').innerHTML = `<div class="game-container">
+      ${progressBar}${header}
+      <div class="q-prompt">Translate to Hindi (arrange words)</div>
+      <div class="q-title">${q.en}</div>
+      <div class="arrange-area" id="arrangeArea"></div>
+      <div class="arrange-pool" id="arrangePool"></div>
+      <button class="check-btn" id="checkBtn" onclick="checkArrange()" disabled>Check</button>
+    </div>`;
+    renderArrangeArea();
+  }
 }
 
 function answerMCQ(i) {
-  let gs = gameState;
-  let q = gs.questions[gs.index];
-  let btns = document.querySelectorAll('.mcq-btn');
+  const q = gameState.questions[gameState.index];
+  const btns = document.querySelectorAll('.mcq-btn');
   btns.forEach(b => b.disabled = true);
-  
-  if (i === q.correct) {
+  const ok = i === q.correct;
+  if (ok) {
     btns[i].classList.add('correct');
-    showToast('Correct! +5 XP', 'success');
-    gs.correct++; state.xp += 5;
+    playSound('correct'); showToast('Correct!', 'success');
+    gameState.correct++;
+    state.xp += 5; state.totalCorrect++;
   } else {
     btns[i].classList.add('wrong');
     btns[q.correct].classList.add('correct');
-    showToast('Wrong!', 'error');
+    playSound('wrong'); showToast('Not quite...', 'error');
+    state.totalWrong++;
   }
-  updateXP();
-  setTimeout(() => { gs.index++; renderGame(); }, i === q.correct ? 1000 : 1800);
+  saveState();
+  $('gameXP').textContent = state.xp;
+  setTimeout(() => { gameState.index++; renderGameQuestion(); }, ok ? 900 : 1600);
 }
 
-function showResult() {
-  let gs = gameState;
-  let pct = Math.round((gs.correct / gs.total) * 100);
-  $('gameBody').innerHTML = `
-    <div class="result-wrap">
-      <div class="result-emoji">${pct >= 80 ? '🔥' : '💪'}</div>
-      <div class="result-title">Practice Complete!</div>
-      <div class="result-sub">You scored ${gs.correct} out of ${gs.total}</div>
-      <div style="margin-top:20px; display:flex; gap:10px; justify-content:center;">
-        <button class="btn-secondary" onclick="quitGame()">Back</button>
-        <button class="btn-primary" onclick="startGame('${gs.sectionKey}')">Play Again</button>
-      </div>
+function renderArrangeArea() {
+  const area = $('arrangeArea'); const pool = $('arrangePool');
+  if (!area || !pool) return;
+  area.innerHTML = arrangeState.chosen.map((item, i) =>
+    `<div class="chip placed" onclick="removeChip(${i})">${item.w}</div>`).join('');
+  pool.innerHTML = arrangeState.pool.map(item => {
+    const used = arrangeState.chosen.find(c => c.id === item.id);
+    return used ? '' : `<div class="chip" onclick="pickChip(${item.id})">${item.w}</div>`;
+  }).join('');
+  const btn = $('checkBtn'); if (btn) btn.disabled = arrangeState.chosen.length === 0;
+}
+function pickChip(id) { playSound('click'); const it = arrangeState.pool.find(p => p.id === id); if (it) arrangeState.chosen.push(it); renderArrangeArea(); }
+function removeChip(i) { playSound('click'); arrangeState.chosen.splice(i, 1); renderArrangeArea(); }
+
+function checkArrange() {
+  const user = arrangeState.chosen.map(c => c.w).join(' ').replace(/\s+/g,' ').trim();
+  const target = arrangeState.correct.replace(/[।.,!?]/g,'').replace(/\s+/g,' ').trim();
+  const ok = user === target;
+  document.querySelectorAll('#arrangeArea .chip').forEach(c => c.classList.add(ok ? 'correct-final' : 'wrong-final'));
+  $('checkBtn').disabled = true;
+  if (ok) {
+    playSound('correct'); showToast('Perfect!', 'success');
+    gameState.correct++; state.xp += 8; state.totalCorrect++;
+  } else {
+    playSound('wrong'); showToast('Not quite. Correct: ' + arrangeState.correct, 'error');
+    state.totalWrong++;
+  }
+  saveState(); $('gameXP').textContent = state.xp;
+  setTimeout(() => { gameState.index++; renderGameQuestion(); }, ok ? 1000 : 2200);
+}
+
+function showGameResult() {
+  const gs = gameState;
+  const pct = Math.round((gs.correct / gs.total) * 100);
+  let emoji = '🎉', title = 'Practice Complete!';
+  if (pct === 100) { emoji = '⭐'; title = 'Perfect!'; }
+  else if (pct >= 80) { emoji = '🔥'; title = 'Excellent!'; }
+  else if (pct >= 60) { emoji = '👍'; title = 'Good Job!'; }
+  else { emoji = '💪'; title = 'Keep Practicing!'; }
+
+  const bonus = pct === 100 ? 25 : 10;
+  state.xp += bonus;
+  saveState();
+  playSound('win');
+
+  $('gameBody').innerHTML = `<div class="result-wrap">
+    <div class="result-emoji">${emoji}</div>
+    <div class="result-title">${title}</div>
+    <div class="result-sub">You answered ${gs.correct} out of ${gs.total} correctly</div>
+    <div class="result-stats">
+      <div class="result-stat"><div class="rs-val">${gs.correct}/${gs.total}</div><div class="rs-label">Correct</div></div>
+      <div class="result-stat"><div class="rs-val">${pct}%</div><div class="rs-label">Accuracy</div></div>
+      <div class="result-stat"><div class="rs-val">+${gs.correct * 5 + bonus}</div><div class="rs-label">XP</div></div>
     </div>
-  `;
+    <div class="result-actions">
+      <button class="btn-secondary" onclick="quitGame()">Back</button>
+      <button class="btn-primary" onclick="playAgain()">Try Again</button>
+    </div>
+  </div>`;
+  $('gameXP').textContent = state.xp;
 }
 
-function quitGame() { gameState = null; showScreen('screen-lesson'); }
+function playAgain() {
+  playSound('click');
+  if (!gameState) return;
+  const { type, verb } = gameState;
+  // Restart same practice type
+  const found = findVerbByWord(verb);
+  if (found) startPractice(found.moduleId, found.cardPath, found.verbIdx, type);
+}
 
-renderHome();
+function findVerbByWord(word) {
+  for (const mod of MODULES) {
+    for (const card of mod.cards) {
+      if (card.verbs) {
+        const idx = card.verbs.findIndex(v => v.word === word);
+        if (idx >= 0) return { moduleId: mod.id, cardPath: [card.id], verbIdx: idx };
+      }
+    }
+  }
+  return null;
+}
+
+/* ==========================================================
+   INIT
+   ========================================================== */
+document.addEventListener('click', ensureAudio, { once: true });
+document.addEventListener('touchstart', ensureAudio, { once: true });
+
+function init() {
+  navigateTo(viewModules);
+}
+init();
 </script>
 </body>
 </html>
